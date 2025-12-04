@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6d844a14.css",
+    "main.js": "/static/js/main.bd82b4d5.js",
+    "static/js/453.2811be1c.chunk.js": "/static/js/453.2811be1c.chunk.js",
+    "static/media/axie-cakepop.jpg": "/static/media/axie-cakepop.cedf790e945f7e3a2c11.jpg",
+    "index.html": "/index.html",
+    "main.6d844a14.css.map": "/static/css/main.6d844a14.css.map",
+    "main.bd82b4d5.js.map": "/static/js/main.bd82b4d5.js.map",
+    "453.2811be1c.chunk.js.map": "/static/js/453.2811be1c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d844a14.css",
+    "static/js/main.bd82b4d5.js"
+  ]
+}

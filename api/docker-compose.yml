@@ -1,0 +1,25 @@
+services:
+  exopet-api:
+    build:
+      context: ./
+      dockerfile: ./api/Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    restart: unless-stopped
+  exopet-ui:
+    build:
+      context: ./
+      dockerfile: ./ui/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    restart: unless-stopped
