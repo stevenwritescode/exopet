@@ -5,6 +5,7 @@ function createWindow() {
     fullscreen: true,
     kiosk: true,
     autoHideMenuBar: true, // Hides top menu bar in kiosk
+    cursor: false, // Hide cursor in kiosk mode
     backgroundColor: "#000000", // Prevent flash of white on load
     webPreferences: {
       nodeIntegration: false,     // recommended: false

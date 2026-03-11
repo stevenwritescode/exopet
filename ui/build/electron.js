@@ -4,13 +4,17 @@ function createWindow() {
   const win = new BrowserWindow({
     fullscreen: true,
     kiosk: true,
+    autoHideMenuBar: true, // Hides top menu bar in kiosk
+    cursor: false, // Hide cursor in kiosk mode
+    backgroundColor: "#000000", // Prevent flash of white on load
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      devTools: false, // Disable developer tools
+      nodeIntegration: false,     // recommended: false
+      contextIsolation: true,     // recommended: true
+      devTools: false,
     },
   });
 
+  // Load your React app (served from localhost or build directory)
   win.loadURL("http://localhost:3000");
 
   // Restrict navigation
@@ -23,15 +27,24 @@ function createWindow() {
     }
   });
 
-  // Prevent new windows or tabs
-  win.webContents.on("new-window", (event, url) => {
-    event.preventDefault();
-  });
+  // Block external windows/popups
+  win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
 
-  // Optionally, disable developer tools opening
+  // Prevent devtools from reopening
   win.webContents.on("devtools-opened", () => {
     win.webContents.closeDevTools();
   });
 }
 
-app.on("ready", createWindow);
+// On Pi, sometimes the display server isn’t ready instantly
+app.whenReady().then(() => {
+  // Small delay helps avoid launch failures during boot
+  setTimeout(createWindow, 1000);
+});
+
+// Proper exit handling
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
