@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 import { open, Database } from "sqlite";
 import { MaintenanceManager } from "../logic/Maintenance.logic";
-import { Server as WSServer } from "ws";
+import WebSocket, { Server as WSServer } from "ws";
 import { Server } from "http";
 import { TankManager } from "../logic/Tank.logic";
 import {
@@ -112,31 +112,30 @@ async function dbConnection(): Promise<Database | null> {
 export class DataManager {
   static dbConnection = dbConnection;
   static wss: WSServer;
-  static wsClient: any;
 
   static initSocket = async (server: Server) => {
     return new Promise((resolve, reject) => {
       try {
         this.wss = new WSServer({ server });
         this.wss.on("connection", (wsClient: any) => {
-          this.wsClient = wsClient;
           console.log("A new client connected!");
-          this.send({ message: "Hello Client!" });
+          wsClient.send(JSON.stringify({ message: "Hello Client!" }));
 
-          this.wsClient.on(
+          wsClient.on(
             "message",
             async (message: MessageEvent<any> & string) => {
               console.log(`Received message => ${message}`);
               try {
-                const msgData = JSON.parse(message) as System.Request;
-                const { action, data } = msgData;
+                const msgData = JSON.parse(message);
+                if (msgData.action === "ping") return;
+                const { action, data } = msgData as System.Request;
 
                 switch (action) {
                   case System.ParameterCheck.TEMPERATURE: {
                     const tempData = await TankManager.getTemperatures(
                       data.tank_id
                     );
-                    this.wsClient.send(
+                    wsClient.send(
                       JSON.stringify({
                         data: tempData,
                         action: System.ParameterUpdate.TEMPERATURE,
@@ -150,15 +149,13 @@ export class DataManager {
                   case System.ServiceRequest.CANCEL_FILL_TANK:
                   case System.ServiceRequest.CANCEL_DRAIN_TANK:
                   case System.ServiceRequest.CANCEL_WATER_CHANGE: {
-                    const stopData = await MaintenanceManager.stop(
+                    await MaintenanceManager.stop(
                       data.tank_id
                     );
-                    this.wsClient.send(
-                      JSON.stringify({
-                        data: { tank_id: data.tank_id },
-                        action: System.ServiceUpdate.STATE_RESET,
-                      })
-                    );
+                    DataManager.send({
+                      data: { tank_id: data.tank_id },
+                      action: System.ServiceUpdate.STATE_RESET,
+                    });
                     break;
                   }
                   case System.ServiceRequest.START_DRAIN_TANK:
@@ -168,8 +165,7 @@ export class DataManager {
                     waterChangeEndpoint(data.tank_id);
                     break;
                   case System.ParameterCheck.WATER_LEVEL: {
-                    // send back current MaintenanceManager.waterFull
-                    this.wsClient.send(
+                    wsClient.send(
                       JSON.stringify({
                         action: System.ParameterUpdate.WATER_LEVEL,
                         data: {
@@ -181,7 +177,7 @@ export class DataManager {
                     break;
                   }
                   default:
-                    console.log("Unknown message received");
+                    console.log("Unknown message received:", action);
                 }
               } catch (error) {
                 console.error("Error parsing message", error);
@@ -189,11 +185,11 @@ export class DataManager {
             }
           );
 
-          this.wsClient.on("close", () => {
+          wsClient.on("close", () => {
             console.log("A client has disconnected");
           });
 
-          resolve({ wsClient: this.wsClient });
+          resolve(true);
         });
       } catch (error) {
         console.error("Error starting socket server", error);
@@ -202,10 +198,13 @@ export class DataManager {
     });
   };
 
-  static send = async (data: System.Update | { message: string }) => {
-    if (this.wsClient) {
-      this.wsClient.send(JSON.stringify(data));
-    }
+  static send = (data: System.Update | { message: string }) => {
+    const payload = JSON.stringify(data);
+    this.wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(payload);
+      }
+    });
   };
 }
 

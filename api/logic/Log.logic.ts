@@ -10,7 +10,7 @@ export class LogManager {
       container_id: logConfig.container_id,
       log_json: logConfig.log_json,
     });
-    LogDataManager.addLog(log);
+    await LogDataManager.addLog(log);
   };
 
   static waterChange = async (logConfig: Partial<Log>): Promise<void> => {
@@ -20,7 +20,7 @@ export class LogManager {
       container_id: logConfig.container_id,
       log_json: logConfig.log_json,
     });
-    LogDataManager.addLog(log);
+    await LogDataManager.addLog(log);
   };
 
   static deleteLog = async (logId: string): Promise<void> => {

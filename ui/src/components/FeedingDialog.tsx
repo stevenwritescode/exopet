@@ -40,6 +40,7 @@ const FeedingDialog: React.FC<FeedingDialogProps> = ({
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const clearButtons = () => {

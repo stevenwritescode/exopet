@@ -8,6 +8,8 @@ let socket: WebSocket | null = null;
 const sendQueue: any[] = [];
 // all registered message handlers
 const callbacks: ((evt: MessageEvent<any> & System.Update) => void)[] = [];
+// connection state handlers
+const connectionCallbacks: ((connected: boolean) => void)[] = [];
 
 /**
  * Call this once on app start (or before you ever send/receive)
@@ -26,6 +28,7 @@ function connect() {
 
   socket.onopen = () => {
     console.log("[WS] Connected");
+    connectionCallbacks.forEach((cb) => cb(true));
     // flush any queued messages
     while (sendQueue.length) {
       socket!.send(JSON.stringify(sendQueue.shift()));
@@ -39,12 +42,14 @@ function connect() {
 
   socket.onclose = (ev) => {
     console.warn(`[WS] Disconnected (code=${ev.code}), reconnecting in 2s…`);
+    connectionCallbacks.forEach((cb) => cb(false));
     // try to reconnect after a delay
     setTimeout(connect, 2000);
   };
 
   socket.onerror = (err) => {
     console.error("[WS] Error", err);
+    connectionCallbacks.forEach((cb) => cb(false));
     // ensure we close and trigger a reconnect
     socket?.close();
   };
@@ -66,6 +71,15 @@ export function onMessage(
   cb: (evt: MessageEvent<any> & System.Update) => void
 ) {
   callbacks.push(cb);
+}
+
+/**
+ * Register a callback for connection state changes.
+ * Fires immediately with the current state, then on every open/close.
+ */
+export function onConnectionChange(cb: (connected: boolean) => void) {
+  connectionCallbacks.push(cb);
+  cb(socket?.readyState === WebSocket.OPEN);
 }
 
 /**

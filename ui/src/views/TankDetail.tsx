@@ -14,6 +14,7 @@ import TankAppBar from "../components/AppBar/Tank";
 import {
   initWebSocket,
   onMessage,
+  onConnectionChange,
   sendMessage,
   runWaterChange,
   fillTank,
@@ -46,7 +47,6 @@ const TankDetail: React.FC<TankProps> = () => {
 
   // WebSocket connection state
   const [wsConnected, setWsConnected] = useState(false);
-  const wsRef = useRef<WebSocket | null>(null);
 
   const [currentTemp, setCurrentTemp] = useState<number | null>(null);
   const [serviceStatus, setStatus] = useState(System.State.IDLE);
@@ -108,15 +108,11 @@ const TankDetail: React.FC<TankProps> = () => {
   // MAIN EFFECT: init WS, subscribe, start polls & data loads
   useEffect(() => {
     // 1) Start (and auto‑reconnect) the socket and track connection
-    const ws = initWebSocket();
-    if (ws) {
-      wsRef.current = ws;
-      ws.onopen = () => setWsConnected(true);
-      ws.onclose = () => setWsConnected(false);
-      ws.onerror = () => setWsConnected(false);
+    initWebSocket();
+    onConnectionChange(setWsConnected);
 
-      // 2) Subscribe to messages
-      onMessage((event) => {
+    // 2) Subscribe to messages
+    onMessage((event) => {
         const msg = JSON.parse(event.data);
         switch (msg.action) {
           case System.ParameterUpdate.WATER_LEVEL:
@@ -161,10 +157,7 @@ const TankDetail: React.FC<TankProps> = () => {
             setCancelInProgress(false);
             break;
         }
-      });
-    } else {
-      console.warn("initWebSocket() did not return a WebSocket instance");
-    }
+    });
 
     // 3) Fire initial checks & start intervals
     handleCheckWaterLevel();
@@ -200,10 +193,6 @@ const TankDetail: React.FC<TankProps> = () => {
     getLogsForTank(tank_id).then(setTankLogs);
 
     return () => {
-      // clean up WS and timers
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
       clearInterval(levelIv);
       clearInterval(svcIv);
     };

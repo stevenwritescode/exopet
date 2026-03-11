@@ -39,6 +39,7 @@ const FeedingLogs: React.FC<FeedingLogProps> = ({
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const handleClose = () => {

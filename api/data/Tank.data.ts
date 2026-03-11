@@ -69,7 +69,7 @@ export class TankDataManager {
     }
   };
 
-  static getTankSettings = async (tankId: string): Promise<Tank | null> => {
+  static getTankSettings = async (tankId: string): Promise<TankSettings | null> => {
     try {
       const conn = await dbConnection();
       if (!conn) return null;
