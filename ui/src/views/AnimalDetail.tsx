@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Box, Card, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Card, IconButton, Stack, Typography } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import { getAnimalDetails } from "../dal/Animal.dal";
+import { getAnimalDetails, updateAnimal } from "../dal/Animal.dal";
 import { getTankDetails } from "../dal/Tank.dal";
 import { initWebSocket, onMessage } from "../dal/Maintenance.dal";
 import { styled } from "@mui/material/styles";
 import AnimalAppBar from "../components/AppBar/Animal";
 import FeedingDialog from "../components/FeedingDialog";
+import AnimalEditDialog from "../components/AnimalEditDialog";
 import DescriptionIcon from "@mui/icons-material/Description";
+import EditIcon from "@mui/icons-material/Edit";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import ClockIcon from "@mui/icons-material/PunchClock";
 import BuildCircleIcon from "@mui/icons-material/BuildCircle";
@@ -45,6 +47,7 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
   const [latestFeeding, setLatestFeeding] = useState<Log | null>(null);
   const [feedingDialog, toggleFeedingDialog] = useState(false);
   const [feedingLogDialog, toggleFeedingLog] = useState(false);
+  const [editDialog, setEditDialog] = useState(false);
   const [tankDetails, setTankDetails] = useState<Tank>({
     id: "",
     service_status: 0,
@@ -139,6 +142,11 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
     await fetchAnimal();
   };
 
+  const handleEditSave = async (fields: Partial<Pick<Animal, "name" | "species" | "species_latin" | "notes">>) => {
+    await updateAnimal(animal_id, fields);
+    await fetchAnimal();
+  };
+
   return (
     <>
       <AnimalAppBar animalDetails={animalDetails.animal} />
@@ -155,10 +163,19 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
         onClose={() => toggleFeedingDialog(false)}
         onSave={addLog}
       />
+      <AnimalEditDialog
+        animalDetails={animalDetails.animal}
+        open={editDialog}
+        onClose={() => setEditDialog(false)}
+        onSave={handleEditSave}
+      />
       <Stack direction="row" justifyContent="space-around" alignItems="flex-start" height="100%">
         <Stack spacing={2} direction="column" alignItems="center" flexGrow={1} p={3}>
           <Typography variant="button" fontSize={28} textAlign="center">
             {animalDetails.animal.name}
+            <IconButton onClick={() => setEditDialog(true)} sx={{ ml: 1 }}>
+              <EditIcon />
+            </IconButton>
           </Typography>
           <Avatar src={tempImage} sx={{ width: 128, height: 128 }} />
           <Typography variant="button" fontSize={18} color="grey" textAlign="center">
@@ -204,7 +221,7 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
               : canFeed
               ? 'Ready for feeding.'
               : 'Recently fed.'}
-            {latestFeeding &&
+            {latestFeeding && latestFeeding.log_json &&
               ` Ate ${latestFeeding.log_json.quantity} ${latestFeeding.log_json.food_type}${latestFeeding.log_json.quantity > 1 ? 's' : ''} at ${DateTime.fromSQL(latestFeeding.timestamp, { zone: 'utc' }).toLocal().toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY)}`}
           </Typography>
         </Stack>

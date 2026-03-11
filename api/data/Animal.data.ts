@@ -79,4 +79,22 @@ export class AnimalDataManager {
       return null;
     }
   };
+
+  static updateAnimal = async (
+    animalId: string,
+    fields: Partial<Pick<Animal, "name" | "species" | "species_latin" | "notes">>
+  ): Promise<void> => {
+    const conn = await dbConnection();
+    if (!conn) return;
+    const entries = Object.entries(fields).filter(([_, v]) => v !== undefined);
+    if (entries.length === 0) return;
+    const setClause = entries.map(([key]) => `${key} = ?`).join(", ");
+    const values = entries.map(([_, v]) => v);
+    await conn.run(
+      `UPDATE animals SET ${setClause} WHERE id = ?`,
+      ...values,
+      animalId
+    );
+    await conn.close();
+  };
 }

@@ -50,3 +50,19 @@ export const getAnimalDetails = async (
     throw error;
   }
 };
+
+export const updateAnimal = async (
+  animal_id: string,
+  fields: Partial<Pick<Animal, "name" | "species" | "species_latin" | "notes">>
+): Promise<Animal> => {
+  try {
+    const response = await axios.post<Animal>(
+      `${API_BASE_URL}/animal/${animal_id}/update`,
+      fields
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating animal", error);
+    throw error;
+  }
+};

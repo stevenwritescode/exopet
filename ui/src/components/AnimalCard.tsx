@@ -83,11 +83,11 @@ const AnimalCard: React.FC<AnimalCardProps> = (animal: AnimalCardProps) => {
         animalDetails={animal}
         open={feedingDialog}
         onClose={() => toggleFeedingDialog(false)}
-        onSave={() =>
+        onSave={(log_json) =>
           logFeeding({
             animal_id: animal.id,
             container_id: animal.enclosure_id,
-            log_json: "",
+            log_json,
           })
         }
       />

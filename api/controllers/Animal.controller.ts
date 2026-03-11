@@ -38,4 +38,15 @@ router.get("/:animalId", async (req, res) => {
   res.json({ animal: animalData, logs: animalLogs });
 });
 
+router.post("/:animalId/update", async (req, res) => {
+  try {
+    const animalId = req.params.animalId;
+    await AnimalDataManager.updateAnimal(animalId, req.body);
+    const updated = await AnimalDataManager.getAnimalData(animalId);
+    res.json(updated);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
