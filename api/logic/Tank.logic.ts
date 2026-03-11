@@ -1,5 +1,6 @@
 import { SensorDataManager } from "../data/Sensor.data";
 import { TankDataManager } from "../data/Tank.data";
+import { NotifyManager } from "./Notify.logic";
 
 export class TankManager {
   static getTemperatures = async (
@@ -18,10 +19,21 @@ export class TankManager {
       }
       temps.push(temperature);
     }
-    return {
-      temperatures: temps,
-      average: temps.reduce((a, b) => a + b, 0) / temps.length,
-    };
+    const average = temps.reduce((a, b) => a + b, 0) / temps.length;
+
+    if (temps.length > 0) {
+      const settings = await TankDataManager.getTankSettings(tankId);
+      if (settings) {
+        NotifyManager.checkTemperature(
+          tankId,
+          average,
+          settings.lower_temp_limit,
+          settings.upper_temp_limit
+        );
+      }
+    }
+
+    return { temperatures: temps, average };
   };
 
   static getTankSettings = async (tankId: string): Promise<any> => {
