@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { DataManager, initGpio } from "./data/common.data";
 import cors, { CorsOptions } from "cors";
 import sudo from "sudo-prompt";
+import Bonjour from "bonjour-service";
 import tankController from "./controllers/Tank.controller";
 import animalController from "./controllers/Animal.controller";
 import maintenanceController from "./controllers/Maintenance.controller";
@@ -56,5 +57,15 @@ export const server = app.listen(port, '0.0.0.0', async () => {
   console.log(`Exopet Server listening at http://localhost:${port}`);
   initGpio();
   await DataManager.initSocket(server);
+
+  // Advertise via Bonjour/mDNS for iOS auto-discovery
+  const bonjour = new Bonjour();
+  bonjour.publish({
+    name: "ExoPet Aquarium Controller",
+    type: "exopet",
+    port: port,
+    txt: { version: "1.0" },
+  });
+  console.log(`Bonjour: advertising _exopet._tcp on port ${port}`);
 });
 
