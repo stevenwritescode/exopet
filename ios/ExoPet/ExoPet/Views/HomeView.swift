@@ -4,15 +4,21 @@ struct HomeView: View {
     let api: APIService
     let ws: WebSocketService
     @Binding var navigationPath: NavigationPath
+    var onDisconnect: () -> Void
+    var onForgetHub: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
                 .frame(maxHeight: .infinity)
 
-            Text("TankHub")
+            Text("ExoPet")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.white)
+
+            Text("Scalable Animal Enclosure Automation")
+                .font(.subheadline)
+                .foregroundColor(.gray)
 
             Spacer()
                 .frame(height: 40)
@@ -23,7 +29,7 @@ struct HomeView: View {
                         Image(systemName: "drop.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.blue)
-                        Text("Aquariums")
+                        Text("Enclosures")
                             .font(.title2)
                             .fontWeight(.medium)
                             .foregroundColor(.white)
@@ -54,6 +60,27 @@ struct HomeView: View {
 
             Spacer()
                 .frame(maxHeight: .infinity)
+
+            HStack(spacing: 24) {
+                Button(action: onDisconnect) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.left.circle")
+                        Text("Disconnect")
+                    }
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                }
+
+                Button(action: onForgetHub) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "trash")
+                        Text("Forget Hub")
+                    }
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                }
+            }
+            .padding(.bottom, 24)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ExoPetColors.background)

@@ -11,13 +11,13 @@ struct ServerSelectionView: View {
                 .padding(.top, 60)
                 .padding(.bottom, 8)
 
-            Text("Aquarium Controller")
+            Text("Scalable Animal Enclosure Automation")
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .padding(.bottom, 32)
 
             if viewModel.isConnecting {
-                ProgressView("Connecting...")
+                ProgressView("Looking for ExoPet Hubs...")
                     .padding()
             }
 
@@ -32,10 +32,18 @@ struct ServerSelectionView: View {
             // Discovered servers
             if !viewModel.discovery.discoveredServers.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Discovered Servers")
-                        .font(.headline)
-                        .padding(.horizontal)
-                        .padding(.bottom, 4)
+                    HStack {
+                        Text("Discovered Hubs")
+                            .font(.headline)
+                        Spacer()
+                        Button(action: { viewModel.restartDiscovery() }) {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.subheadline)
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 4)
 
                     ForEach(viewModel.discovery.discoveredServers) { server in
                         Button(action: { viewModel.selectServer(server) }) {
@@ -43,7 +51,7 @@ struct ServerSelectionView: View {
                                 Image(systemName: "server.rack")
                                     .foregroundColor(.green)
                                 VStack(alignment: .leading) {
-                                    Text(server.name)
+                                    Text("ExoPet Hub")
                                         .font(.body)
                                         .foregroundColor(.white)
                                     Text("\(server.host):\(server.port)")
@@ -70,6 +78,27 @@ struct ServerSelectionView: View {
                     Text("Searching for ExoPet devices...")
                         .font(.subheadline)
                         .foregroundColor(.gray)
+                }
+                .padding(.bottom, 24)
+            } else {
+                VStack(spacing: 12) {
+                    Text("No devices found")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+
+                    Button(action: { viewModel.restartDiscovery() }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "arrow.clockwise")
+                            Text("Scan for Devices")
+                        }
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    }
                 }
                 .padding(.bottom, 24)
             }
