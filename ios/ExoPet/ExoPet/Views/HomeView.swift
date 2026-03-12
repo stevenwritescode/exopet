@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     let api: APIService
     let ws: WebSocketService
+    @Binding var navigationPath: NavigationPath
 
     var body: some View {
         VStack(spacing: 0) {
@@ -59,9 +60,9 @@ struct HomeView: View {
         .navigationDestination(for: Route.self) { route in
             switch route {
             case .tanks:
-                TankListView(api: api, ws: ws)
+                TankListView(api: api, ws: ws, navigationPath: $navigationPath)
             case .animals:
-                AnimalListView(api: api, ws: ws)
+                AnimalListView(api: api, ws: ws, navigationPath: $navigationPath)
             }
         }
         .navigationDestination(for: Tank.self) { tank in

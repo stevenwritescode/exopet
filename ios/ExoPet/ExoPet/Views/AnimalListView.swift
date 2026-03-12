@@ -5,19 +5,23 @@ struct AnimalListView: View {
     let ws: WebSocketService
     @StateObject private var vm: AnimalListViewModel
     @State private var feedAnimal: Animal?
+    @Binding var navigationPath: NavigationPath
 
-    init(api: APIService, ws: WebSocketService) {
+    init(api: APIService, ws: WebSocketService, navigationPath: Binding<NavigationPath>) {
         self.api = api
         self.ws = ws
+        self._navigationPath = navigationPath
         _vm = StateObject(wrappedValue: AnimalListViewModel(api: api))
     }
 
     var body: some View {
         VStack(spacing: 0) {
             AppBarView(title: "Animals") {
-                HStack(spacing: 4) {
-                    Image(systemName: "house.fill")
-                        .foregroundColor(.white)
+                Button(action: { navigationPath = NavigationPath() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "house.fill")
+                            .foregroundColor(.white)
+                    }
                 }
             }
 

@@ -4,23 +4,23 @@ struct TankListView: View {
     let api: APIService
     let ws: WebSocketService
     @StateObject private var vm: TankListViewModel
+    @Binding var navigationPath: NavigationPath
 
-    init(api: APIService, ws: WebSocketService) {
+    init(api: APIService, ws: WebSocketService, navigationPath: Binding<NavigationPath>) {
         self.api = api
         self.ws = ws
+        self._navigationPath = navigationPath
         _vm = StateObject(wrappedValue: TankListViewModel(api: api))
     }
 
     var body: some View {
         VStack(spacing: 0) {
             AppBarView(title: "Tanks") {
-                NavigationLink(value: Route.tanks) {
-                    // Empty — we're already on this screen
-                }
-                .hidden()
-                HStack(spacing: 4) {
-                    Image(systemName: "house.fill")
-                        .foregroundColor(.white)
+                Button(action: { navigationPath = NavigationPath() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "house.fill")
+                            .foregroundColor(.white)
+                    }
                 }
             }
 
