@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 @MainActor
 class ServerSelectionViewModel: ObservableObject {
@@ -13,10 +14,29 @@ class ServerSelectionViewModel: ObservableObject {
 
     private let lastServerHostKey = "lastServerHost"
     private let lastServerPortKey = "lastServerPort"
+    private var allowAutoConnect = true
+    private var discoveryCancellable: AnyCancellable?
+
+    init() {
+        // Forward discovery's change notifications so SwiftUI updates the view
+        discoveryCancellable = discovery.objectWillChange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+    }
 
     func startDiscovery() {
+        print("[ViewModel] startDiscovery called, allowAutoConnect=\(allowAutoConnect)")
         discovery.startBrowsing()
-        tryLastServer()
+        if allowAutoConnect {
+            tryLastServer()
+        }
+    }
+
+    func restartDiscovery() {
+        discovery.stopBrowsing()
+        discovery.startBrowsing()
     }
 
     func stopDiscovery() {
@@ -25,9 +45,11 @@ class ServerSelectionViewModel: ObservableObject {
 
     func selectServer(_ server: ServerInfo) {
         Task {
+            print("[ViewModel] selectServer: \(server.host):\(server.port) (\(server.name))")
             isConnecting = true
             errorMessage = nil
             let healthy = await discovery.healthCheck(server: server)
+            print("[ViewModel] healthCheck result: \(healthy)")
             if healthy {
                 saveLastServer(server)
                 let api = APIService(baseURL: server.baseURL)
@@ -54,9 +76,16 @@ class ServerSelectionViewModel: ObservableObject {
     }
 
     private func tryLastServer() {
-        guard let host = UserDefaults.standard.string(forKey: lastServerHostKey) else { return }
+        guard let host = UserDefaults.standard.string(forKey: lastServerHostKey) else {
+            print("[ViewModel] tryLastServer: no saved server")
+            return
+        }
         let port = UserDefaults.standard.integer(forKey: lastServerPortKey)
-        guard port > 0 else { return }
+        guard port > 0 else {
+            print("[ViewModel] tryLastServer: invalid port")
+            return
+        }
+        print("[ViewModel] tryLastServer: attempting \(host):\(port)")
         let server = ServerInfo(name: "Last Used", host: host, port: port)
         selectServer(server)
     }
@@ -64,5 +93,19 @@ class ServerSelectionViewModel: ObservableObject {
     private func saveLastServer(_ server: ServerInfo) {
         UserDefaults.standard.set(server.host, forKey: lastServerHostKey)
         UserDefaults.standard.set(server.port, forKey: lastServerPortKey)
+    }
+
+    func disconnect() {
+        webSocketService?.disconnect()
+        webSocketService = nil
+        apiService = nil
+        errorMessage = nil
+        allowAutoConnect = false
+    }
+
+    func forgetHub() {
+        UserDefaults.standard.removeObject(forKey: lastServerHostKey)
+        UserDefaults.standard.removeObject(forKey: lastServerPortKey)
+        disconnect()
     }
 }

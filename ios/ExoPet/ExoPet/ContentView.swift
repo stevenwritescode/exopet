@@ -9,7 +9,7 @@ struct ContentView: View {
             if let api = serverSelection.apiService,
                let ws = serverSelection.webSocketService {
                 NavigationStack(path: $navigationPath) {
-                    HomeView(api: api, ws: ws, navigationPath: $navigationPath)
+                    HomeView(api: api, ws: ws, navigationPath: $navigationPath, onDisconnect: { serverSelection.disconnect() }, onForgetHub: { serverSelection.forgetHub() })
                 }
             } else {
                 ServerSelectionView(viewModel: serverSelection)
