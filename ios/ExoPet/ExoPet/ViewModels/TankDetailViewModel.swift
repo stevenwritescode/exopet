@@ -47,16 +47,25 @@ class TankDetailViewModel: ObservableObject {
     private func loadData() {
         Task {
             do {
-                async let tankTask = api.getTankDetails(tankId: tankId)
-                async let animalsTask = api.getAnimalsForTank(tankId: tankId)
-                async let logsTask = api.getLogsForTank(tankId: tankId)
-                let (t, a, l) = try await (tankTask, animalsTask, logsTask)
+                let t = try await api.getTankDetails(tankId: tankId)
                 self.tank = t
-                self.animals = a
-                self.logs = l
                 self.serviceStatus = t.serviceState
             } catch {
-                print("Error loading tank data: \(error)")
+                print("Error loading tank: \(error)")
+            }
+
+            do {
+                let a = try await api.getAnimalsForTank(tankId: tankId)
+                self.animals = a
+            } catch {
+                print("Error loading animals: \(error)")
+            }
+
+            do {
+                let l = try await api.getLogsForTank(tankId: tankId)
+                self.logs = l
+            } catch {
+                print("Error loading logs: \(error)")
             }
         }
     }

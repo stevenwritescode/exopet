@@ -28,7 +28,10 @@ class APIService {
 
     init(baseURL: String) {
         self.baseURL = baseURL
-        self.session = URLSession.shared
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.urlCache = nil
+        self.session = URLSession(configuration: config)
         self.decoder = JSONDecoder()
     }
 
@@ -85,9 +88,8 @@ class APIService {
         return try decoder.decode(AnimalDetailResponse.self, from: data)
     }
 
-    func updateAnimal(animalId: String, fields: AnimalUpdateFields) async throws -> Animal {
-        let data = try await post("/animal/\(animalId)/update", body: fields)
-        return try decoder.decode(Animal.self, from: data)
+    func updateAnimal(animalId: String, fields: AnimalUpdateFields) async throws {
+        let _ = try await post("/animal/\(animalId)/update", body: fields)
     }
 
     // MARK: - Log Endpoints
