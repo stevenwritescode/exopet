@@ -123,11 +123,11 @@ class AnimalDetailViewModel: ObservableObject {
     func saveEdit(fields: AnimalUpdateFields) {
         Task {
             do {
-                let _ = try await api.updateAnimal(animalId: animalId, fields: fields)
-                fetchAnimal()
+                try await api.updateAnimal(animalId: animalId, fields: fields)
             } catch {
                 print("Error updating animal: \(error)")
             }
+            fetchAnimal()
         }
     }
 

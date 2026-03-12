@@ -82,11 +82,12 @@ export class AnimalDataManager {
 
   static updateAnimal = async (
     animalId: string,
-    fields: Partial<Pick<Animal, "name" | "species" | "species_latin" | "notes">>
+    fields: Partial<Pick<Animal, "name" | "species" | "species_latin">>
   ): Promise<void> => {
+    const allowedColumns = new Set(["name", "species", "species_latin", "sex", "color", "enclosure_type", "enclosure_id", "image_url"]);
     const conn = await dbConnection();
     if (!conn) return;
-    const entries = Object.entries(fields).filter(([_, v]) => v !== undefined);
+    const entries = Object.entries(fields).filter(([k, v]) => v !== undefined && allowedColumns.has(k));
     if (entries.length === 0) return;
     const setClause = entries.map(([key]) => `${key} = ?`).join(", ");
     const values = entries.map(([_, v]) => v);
