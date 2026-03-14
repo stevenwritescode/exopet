@@ -37,7 +37,13 @@ export class TankManager {
   };
 
   static getTankSettings = async (tankId: string): Promise<any> => {
-    return await TankDataManager.getTankSettings(tankId);
+    const settings = await TankDataManager.getTankSettings(tankId);
+    if (settings) {
+      // SQLite stores booleans as 0/1 integers; normalize for JSON clients
+      if (settings.has_reservoir !== undefined) settings.has_reservoir = !!settings.has_reservoir;
+      if (settings.schedule_enabled !== undefined) settings.schedule_enabled = !!settings.schedule_enabled;
+    }
+    return settings;
   }
 
   static updateTankSettings = async (tankId: string, settings: any): Promise<any> => {

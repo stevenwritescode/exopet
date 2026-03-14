@@ -102,13 +102,13 @@ router.post("/:tankId/settings", async (req, res) => {
   const tankId = req.params.tankId;
   delete req.body.settings.id;
   delete req.body.settings.tank_id;
-  console.log(req.body.settings)
-  const settings = await TankManager.updateTankSettings(
+  await TankManager.updateTankSettings(
     tankId,
     req.body.settings
   );
 
-  res.json(settings);
+  const updated = await TankManager.getTankSettings(tankId);
+  res.json(updated);
 });
 
 export default router;

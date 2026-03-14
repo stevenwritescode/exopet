@@ -61,6 +61,10 @@ export class TankDataManager {
       if (!tankData) {
         return null;
       } else {
+        if (tankSettings) {
+          if (tankSettings.has_reservoir !== undefined) tankSettings.has_reservoir = !!tankSettings.has_reservoir;
+          if (tankSettings.schedule_enabled !== undefined) tankSettings.schedule_enabled = !!tankSettings.schedule_enabled;
+        }
         return new Tank({ ...tankData, settings: tankSettings });
       }
     } catch (error) {
@@ -103,16 +107,9 @@ export class TankDataManager {
       .join(", ");
     const sql = `UPDATE tank_settings SET ${setClause} WHERE tank_id = ?`;
 
-    // Extract the values from the userUpdate object, excluding the id for the SET clause
     const values = [...Object.values(fieldsToUpdate), tankId];
 
-    conn.run(sql, values, function (err: any) {
-      if (err) {
-        console.error("Error executing SQL:", err);
-        return;
-      }
-    });
-
-    conn.close();
+    await conn.run(sql, ...values);
+    await conn.close();
   };
 }
