@@ -17,7 +17,7 @@ struct ServerSelectionView: View {
                 .padding(.bottom, 32)
 
             if viewModel.isConnecting {
-                ProgressView("Looking for ExoPet Hubs...")
+                ProgressView("Connecting...")
                     .padding()
             }
 
@@ -54,7 +54,7 @@ struct ServerSelectionView: View {
                                     Text("ExoPet Hub")
                                         .font(.body)
                                         .foregroundColor(.white)
-                                    Text("\(server.host):\(server.port)")
+                                    Text(verbatim: "\(server.host):\(server.port)")
                                         .font(.caption)
                                         .foregroundColor(.gray)
                                 }

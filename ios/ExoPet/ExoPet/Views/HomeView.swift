@@ -29,7 +29,7 @@ struct HomeView: View {
                         Image(systemName: "drop.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.blue)
-                        Text("Enclosures")
+                        Text("Tanks")
                             .font(.title2)
                             .fontWeight(.medium)
                             .foregroundColor(.white)
@@ -61,24 +61,17 @@ struct HomeView: View {
             Spacer()
                 .frame(maxHeight: .infinity)
 
-            HStack(spacing: 24) {
+            Menu {
                 Button(action: onDisconnect) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "arrow.left.circle")
-                        Text("Disconnect")
-                    }
-                    .font(.caption)
-                    .foregroundColor(.gray)
+                    Label("Disconnect", systemImage: "arrow.left.circle")
                 }
-
-                Button(action: onForgetHub) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "trash")
-                        Text("Forget Hub")
-                    }
-                    .font(.caption)
-                    .foregroundColor(.gray)
+                Button(role: .destructive, action: onForgetHub) {
+                    Label("Forget Hub", systemImage: "trash")
                 }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .font(.title3)
+                    .foregroundColor(.gray)
             }
             .padding(.bottom, 24)
         }
