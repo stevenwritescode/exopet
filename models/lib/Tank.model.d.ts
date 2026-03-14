@@ -18,4 +18,7 @@ export interface TankSettings {
     lower_temp_limit?: number;
     upper_temp_limit?: number;
     tank_id?: string;
+    schedule_enabled?: boolean;
+    schedule_days?: string;
+    schedule_time?: string;
 }

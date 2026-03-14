@@ -85,6 +85,47 @@ struct SettingsView: View {
                 }
 
                 Divider()
+
+                // Scheduled Water Changes
+                HStack {
+                    Text("Scheduled Water Changes:")
+                        .foregroundColor(.white)
+                    Spacer()
+                    Toggle("", isOn: $vm.scheduleEnabled)
+                        .labelsHidden()
+                }
+
+                if vm.scheduleEnabled {
+                    // Day picker
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Days:")
+                            .foregroundColor(.white)
+                        HStack(spacing: 6) {
+                            ForEach(0..<7, id: \.self) { day in
+                                Button(action: { vm.toggleDay(day) }) {
+                                    Text(SettingsViewModel.dayNames[day])
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                        .frame(width: 40, height: 36)
+                                        .background(vm.scheduleDays.contains(day) ? Color.accentColor : Color.gray.opacity(0.3))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+
+                    // Time picker
+                    HStack {
+                        Text("Time:")
+                            .foregroundColor(.white)
+                        Spacer()
+                        DatePicker("", selection: $vm.scheduleTime, displayedComponents: .hourAndMinute)
+                            .labelsHidden()
+                            .colorScheme(.dark)
+                    }
+                }
             }
             .padding(24)
 

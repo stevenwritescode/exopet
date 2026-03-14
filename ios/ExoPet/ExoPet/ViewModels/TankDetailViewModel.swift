@@ -219,6 +219,9 @@ class TankDetailViewModel: ObservableObject {
                 merged.drain_time = settings.drain_time
                 merged.fill_time = settings.fill_time
                 merged.has_reservoir = settings.has_reservoir
+                merged.schedule_enabled = settings.schedule_enabled
+                merged.schedule_days = settings.schedule_days
+                merged.schedule_time = settings.schedule_time
                 let _ = try await api.updateTankSettings(tankId: tankId, settings: merged)
                 loadData()
             } catch {

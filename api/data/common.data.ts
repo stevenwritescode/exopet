@@ -109,6 +109,29 @@ async function dbConnection(): Promise<Database | null> {
   return conn;
 }
 
+export async function runMigrations() {
+  const conn = await dbConnection();
+  if (!conn) return;
+  const columns = [
+    { name: "schedule_enabled", type: "INTEGER DEFAULT 0" },
+    { name: "schedule_days", type: "TEXT DEFAULT ''" },
+    { name: "schedule_time", type: "TEXT DEFAULT ''" },
+  ];
+  for (const col of columns) {
+    try {
+      await conn.run(`ALTER TABLE tank_settings ADD COLUMN ${col.name} ${col.type}`);
+      console.log(`Migration: added column ${col.name}`);
+    } catch (e: any) {
+      if (e.message?.includes("duplicate column")) {
+        // column already exists, skip
+      } else {
+        console.error(`Migration error for ${col.name}:`, e);
+      }
+    }
+  }
+  await conn.close();
+}
+
 export class DataManager {
   static dbConnection = dbConnection;
   static wss: WSServer;

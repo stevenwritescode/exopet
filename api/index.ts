@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { DataManager, initGpio } from "./data/common.data";
+import { DataManager, initGpio, runMigrations } from "./data/common.data";
 import cors, { CorsOptions } from "cors";
 import sudo from "sudo-prompt";
 import Bonjour from "bonjour-service";
@@ -9,6 +9,7 @@ import animalController from "./controllers/Animal.controller";
 import maintenanceController from "./controllers/Maintenance.controller";
 import logController from "./controllers/Log.controller";
 import healthCheck from "./healthCheck";
+import { ScheduleManager } from "./logic/Schedule.logic";
 
 const app = express();
 const port = parseInt(process.env.API_PORT || "3001", 10);
@@ -55,8 +56,10 @@ app.use("/log", jsonParser, urlencodedParser, logController);
 // Start the Express server
 export const server = app.listen(port, '0.0.0.0', async () => {
   console.log(`Exopet Server listening at http://localhost:${port}`);
+  await runMigrations();
   initGpio();
   await DataManager.initSocket(server);
+  ScheduleManager.start();
 
   // Advertise via Bonjour/mDNS for iOS auto-discovery
   const bonjour = new Bonjour();

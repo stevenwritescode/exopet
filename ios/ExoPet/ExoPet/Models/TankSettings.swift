@@ -10,6 +10,9 @@ struct TankSettings: Codable, Hashable {
     var lower_temp_limit: Double?
     var upper_temp_limit: Double?
     var tank_id: String?
+    var schedule_enabled: Bool?
+    var schedule_days: String?
+    var schedule_time: String?
 
     var effectiveLowerTempLimit: Double { lower_temp_limit ?? 25.0 }
     var effectiveUpperTempLimit: Double { upper_temp_limit ?? 30.0 }
