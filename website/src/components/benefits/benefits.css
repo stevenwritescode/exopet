@@ -189,3 +189,85 @@
   58%, 86% { opacity: 1; }
   94%, 100% { opacity: 0; }
 }
+
+/* ── Water change scene ── */
+.pipe {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 3;
+}
+.hub-body {
+  fill: var(--ink);
+}
+.hub-label {
+  font: 500 15px var(--font-display);
+  fill: var(--paper);
+}
+.hub-led {
+  fill: var(--lagoon);
+  animation: hub-led 2s ease-in-out infinite;
+}
+.scene-label {
+  font: 500 12px var(--font-body);
+  fill: var(--ink-faint);
+}
+.wc-drain-stream {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0;
+}
+.wc-fill-stream {
+  fill: none;
+  stroke: var(--lagoon);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.wc-water { animation: wc-level 7.5s ease-in-out 0.3s both; }
+.wc-schedule {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wc-schedule 7.5s ease-in-out 0.3s both;
+}
+.wc-drain-stream { animation: wc-drain 7.5s ease-in-out 0.3s both; }
+.wc-drain-on { animation: wc-drain 7.5s ease-in-out 0.3s both; }
+.wc-fill-stream { animation: wc-fill 7.5s ease-in-out 0.3s both; }
+.wc-fill-on { animation: wc-fill 7.5s ease-in-out 0.3s both; }
+.wc-check { animation: wc-check 7.5s ease-out 0.3s both; }
+.wc-shimmer { animation: wc-shimmer 4s ease-in-out 8s infinite; }
+
+@keyframes wc-level {
+  0%, 14% { transform: translateY(0); }
+  42%, 56% { transform: translateY(36px); }
+  88%, 100% { transform: translateY(0); }
+}
+@keyframes wc-schedule {
+  0% { transform: scale(1); }
+  6% { transform: scale(1.08); }
+  12%, 100% { transform: scale(1); }
+}
+@keyframes wc-drain {
+  0%, 12% { opacity: 0; }
+  16%, 40% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+@keyframes wc-fill {
+  0%, 54% { opacity: 0; }
+  60%, 84% { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+@keyframes wc-check {
+  0%, 90% { opacity: 0; transform: translateY(6px); }
+  98%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes wc-shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@keyframes hub-led {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}

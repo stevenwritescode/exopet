@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BenefitRow } from '@/components/benefits/BenefitRow';
+import { WaterChangeScene } from '@/components/benefits/WaterChangeScene';
 import { AtoScene } from '@/components/benefits/AtoScene';
 import '@/components/benefits/benefits.css';
 
@@ -99,6 +100,11 @@ export default function Home() {
             The chores disappear. The animals notice.
           </h2>
           <div style={{ marginTop: 'var(--space-6)' }}>
+            <BenefitRow
+              title="Water changes while you sleep."
+              body="Schedule a change for 3 AM on Sunday and ExoPet does the rest — drain, refill, log it. Fail-closed solenoids and anti-siphon plumbing mean a power cut leaves the water exactly where it belongs. No buckets, no hoses, no lost weekend."
+              scene={<WaterChangeScene />}
+            />
             <BenefitRow
               reverse
               title="Evaporation, handled."
