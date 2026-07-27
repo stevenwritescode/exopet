@@ -5,7 +5,7 @@ var uuid_1 = require("uuid");
 var System_model_1 = require("./System.model");
 var Tank = /** @class */ (function () {
     function Tank(_a) {
-        var id = _a.id, name = _a.name, type = _a.type, service_status = _a.service_status, settings = _a.settings;
+        var id = _a.id, name = _a.name, type = _a.type, role = _a.role, parent_tank_id = _a.parent_tank_id, service_status = _a.service_status, settings = _a.settings;
         var _this = this;
         this.id = (0, uuid_1.v4)();
         this.service_status = System_model_1.System.State.IDLE;
@@ -25,6 +25,8 @@ var Tank = /** @class */ (function () {
         this.id = id || this.id;
         this.name = name || this.name;
         this.type = type || this.type;
+        this.role = role;
+        this.parent_tank_id = parent_tank_id;
         this.service_status = service_status || this.service_status;
         this.settings = settings || this.settings;
     }

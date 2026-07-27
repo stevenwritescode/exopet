@@ -3,9 +3,11 @@ export declare class Tank {
     id: string;
     name?: string;
     type?: string;
+    role?: "display" | "sump";
+    parent_tank_id?: string;
     service_status: System.State;
     settings: TankSettings;
-    constructor({ id, name, type, service_status, settings }: Partial<Tank>);
+    constructor({ id, name, type, role, parent_tank_id, service_status, settings }: Partial<Tank>);
     updateSettings?: CallableFunction;
 }
 export interface TankSettings {

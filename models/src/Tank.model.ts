@@ -5,6 +5,8 @@ export class Tank {
   id: string = uuid();
   name?: string;
   type?: string;
+  role?: "display" | "sump";
+  parent_tank_id?: string;
   service_status: System.State = System.State.IDLE;
   settings: TankSettings = {
     volume: 0,
@@ -17,10 +19,12 @@ export class Tank {
     upper_temp_limit: 0,
   };
 
-  constructor({ id, name, type, service_status, settings }: Partial<Tank>) {
+  constructor({ id, name, type, role, parent_tank_id, service_status, settings }: Partial<Tank>) {
     this.id = id || this.id;
     this.name = name || this.name;
     this.type = type || this.type;
+    this.role = role;
+    this.parent_tank_id = parent_tank_id;
     this.service_status = service_status || this.service_status;
     this.settings = settings || this.settings;
   }

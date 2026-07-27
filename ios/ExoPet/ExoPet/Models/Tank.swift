@@ -4,8 +4,12 @@ struct Tank: Codable, Identifiable, Hashable {
     let id: String
     var name: String?
     var type: String?
+    var role: String?
+    var parent_tank_id: String?
     var service_status: Int?
     var settings: TankSettings?
+
+    var isSump: Bool { role == "sump" }
 
     var serviceState: ServiceState {
         ServiceState(rawValue: service_status ?? 0) ?? .idle
