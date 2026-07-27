@@ -3,11 +3,12 @@ import { dbConnection } from "./common.data";
 
 export class AnimalDataManager {
   static addAnimal = async (animal: Animal): Promise<void> => {
-    const { species, enclosure_id, enclosure_type, species_latin, name } = animal;
+    const { id, species, enclosure_id, enclosure_type, species_latin, name } = animal;
     const conn = await dbConnection();
     if (!conn) return;
     await conn.run(
-      "INSERT INTO animals (enclosure_id, enclosure_type, name, species, species_latin) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO animals (id, enclosure_id, enclosure_type, name, species, species_latin) VALUES (?, ?, ?, ?, ?, ?)",
+      id,
       enclosure_id,
       enclosure_type,
       name,
