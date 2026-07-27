@@ -24,6 +24,7 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import { Animal, System, Tank, TankSettings } from "aquario-models";
 import tempImage from "../assets/axie-cakepop.jpg";
+import { animalImageSrc } from "../components/AnimalCard";
 import TankTempBar from "../components/AppBar/TankTemp";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -257,7 +258,10 @@ const TankDetail: React.FC<TankProps> = () => {
                 color="inherit"
                 onClick={() => openAnimalPage(a.id)}
               >
-                <Avatar src={tempImage} sx={{ width: 48, height: 48, mr: 2 }} />
+                <Avatar
+                  src={animalImageSrc(a.image_url) ?? tempImage}
+                  sx={{ width: 48, height: 48, mr: 2 }}
+                />
                 {a.name}
               </Button>
             ))

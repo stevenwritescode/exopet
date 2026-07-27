@@ -14,6 +14,7 @@ import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import ClockIcon from "@mui/icons-material/PunchClock";
 import BuildCircleIcon from "@mui/icons-material/BuildCircle";
 import tempImage from "../assets/axie-cakepop.jpg";
+import { animalImageSrc } from "../components/AnimalCard";
 import { addFeedingLog } from "../dal/Log.dal";
 import FeedingLogs from "../components/FeedingLogs";
 import TankTempBar from "../components/AppBar/TankTemp";
@@ -177,7 +178,10 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
               <EditIcon />
             </IconButton>
           </Typography>
-          <Avatar src={tempImage} sx={{ width: 128, height: 128 }} />
+          <Avatar
+            src={animalImageSrc(animalDetails.animal.image_url) ?? tempImage}
+            sx={{ width: 128, height: 128 }}
+          />
           <Typography variant="button" fontSize={18} color="grey" textAlign="center">
             {animalDetails.animal.species}
           </Typography>
