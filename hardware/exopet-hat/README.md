@@ -13,7 +13,7 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
 - [x] Footprint assignment + LCSC part numbers (`exopet-hat-bom.csv`,
       see `BOM-NOTES.md` for confidence levels)
 - [x] Board layout — generated placement + freerouting autoroute
-      (`tools/gen_board.py`, `tools/flip_backs.py`, `/tmp/finish_board.py`
+      (`tools/gen_board.py`, `tools/flip_backs.py`, `tools/finish_board.py`
       pipeline); DRC clean except 3 documented courtyard overlaps
       (flush-ganged terminal blocks — intentional)
 - [ ] Human eyeball pass on the routed board in the KiCad GUI
