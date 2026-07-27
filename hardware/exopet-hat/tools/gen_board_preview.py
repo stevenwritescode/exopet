@@ -31,10 +31,6 @@ PLACE = [
     ("Connector_PinSocket_2.54mm", "PinSocket_1x04_P2.54mm_Vertical", "PSU1", 4.0, 26.0, 270),
     # DS18B20 TRS jack, right edge
     ("Connector_Audio", "Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal", "J4", 61.0, 27.0, 90),
-    # BNC + EZO socket, right edge lower
-    ("Connector_Coaxial", "BNC_Amphenol_B6252HB-NPP3G-50_Horizontal", "J6", 60.0, 42.0, 90),
-    ("Connector_PinSocket_2.54mm", "PinSocket_1x03_P2.54mm_Vertical", "J7", 53.0, 36.0, 270),
-    ("Connector_PinSocket_2.54mm", "PinSocket_1x03_P2.54mm_Vertical", "J12", 53.0, 40.0, 270),
     # HAT mounting holes
     ("MountingHole", "MountingHole_2.7mm_M2.5_DIN965_Pad", "H1", 3.5, 3.5, 0),
     ("MountingHole", "MountingHole_2.7mm_M2.5_DIN965_Pad", "H2", 61.5, 3.5, 0),

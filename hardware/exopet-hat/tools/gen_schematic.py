@@ -126,7 +126,7 @@ add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
         "2": "+5V", "4": "+5V",
         "6": "GND", "9": "GND", "14": "GND", "20": "GND",
         "25": "GND", "30": "GND", "34": "GND", "39": "GND",
-        "3": "I2C_SDA", "5": "I2C_SCL",
+        "3": NC, "5": NC,
         "7": "1WIRE_DATA",
         "11": "GPIO17", "13": "GPIO27", "15": "GPIO22", "16": "GPIO23",
         "27": "EEPROM_SDA", "28": "EEPROM_SCL",
@@ -186,14 +186,7 @@ add("U5", "Device:D_TVS", "TPD1E10B06", (60, 155),
 add("C3", "Device:C", "100nF", (85, 130),
     {"1": "+3V3", "2": "GND"})
 
-# — pH (EZO socket + BNC) (column 1, bottom) —
-add("J6", "Connector:Conn_Coaxial", "BNC pH probe", (30, 185),
-    {"1": "PH_PRB", "2": "PH_PRB_RTN"})
-# EZO-pH datasheet v6.1: top row GND, TX/SDA, RX/SCL; bottom row VCC, PRB, PGND
-add("J7", "Connector_Generic:Conn_01x03", "EZO top (GND/TX/RX)", (60, 185),
-    {"1": "GND", "2": "I2C_SDA", "3": "I2C_SCL"})
-add("J12", "Connector_Generic:Conn_01x03", "EZO bottom (VCC/PRB/PGND)", (90, 185),
-    {"1": "+3V3", "2": "PH_PRB", "3": "PH_PRB_RTN"})
+# pH deferred to rev 2 (isolated design). I2C1 left unconnected.
 
 # — HAT ID EEPROM (column 2, lower) —
 add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),

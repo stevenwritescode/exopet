@@ -13,8 +13,8 @@ A single board that replaces the hub's jumper-wired relay board, external
   pumps wire straight in), **CH4 as dry SPDT contacts** (flexible load)
 - **One 12V input powers everything** — onboard 5V buck back-powers the Pi
 - **3.5mm jack for the DS18B20** temperature probe, pull-up onboard
-- **BNC + Atlas Scientific EZO-pH socket** — pH is an optional plug-in
-  module, board costs almost nothing without it
+- **No pH in rev 1** — deferred to rev 2 behind an isolation stage
+  (see §6); GPIO2/3 reserved
 - **HAT ID EEPROM** so the Pi auto-detects the board and auto-loads the
   1-Wire overlay — zero config.txt editing
 
@@ -35,11 +35,10 @@ or added via JLC's through-hole service.
                                                                               │
                                                                               └─ CH1..CH3 switched-12V screw terminals
  Pi GPIO4  ──[4.7k pull-up]── 3.5mm TRS jack (DS18B20)
- Pi I2C1 (GPIO2/3) ── EZO-pH socket ── BNC probe jack
  Pi ID_SC/ID_SD ── U4 HAT EEPROM
 ```
 
-Board halves: **left = logic** (header, EEPROM, 1-Wire, EZO/BNC),
+Board halves: **left = logic** (header, EEPROM, 1-Wire),
 **right = power** (input, buck, relays, terminals). All screw terminals
 on the right/front board edge for enclosure-friendly wiring.
 
@@ -61,8 +60,8 @@ Net: `+12V_IN` → F1 → Q1 → `+12V` (protected rail).
 ## 3. 5V buck converter (Pi power)
 
 **Rev 1 uses a socketed regulator module** to eliminate switch-mode
-layout risk on the first spin: Pololu **D24V50F5** (5V, 5A) on a 4-pin
-0.1" header footprint. `+12V` → VIN, `+5V` out → Pi header pins 2 & 4
+layout risk on the first spin: Pololu **D24V50F5** (5V, 5A) on a 5-pin
+0.1" header footprint (EN, VIN, 2×GND, VOUT). `+12V` → VIN, `+5V` out → Pi header pins 2 & 4
 through **JP1**, a 2-pos jumper (open it to run the Pi from USB-C while
 bench-debugging the HAT).
 
@@ -109,19 +108,16 @@ close → water stays put.
 
 DATA → **GPIO4** (header pin 7) — matches existing hub software.
 
-## 6. pH input (optional module)
+## 6. pH input — DEFERRED TO REV 2
 
-| Ref | Part | Notes |
-|---|---|---|
-| J6 | BNC, right-angle PCB (Amphenol 31-5431) | Standard pH probe connector |
-| J7 | 2× 1×3 0.1" female headers on the Atlas **EZO-pH** footprint | Module is a user-purchased option (~$40) |
-
-EZO wiring: VCC→3V3, GND→GND, SDA→GPIO2 (pin 3), SCL→GPIO3 (pin 5);
-PRB± → BNC center/shield. The Pi's onboard 1.8 kΩ I2C pull-ups suffice.
-Layout: guard ring around BNC center trace; keep the EZO/BNC zone ≥10 mm
-from the relay section; slot/moat in the ground pour between them.
-Docs note: EZO ships in UART mode — one-time command switches it to I2C
-(address 0x63).
+Decision (2026-07-27, after reviewing the Atlas EZO-pH datasheet): pH is
+dropped from rev 1 entirely. Atlas warns the EZO misreads near pumps and
+solenoid valves — this board's primary loads — and requires electrical
+isolation for commercial products. Rev 2 will carry the EZO socket + BNC
+behind an ADM3260-based isolation stage (Atlas publishes the reference
+circuit in the EZO-pH datasheet, p.8): isolated 3.3V island, isolated
+I2C, moat in the copper. GPIO2/3 (header pins 3/5) are left unconnected
+in rev 1 and reserved for this.
 
 ## 7. HAT ID EEPROM
 
@@ -140,8 +136,8 @@ this is what makes setup zero-config.
 | Pin | Signal | Use |
 |---|---|---|
 | 2, 4 | 5V | Buck output back-powers Pi (via JP1) |
-| 1, 17 | 3V3 | Pull-ups, EZO, EEPROM (≤50 mA total draw) |
-| 3 / 5 | GPIO2 / GPIO3 (I2C1) | EZO-pH |
+| 1, 17 | 3V3 | Pull-ups, EEPROM (≤50 mA total draw) |
+| 3 / 5 | GPIO2 / GPIO3 (I2C1) | Unconnected — reserved for rev 2 pH |
 | 7 | GPIO4 | 1-Wire DATA |
 | 11 | GPIO17 | Relay CH1 |
 | 13 | GPIO27 | Relay CH2 |
@@ -167,12 +163,11 @@ Header: 2×20 stacking female, extra-tall pins optional for stacking.
 | Block | Parts | Est. cost/board |
 |---|---|---|
 | Relays + driver + LEDs | K1–4, U3, D5–8 | $7.00 |
-| Terminals + connectors | 6 screw blocks, J1, J4–J7, header | $6.50 |
+| Terminals + connectors | 6 screw blocks, J1, J4/J5, header | $5.50 |
 | Power | Q1, F1, D1, caps, Pololu D24V50F5 | $11.00 |
 | Logic small parts | U4, U5, R*, C*, jumpers | $1.50 |
 | PCB + SMT assembly (amortized, 5 boards) | — | $8.00 |
-| **Total per board (without EZO-pH module)** | | **≈ $34** |
-| Atlas EZO-pH module (optional, user-added) | | $40 |
+| **Total per board** | | **≈ $33** |
 
 At kit quantities (50+) the per-board total drops under $20.
 
@@ -192,16 +187,12 @@ At kit quantities (50+) the per-board total drops under $20.
      clicks; CH1 terminal shows 12V when closed; LED tracks state
    - Solenoid valve on CH1 → 20 open/close cycles, no buck brown-out
      (watch `vcgencmd get_throttled`)
-   - EZO-pH module + probe → I2C address 0x63 responds, pH 7 buffer reads
 6. **Rev 2 backlog seeded from bring-up findings** (known candidates:
    integrated buck, discrete pH front end, DIN-rail mount holes)
 
 ## 12. Software touchpoints (small, current codebase)
 
 - GPIO channel map becomes configurable (17/27/22/23 default for HAT)
-- pH: read EZO over I2C (`i2c-dev`), surface as a sensor alongside
-  temperature; calibration flow deferred to future-vision
-  `calibration_logs`
 - No other hub changes — that's the point of staying a HAT
 
 ## Out of scope (rev 1)

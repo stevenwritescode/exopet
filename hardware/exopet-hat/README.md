@@ -25,16 +25,13 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
   now 1×5. **Physical pin order must be confirmed against the module
   silkscreen at layout time.**
 
-## ⚠ pH isolation (read before selling boards)
+## pH: deferred to rev 2
 
-The Atlas datasheet warns that EZO circuits misread near pumps and
-solenoid valves — exactly what this board switches — and states:
-*"Never build a commercial product without electrical isolation."*
-Rev 1 (non-isolated socket) is fine for bench validation and personal
-use. Before kits ship with pH: either add Atlas's published ADM3260
-isolation circuit (schematic in their datasheet, p.8) or socket their
-Electrically Isolated EZO Carrier instead of the bare module. Tracked
-as a rev 2 requirement.
+Rev 1 has **no pH input** (decision 2026-07-27). The Atlas datasheet
+requires electrical isolation near pumps/valves for commercial use, so
+rev 2 will add the EZO socket + BNC behind an ADM3260 isolation stage
+(reference circuit: EZO-pH datasheet p.8). GPIO2/3 (header pins 3/5)
+are left unconnected and reserved for it.
 
 ## Conventions
 
@@ -44,8 +41,8 @@ as a rev 2 requirement.
   (pin-compatible DMOS array, 3.3 V-safe inputs).
 - PSU1 is the socketed Pololu D24V50F5 5 V/5 A buck module (rev 2:
   integrate a TPS54531 circuit).
-- **Verify before layout:** J7 (Atlas EZO-pH socket) pin order against
-  the current Atlas Scientific EZO-pH datasheet.
+- **Verify before layout:** PSU1 socket pin order against the
+  D24V50F5 module silkscreen (EN, VIN, 2×GND, VOUT).
 
 ## Opening
 
