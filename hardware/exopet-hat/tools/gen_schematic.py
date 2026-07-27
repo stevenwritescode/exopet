@@ -1,0 +1,274 @@
+#!/usr/bin/env python3
+"""Generate exopet-hat.kicad_sch from the design spec's net map.
+
+Connectivity is authoritative (global label anchored at every pin);
+placement is a readable block grid meant for GUI polish later.
+Verify with: kicad-cli sch erc / export netlist.
+"""
+import re
+import uuid
+from pathlib import Path
+
+SYMDIR = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols")
+OUT = Path(__file__).resolve().parent.parent / "exopet-hat.kicad_sch"
+ROOT_UUID = "e0a7e100-0000-4000-8000-00000000c0de"
+PROJECT = "exopet-hat"
+
+NS = uuid.UUID("12345678-1234-5678-1234-567812345678")
+
+
+def uid(*parts):
+    return str(uuid.uuid5(NS, ":".join(str(p) for p in parts)))
+
+
+def extract_symbol(lib, name):
+    text = (SYMDIR / f"{lib}.kicad_sym").read_text()
+    start = text.find(f'(symbol "{name}"')
+    if start < 0:
+        raise KeyError(f"{lib}:{name}")
+    depth, i = 0, start
+    while True:
+        if text[i] == "(":
+            depth += 1
+        elif text[i] == ")":
+            depth -= 1
+            if depth == 0:
+                return text[start : i + 1]
+        i += 1
+
+
+def pin_map(sym_text):
+    """pin number -> (x, y) connection point in lib coords."""
+    pins = {}
+    for m in re.finditer(
+        r"\(pin\s+\w+\s+\w+\s*\n?\s*\(at\s+([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\)"
+        r".*?\(number\s+\"([^\"]*)\"",
+        sym_text,
+        re.S,
+    ):
+        x, y, _ang, num = m.groups()
+        pins[num] = (float(x), float(y))
+    return pins
+
+
+# ── symbols to embed ────────────────────────────────────────────
+LIBS = {
+    "Connector:Barrel_Jack_Switch": None,
+    "Connector:Raspberry_Pi_2_3": None,
+    "Connector:Conn_Coaxial": None,
+    "Connector_Audio:AudioJack3": None,
+    "Connector_Generic:Conn_01x02": None,
+    "Connector_Generic:Conn_01x03": None,
+    "Connector_Generic:Conn_01x04": None,
+    "Device:R": None,
+    "Device:C": None,
+    "Device:C_Polarized": None,
+    "Device:LED": None,
+    "Device:D_Schottky": None,
+    "Device:D_TVS": None,
+    "Device:Polyfuse": None,
+    "Device:Q_PMOS": None,
+    "Relay:G5LE-1": None,
+    "Transistor_Array:ULN2003": None,
+    "Memory_EEPROM:24LC16": None,
+    "Jumper:SolderJumper_2_Open": None,
+    "power:PWR_FLAG": None,
+}
+
+for key in LIBS:
+    lib, name = key.split(":")
+    LIBS[key] = extract_symbol(lib, name)
+
+PINS = {key: pin_map(text) for key, text in LIBS.items()}
+
+# ── component instances ─────────────────────────────────────────
+# (ref, lib_id, value, (x, y), {pin: net}, [no_connect pins], footprint)
+NC = "~NC~"  # sentinel: place a no_connect marker on this pin
+
+C = []
+
+def add(ref, lib_id, value, pos, nets, footprint=""):
+    C.append((ref, lib_id, value, pos, nets, footprint))
+
+# — Power input block (column 1) —
+add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
+    {"1": "+12V_IN", "2": "GND", "3": NC},
+    "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal")
+add("J2", "Connector_Generic:Conn_01x02", "12V screw term", (30, 60),
+    {"1": "+12V_IN", "2": "GND"},
+    "TerminalBlock:TerminalBlock_bornier-2_P5.08mm")
+add("F1", "Device:Polyfuse", "MF-R500 5A", (55, 40),
+    {"1": "+12V_IN", "2": "+12V_F"})
+add("D1", "Device:D_TVS", "SMBJ16A", (55, 60),
+    {"1": "GND", "2": "+12V_F"})
+add("Q1", "Device:Q_PMOS", "DMP4015SK3", (80, 40),
+    {"D": "+12V_F", "G": "Q1_G", "S": "+12V"})
+add("R1", "Device:R", "100k", (80, 60),
+    {"1": "Q1_G", "2": "GND"})
+add("C1", "Device:C_Polarized", "470uF 25V", (105, 40),
+    {"1": "+12V", "2": "GND"})
+add("C2", "Device:C", "100nF", (105, 60),
+    {"1": "+12V", "2": "GND"})
+
+# — Buck module + link (column 1 lower) —
+add("PSU1", "Connector_Generic:Conn_01x04", "Pololu D24V50F5 5V/5A", (30, 90),
+    {"1": NC, "2": "+12V", "3": "GND", "4": "+5V_BUCK"})
+add("JP1", "Jumper:SolderJumper_2_Open", "5V link (open = USB-C debug)", (55, 90),
+    {"1": "+5V_BUCK", "2": "+5V"})
+
+# — Raspberry Pi header (column 2) —
+add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
+    {
+        "1": "+3V3", "17": "+3V3",
+        "2": "+5V", "4": "+5V",
+        "6": "GND", "9": "GND", "14": "GND", "20": "GND",
+        "25": "GND", "30": "GND", "34": "GND", "39": "GND",
+        "3": "I2C_SDA", "5": "I2C_SCL",
+        "7": "1WIRE_DATA",
+        "11": "GPIO17", "13": "GPIO27", "15": "GPIO22", "16": "GPIO23",
+        "27": "EEPROM_SDA", "28": "EEPROM_SCL",
+        "8": NC, "10": NC, "12": NC, "18": NC, "19": NC, "21": NC,
+        "22": NC, "23": NC, "24": NC, "26": NC, "29": NC, "31": NC, "32": NC,
+        "33": NC, "35": NC, "36": NC, "37": NC, "38": NC, "40": NC,
+    })
+
+# — Relay driver (column 3) —
+add("U2", "Transistor_Array:ULN2003", "TBD62003APG", (240, 45),
+    {
+        "1": "GPIO17", "2": "GPIO27", "3": "GPIO22", "4": "GPIO23",
+        "5": "GND", "6": "GND", "7": "GND",
+        "8": "GND", "9": "+12V",
+        "16": "RLY1_DRV", "15": "RLY2_DRV", "14": "RLY3_DRV", "13": "RLY4_DRV",
+        "10": NC, "11": NC, "12": NC,
+    })
+
+# — Relays + per-channel parts (column 4) —
+for n, y in ((1, 40), (2, 80), (3, 120)):
+    add(f"K{n}", "Relay:G5LE-1", "G5LE-1 DC12", (290, y),
+        {"2": "+12V", "5": f"RLY{n}_DRV",
+         "1": f"CH{n}_FUSED", "3": f"CH{n}_OUT", "4": NC},
+        "Relay_THT:Relay_SPDT_Omron-G5LE-1")
+    add(f"F{n+1}", "Device:Polyfuse", "MF-R110 1.1A", (315, y),
+        {"1": "+12V", "2": f"CH{n}_FUSED"})
+    add(f"D{n+8}", "Device:D_Schottky", "SS34", (340, y),
+        {"1": f"CH{n}_OUT", "2": "GND"})
+    add(f"J{n+7}", "Connector_Generic:Conn_01x02", f"CH{n} 12V OUT", (365, y),
+        {"1": f"CH{n}_OUT", "2": "GND"},
+        "TerminalBlock:TerminalBlock_bornier-2_P5.08mm")
+
+add("K4", "Relay:G5LE-1", "G5LE-1 DC12", (290, 160),
+    {"2": "+12V", "5": "RLY4_DRV",
+     "1": "CH4_COM", "3": "CH4_NO", "4": "CH4_NC"},
+    "Relay_THT:Relay_SPDT_Omron-G5LE-1")
+add("J11", "Connector_Generic:Conn_01x03", "CH4 dry contact", (340, 160),
+    {"1": "CH4_COM", "2": "CH4_NO", "3": "CH4_NC"},
+    "TerminalBlock:TerminalBlock_bornier-3_P5.08mm")
+
+# — Relay state LEDs (column 3 lower) —
+for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
+    add(f"R{n+4}", "Device:R", "2.2k", (225, y),
+        {"1": "+12V", "2": f"LED{n}_A"})
+    add(f"D{n+4}", "Device:LED", "green", (250, y),
+        {"2": f"LED{n}_A", "1": f"RLY{n}_DRV"})
+
+# — 1-Wire temperature (column 1, lower) —
+add("J4", "Connector_Audio:AudioJack3", "DS18B20 TRS jack", (30, 130),
+    {"S": "GND", "R": "+3V3", "T": "1WIRE_DATA"})
+add("J5", "Connector_Generic:Conn_01x03", "DS18B20 JST", (30, 155),
+    {"1": "+3V3", "2": "1WIRE_DATA", "3": "GND"})
+add("R2", "Device:R", "4.7k", (60, 130),
+    {"1": "+3V3", "2": "1WIRE_DATA"})
+add("U5", "Device:D_TVS", "TPD1E10B06", (60, 155),
+    {"1": "1WIRE_DATA", "2": "GND"})
+add("C3", "Device:C", "100nF", (85, 130),
+    {"1": "+3V3", "2": "GND"})
+
+# — pH (EZO socket + BNC) (column 1, bottom) —
+add("J6", "Connector:Conn_Coaxial", "BNC pH probe", (30, 185),
+    {"1": "PH_PRB", "2": "PH_PRB_RTN"})
+add("J7", "Connector_Generic:Conn_01x03", "EZO side A (VCC/GND/TX)", (60, 185),
+    {"1": "+3V3", "2": "GND", "3": "I2C_SDA"})
+add("J12", "Connector_Generic:Conn_01x03", "EZO side B (RX/PRB)", (90, 185),
+    {"1": "I2C_SCL", "2": "PH_PRB", "3": "PH_PRB_RTN"})
+
+# — HAT ID EEPROM (column 2, lower) —
+add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),
+    {"1": "GND", "2": "GND", "3": "GND", "4": "GND",
+     "5": "EEPROM_SDA", "6": "EEPROM_SCL", "7": "EEPROM_WP", "8": "+3V3"})
+add("R3", "Device:R", "3.9k", (180, 145),
+    {"1": "+3V3", "2": "EEPROM_SDA"})
+add("R4", "Device:R", "3.9k", (195, 145),
+    {"1": "+3V3", "2": "EEPROM_SCL"})
+add("R9", "Device:R", "10k", (180, 175),
+    {"1": "EEPROM_WP", "2": "GND"})
+add("JP2", "Jumper:SolderJumper_2_Open", "WP (close = protect)", (195, 175),
+    {"1": "EEPROM_WP", "2": "+3V3"})
+
+# — Power flags for ERC —
+for i, net in enumerate(["+12V_IN", "+12V", "+5V", "+5V_BUCK", "+3V3", "GND"]):
+    add(f"#FLG{i+1}", "power:PWR_FLAG", "PWR_FLAG", (30 + i * 20, 215),
+        {"1": net})
+
+# ── emit ────────────────────────────────────────────────────────
+def esc(s):
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
+body = []
+body.append('(kicad_sch (version 20231120) (generator "gen_schematic.py") (generator_version "8.0")')
+body.append(f'  (uuid "{ROOT_UUID}")')
+body.append('  (paper "A2")')
+
+# lib_symbols with prefixed names
+body.append("  (lib_symbols")
+for key, text in LIBS.items():
+    lib, name = key.split(":")
+    renamed = text.replace(f'(symbol "{name}"', f'(symbol "{key}"', 1)
+    body.append("    " + renamed)
+body.append("  )")
+
+labels = []
+noconnects = []
+
+for ref, lib_id, value, (sx, sy), nets, footprint in C:
+    su = uid("sym", ref)
+    body.append(f'  (symbol (lib_id "{esc(lib_id)}") (at {sx} {sy} 0) (unit 1)')
+    body.append("    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)")
+    body.append(f'    (uuid "{su}")')
+    body.append(f'    (property "Reference" "{esc(ref)}" (at {sx} {sy - 3} 0) (effects (font (size 1.27 1.27))))')
+    body.append(f'    (property "Value" "{esc(value)}" (at {sx} {sy + 3} 0) (effects (font (size 1.27 1.27))))')
+    body.append(f'    (property "Footprint" "{esc(footprint)}" (at {sx} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
+    for pnum in PINS[lib_id]:
+        body.append(f'    (pin "{pnum}" (uuid "{uid("pin", ref, pnum)}"))')
+    body.append("    (instances")
+    body.append(f'      (project "{PROJECT}"')
+    body.append(f'        (path "/{ROOT_UUID}" (reference "{esc(ref)}") (unit 1))')
+    body.append("      )")
+    body.append("    )")
+    body.append("  )")
+
+    seen_positions = set()
+    for pnum, net in nets.items():
+        px, py = PINS[lib_id][pnum]
+        ax, ay = round(sx + px, 2), round(sy - py, 2)
+        if net == NC:
+            if (ax, ay) not in seen_positions:
+                noconnects.append((ax, ay, uid("nc", ref, pnum)))
+            seen_positions.add((ax, ay))
+        else:
+            labels.append((net, ax, ay, uid("lbl", ref, pnum)))
+
+for net, ax, ay, lu in labels:
+    body.append(
+        f'  (global_label "{esc(net)}" (shape input) (at {ax} {ay} 0)'
+        f' (effects (font (size 1.27 1.27)) (justify left))'
+        f' (uuid "{lu}"))'
+    )
+for ax, ay, nu in noconnects:
+    body.append(f'  (no_connect (at {ax} {ay}) (uuid "{nu}"))')
+
+body.append('  (sheet_instances (path "/" (page "1")))')
+body.append(")")
+
+OUT.write_text("\n".join(body) + "\n")
+print(f"wrote {OUT} ({len(C)} components, {len(labels)} labels, {len(noconnects)} no-connects)")
