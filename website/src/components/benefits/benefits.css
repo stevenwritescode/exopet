@@ -121,3 +121,71 @@
     opacity: 0;
   }
 }
+
+/* ── ATO scene ── */
+.ato-target {
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+.squiggle {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.pump-body {
+  fill: var(--paper-sunken);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.pump-line {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 3;
+}
+.float-body {
+  fill: var(--paper-raised);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.float-arm {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ato-water {
+  animation: ato-level 10s ease-in-out infinite;
+}
+.ato-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ato-float 10s ease-in-out infinite;
+}
+.ato-heat {
+  animation: ato-heat 4s ease-in-out infinite;
+}
+.ato-pump-on {
+  animation: ato-pump 10s ease-in-out infinite;
+}
+
+@keyframes ato-level {
+  0%, 10% { transform: translateY(0); }
+  45%, 60% { transform: translateY(14px); }
+  90%, 100% { transform: translateY(0); }
+}
+@keyframes ato-float {
+  0%, 10% { transform: translateY(0) rotate(0deg); }
+  45%, 60% { transform: translateY(14px) rotate(-16deg); }
+  90%, 100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes ato-heat {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.9; }
+}
+@keyframes ato-pump {
+  0%, 52% { opacity: 0; }
+  58%, 86% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}

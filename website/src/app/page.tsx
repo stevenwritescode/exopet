@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { BenefitRow } from '@/components/benefits/BenefitRow';
+import { AtoScene } from '@/components/benefits/AtoScene';
+import '@/components/benefits/benefits.css';
 
 const features = [
   {
@@ -85,6 +88,23 @@ export default function Home() {
                 <p>{f.body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="why" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <span className="eyebrow">Why ExoPet</span>
+          <h2 className="page-title" style={{ fontSize: '2.25rem' }}>
+            The chores disappear. The animals notice.
+          </h2>
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <BenefitRow
+              reverse
+              title="Evaporation, handled."
+              body="Water evaporates around the clock, and level and salinity drift with it. A float switch catches the dip, a dosing pump eases the level back to the line, and a run-timeout failsafe makes sure a stuck switch can never flood the room."
+              scene={<AtoScene />}
+            />
           </div>
         </div>
       </section>
