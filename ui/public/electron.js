@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, powerSaveBlocker } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -38,6 +38,7 @@ function createWindow() {
 
 // On Pi, sometimes the display server isn’t ready instantly
 app.whenReady().then(() => {
+  powerSaveBlocker.start("prevent-display-sleep");
   // Small delay helps avoid launch failures during boot
   setTimeout(createWindow, 1000);
 });

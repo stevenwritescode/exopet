@@ -11,6 +11,7 @@ import TankDetail from "./views/TankDetail";
 import AnimalList from "./views/AnimalList";
 import AnimalDetail from "./views/AnimalDetail";
 import Home from "./views/Home";
+import Screensaver from "./components/Screensaver";
 
 function App() {
   const [nextWaterChange, setNextWaterChange] = useState<Date | null>(null);
@@ -55,6 +56,7 @@ function App() {
     <Stack sx={{ width: "100%" }}>
       <ThemeProvider theme={theme}>
         <CssBaseline /> {/* Add CssBaseline here */}
+        <Screensaver />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tanks" element={<TankList />} />

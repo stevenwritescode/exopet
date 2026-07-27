@@ -6,6 +6,11 @@
 export DISPLAY=:0
 export NODE_ENV=production
 
+# Keep the display awake: disable X screen blanking and DPMS
+if command -v xset >/dev/null 2>&1; then
+  xset s off -dpms 2>/dev/null || true
+fi
+
 cd /home/exopet/exopet/ui
 
 # Start the React dev server in the background
