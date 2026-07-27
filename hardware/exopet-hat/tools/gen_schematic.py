@@ -88,8 +88,8 @@ NC = "~NC~"  # sentinel: place a no_connect marker on this pin
 
 C = []
 
-def add(ref, lib_id, value, pos, nets, footprint=""):
-    C.append((ref, lib_id, value, pos, nets, footprint))
+def add(ref, lib_id, value, pos, nets, footprint="", lcsc=""):
+    C.append((ref, lib_id, value, pos, nets, footprint, lcsc))
 
 # — Power input block (column 1) —
 add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
@@ -97,27 +97,35 @@ add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
     "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal")
 add("J2", "Connector_Generic:Conn_01x02", "12V screw term", (30, 60),
     {"1": "+12V_IN", "2": "GND"},
-    "TerminalBlock:TerminalBlock_bornier-2_P5.08mm")
-add("F1", "Device:Polyfuse", "MF-R500 5A", (55, 40),
-    {"1": "+12V_IN", "2": "+12V_F"})
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal")
+add("F1", "Device:Polyfuse", "MF-RG500 5A", (55, 40),
+    {"1": "+12V_IN", "2": "+12V_F"},
+    "Fuse:Fuse_Bourns_MF-RG500", "VERIFY")
 add("D1", "Device:D_TVS", "SMBJ16A", (55, 60),
-    {"1": "GND", "2": "+12V_F"})
-add("Q1", "Device:Q_PMOS", "DMP4015SK3", (80, 40),
-    {"D": "+12V_F", "G": "Q1_G", "S": "+12V"})
+    {"1": "GND", "2": "+12V_F"},
+    "Diode_SMD:D_SMB", "VERIFY")
+add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
+    {"D": "+12V_F", "G": "Q1_G", "S": "+12V"},
+    "Package_TO_SOT_SMD:TO-252-2", "C28969")
 add("R1", "Device:R", "100k", (80, 60),
-    {"1": "Q1_G", "2": "GND"})
+    {"1": "Q1_G", "2": "GND"},
+    "Resistor_SMD:R_0805_2012Metric", "C17407")
 add("C1", "Device:C_Polarized", "470uF 25V", (105, 40),
-    {"1": "+12V", "2": "GND"})
+    {"1": "+12V", "2": "GND"},
+    "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm", "VERIFY")
 add("C2", "Device:C", "100nF", (105, 60),
-    {"1": "+12V", "2": "GND"})
+    {"1": "+12V", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # — Buck module + link (column 1 lower) —
 # D24V50F5 has 5 pins: EN, VIN, 2x GND, VOUT. Socket pin order must be
 # confirmed against the module silkscreen at layout time.
 add("PSU1", "Connector_Generic:Conn_01x05", "Pololu D24V50F5 5V/5A", (30, 90),
-    {"1": NC, "2": "+12V", "3": "GND", "4": "GND", "5": "+5V_BUCK"})
+    {"1": NC, "2": "+12V", "3": "GND", "4": "GND", "5": "+5V_BUCK"},
+    "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical")
 add("JP1", "Jumper:SolderJumper_2_Open", "5V link (open = USB-C debug)", (55, 90),
-    {"1": "+5V_BUCK", "2": "+5V"})
+    {"1": "+5V_BUCK", "2": "+5V"},
+    "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm")
 
 # — Raspberry Pi header (column 2) —
 add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
@@ -133,73 +141,90 @@ add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
         "8": NC, "10": NC, "12": NC, "18": NC, "19": NC, "21": NC,
         "22": NC, "23": NC, "24": NC, "26": NC, "29": NC, "31": NC, "32": NC,
         "33": NC, "35": NC, "36": NC, "37": NC, "38": NC, "40": NC,
-    })
+    }, "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical")
 
 # — Relay driver (column 3) —
-add("U2", "Transistor_Array:ULN2003", "TBD62003APG", (240, 45),
+add("U2", "Transistor_Array:ULN2003", "TBD62003AFG", (240, 45),
     {
         "1": "GPIO17", "2": "GPIO27", "3": "GPIO22", "4": "GPIO23",
         "5": "GND", "6": "GND", "7": "GND",
         "8": "GND", "9": "+12V",
         "16": "RLY1_DRV", "15": "RLY2_DRV", "14": "RLY3_DRV", "13": "RLY4_DRV",
         "10": NC, "11": NC, "12": NC,
-    })
+    }, "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm", "C163227")
 
 # — Relays + per-channel parts (column 4) —
 for n, y in ((1, 40), (2, 80), (3, 120)):
-    add(f"K{n}", "Relay:G5LE-1", "G5LE-1 DC12", (290, y),
+    add(f"K{n}", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, y),
         {"2": "+12V", "5": f"RLY{n}_DRV",
          "1": f"CH{n}_FUSED", "3": f"CH{n}_OUT", "4": NC},
-        "Relay_THT:Relay_SPDT_Omron-G5LE-1")
-    add(f"F{n+1}", "Device:Polyfuse", "MF-R110 1.1A", (315, y),
-        {"1": "+12V", "2": f"CH{n}_FUSED"})
+        "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
+    add(f"F{n+1}", "Device:Polyfuse", "MF-RHT100 1A", (315, y),
+        {"1": "+12V", "2": f"CH{n}_FUSED"},
+        "Fuse:Fuse_Bourns_MF-RHT100", "VERIFY")
     add(f"D{n+8}", "Device:D_Schottky", "SS34", (340, y),
-        {"1": f"CH{n}_OUT", "2": "GND"})
+        {"1": f"CH{n}_OUT", "2": "GND"},
+        "Diode_SMD:D_SMA", "C8678")
     add(f"J{n+7}", "Connector_Generic:Conn_01x02", f"CH{n} 12V OUT", (365, y),
         {"1": f"CH{n}_OUT", "2": "GND"},
-        "TerminalBlock:TerminalBlock_bornier-2_P5.08mm")
+        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal")
 
-add("K4", "Relay:G5LE-1", "G5LE-1 DC12", (290, 160),
+add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     {"2": "+12V", "5": "RLY4_DRV",
      "1": "CH4_COM", "3": "CH4_NO", "4": "CH4_NC"},
-    "Relay_THT:Relay_SPDT_Omron-G5LE-1")
+    "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
 add("J11", "Connector_Generic:Conn_01x03", "CH4 dry contact", (340, 160),
     {"1": "CH4_COM", "2": "CH4_NO", "3": "CH4_NC"},
-    "TerminalBlock:TerminalBlock_bornier-3_P5.08mm")
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal")
 
 # — Relay state LEDs (column 3 lower) —
 for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
     add(f"R{n+4}", "Device:R", "2.2k", (225, y),
-        {"1": "+12V", "2": f"LED{n}_A"})
+        {"1": "+12V", "2": f"LED{n}_A"},
+        "Resistor_SMD:R_0805_2012Metric", "C17520")
     add(f"D{n+4}", "Device:LED", "green", (250, y),
-        {"2": f"LED{n}_A", "1": f"RLY{n}_DRV"})
+        {"2": f"LED{n}_A", "1": f"RLY{n}_DRV"},
+        "LED_SMD:LED_0805_2012Metric", "C2297")
 
 # — 1-Wire temperature (column 1, lower) —
 add("J4", "Connector_Audio:AudioJack3", "DS18B20 TRS jack", (30, 130),
-    {"S": "GND", "R": "+3V3", "T": "1WIRE_DATA"})
+    {"S": "GND", "R": "+3V3", "T": "1WIRE_DATA"},
+    "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal")
 add("J5", "Connector_Generic:Conn_01x03", "DS18B20 JST", (30, 155),
-    {"1": "+3V3", "2": "1WIRE_DATA", "3": "GND"})
+    {"1": "+3V3", "2": "1WIRE_DATA", "3": "GND"},
+    "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
 add("R2", "Device:R", "4.7k", (60, 130),
-    {"1": "+3V3", "2": "1WIRE_DATA"})
-add("U5", "Device:D_TVS", "TPD1E10B06", (60, 155),
-    {"1": "1WIRE_DATA", "2": "GND"})
+    {"1": "+3V3", "2": "1WIRE_DATA"},
+    "Resistor_SMD:R_0805_2012Metric", "C17673")
+add("U5", "Device:D_TVS", "5V ESD clamp (SOD-323)", (60, 155),
+    {"1": "1WIRE_DATA", "2": "GND"},
+    "Diode_SMD:D_SOD-323", "VERIFY")
 add("C3", "Device:C", "100nF", (85, 130),
-    {"1": "+3V3", "2": "GND"})
+    {"1": "+3V3", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # pH deferred to rev 2 (isolated design). I2C1 left unconnected.
 
 # — HAT ID EEPROM (column 2, lower) —
 add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),
     {"1": "GND", "2": "GND", "3": "GND", "4": "GND",
-     "5": "EEPROM_SDA", "6": "EEPROM_SCL", "7": "EEPROM_WP", "8": "+3V3"})
+     "5": "EEPROM_SDA", "6": "EEPROM_SCL", "7": "EEPROM_WP", "8": "+3V3"},
+    "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
+add("C4", "Device:C", "100nF", (150, 185),
+    {"1": "+3V3", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
 add("R3", "Device:R", "3.9k", (180, 145),
-    {"1": "+3V3", "2": "EEPROM_SDA"})
+    {"1": "+3V3", "2": "EEPROM_SDA"},
+    "Resistor_SMD:R_0805_2012Metric", "C26010")
 add("R4", "Device:R", "3.9k", (195, 145),
-    {"1": "+3V3", "2": "EEPROM_SCL"})
+    {"1": "+3V3", "2": "EEPROM_SCL"},
+    "Resistor_SMD:R_0805_2012Metric", "C26010")
 add("R9", "Device:R", "10k", (180, 175),
-    {"1": "EEPROM_WP", "2": "GND"})
+    {"1": "EEPROM_WP", "2": "GND"},
+    "Resistor_SMD:R_0805_2012Metric", "C17414")
 add("JP2", "Jumper:SolderJumper_2_Open", "WP (close = protect)", (195, 175),
-    {"1": "EEPROM_WP", "2": "+3V3"})
+    {"1": "EEPROM_WP", "2": "+3V3"},
+    "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm")
 
 # — Power flags for ERC —
 for i, net in enumerate(["+12V_IN", "+12V", "+5V", "+5V_BUCK", "+3V3", "GND"]):
@@ -227,7 +252,7 @@ body.append("  )")
 labels = []
 noconnects = []
 
-for ref, lib_id, value, (sx, sy), nets, footprint in C:
+for ref, lib_id, value, (sx, sy), nets, footprint, lcsc in C:
     su = uid("sym", ref)
     body.append(f'  (symbol (lib_id "{esc(lib_id)}") (at {sx} {sy} 0) (unit 1)')
     body.append("    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)")
@@ -235,6 +260,7 @@ for ref, lib_id, value, (sx, sy), nets, footprint in C:
     body.append(f'    (property "Reference" "{esc(ref)}" (at {sx} {sy - 3} 0) (effects (font (size 1.27 1.27))))')
     body.append(f'    (property "Value" "{esc(value)}" (at {sx} {sy + 3} 0) (effects (font (size 1.27 1.27))))')
     body.append(f'    (property "Footprint" "{esc(footprint)}" (at {sx} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
+    body.append(f'    (property "LCSC" "{esc(lcsc)}" (at {sx} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
     for pnum in PINS[lib_id]:
         body.append(f'    (pin "{pnum}" (uuid "{uid("pin", ref, pnum)}"))')
     body.append("    (instances")

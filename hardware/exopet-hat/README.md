@@ -8,8 +8,10 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
 ## Status
 
 - [x] Schematic capture (all blocks from the spec)
-- [ ] Review pass in KiCad GUI (open it and eyeball every block)
-- [ ] Footprint assignment + LCSC part numbers
+- [x] Review pass — done via datasheet verification (see below); GUI
+      eyeball still welcome
+- [x] Footprint assignment + LCSC part numbers (`exopet-hat-bom.csv`,
+      see `BOM-NOTES.md` for confidence levels)
 - [ ] Board layout (65×56 mm HAT template)
 - [ ] DRC + JLCPCB DFM
 - [ ] Order prototypes
