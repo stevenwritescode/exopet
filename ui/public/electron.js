@@ -1,5 +1,10 @@
 const { app, BrowserWindow, powerSaveBlocker } = require("electron");
 
+// Chromium's built-in async DNS bypasses nss-mdns on Linux, so .local
+// hostnames (exopet-api.local) never resolve in the renderer. Force the
+// system resolver so mDNS names work.
+app.commandLine.appendSwitch("disable-features", "AsyncDns");
+
 function createWindow() {
   const win = new BrowserWindow({
     fullscreen: true,
