@@ -14,6 +14,28 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
 - [ ] DRC + JLCPCB DFM
 - [ ] Order prototypes
 
+## Datasheet verification (done in lieu of skipped human review)
+
+- **EZO-pH socket (J7/J12)** — verified against Atlas EZO-pH datasheet
+  v6.1: top row GND, TX/SDA, RX/SCL; bottom row VCC, PRB, PGND.
+- **G5LE-1 relay** — verified against Omron K100-E1-08 datasheet: coil on
+  terminals 2/5, COM 1, NO 3, NC 4; KiCad footprint pad geometry matches
+  the datasheet mounting-hole pattern.
+- **Pololu D24V50F5** — confirmed 5 pins (EN, VIN, 2×GND, VOUT); socket is
+  now 1×5. **Physical pin order must be confirmed against the module
+  silkscreen at layout time.**
+
+## ⚠ pH isolation (read before selling boards)
+
+The Atlas datasheet warns that EZO circuits misread near pumps and
+solenoid valves — exactly what this board switches — and states:
+*"Never build a commercial product without electrical isolation."*
+Rev 1 (non-isolated socket) is fine for bench validation and personal
+use. Before kits ship with pH: either add Atlas's published ADM3260
+isolation circuit (schematic in their datasheet, p.8) or socket their
+Electrically Isolated EZO Carrier instead of the bare module. Tracked
+as a rev 2 requirement.
+
 ## Conventions
 
 - Connectivity uses global labels (`+12V`, `GPIO17`, `1WIRE_DATA`, …)

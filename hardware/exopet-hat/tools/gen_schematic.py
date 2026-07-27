@@ -60,6 +60,7 @@ LIBS = {
     "Connector_Generic:Conn_01x02": None,
     "Connector_Generic:Conn_01x03": None,
     "Connector_Generic:Conn_01x04": None,
+    "Connector_Generic:Conn_01x05": None,
     "Device:R": None,
     "Device:C": None,
     "Device:C_Polarized": None,
@@ -111,8 +112,10 @@ add("C2", "Device:C", "100nF", (105, 60),
     {"1": "+12V", "2": "GND"})
 
 # — Buck module + link (column 1 lower) —
-add("PSU1", "Connector_Generic:Conn_01x04", "Pololu D24V50F5 5V/5A", (30, 90),
-    {"1": NC, "2": "+12V", "3": "GND", "4": "+5V_BUCK"})
+# D24V50F5 has 5 pins: EN, VIN, 2x GND, VOUT. Socket pin order must be
+# confirmed against the module silkscreen at layout time.
+add("PSU1", "Connector_Generic:Conn_01x05", "Pololu D24V50F5 5V/5A", (30, 90),
+    {"1": NC, "2": "+12V", "3": "GND", "4": "GND", "5": "+5V_BUCK"})
 add("JP1", "Jumper:SolderJumper_2_Open", "5V link (open = USB-C debug)", (55, 90),
     {"1": "+5V_BUCK", "2": "+5V"})
 
@@ -186,10 +189,11 @@ add("C3", "Device:C", "100nF", (85, 130),
 # — pH (EZO socket + BNC) (column 1, bottom) —
 add("J6", "Connector:Conn_Coaxial", "BNC pH probe", (30, 185),
     {"1": "PH_PRB", "2": "PH_PRB_RTN"})
-add("J7", "Connector_Generic:Conn_01x03", "EZO side A (VCC/GND/TX)", (60, 185),
-    {"1": "+3V3", "2": "GND", "3": "I2C_SDA"})
-add("J12", "Connector_Generic:Conn_01x03", "EZO side B (RX/PRB)", (90, 185),
-    {"1": "I2C_SCL", "2": "PH_PRB", "3": "PH_PRB_RTN"})
+# EZO-pH datasheet v6.1: top row GND, TX/SDA, RX/SCL; bottom row VCC, PRB, PGND
+add("J7", "Connector_Generic:Conn_01x03", "EZO top (GND/TX/RX)", (60, 185),
+    {"1": "GND", "2": "I2C_SDA", "3": "I2C_SCL"})
+add("J12", "Connector_Generic:Conn_01x03", "EZO bottom (VCC/PRB/PGND)", (90, 185),
+    {"1": "+3V3", "2": "PH_PRB", "3": "PH_PRB_RTN"})
 
 # — HAT ID EEPROM (column 2, lower) —
 add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),
