@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const IDLE_TIMEOUT_MS = 5 * 60 * 1000;
 
@@ -16,6 +17,13 @@ export default function Screensaver({
 }) {
   const [active, setActive] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Idle long enough for the saver means whoever was mid-task walked
+    // away; reset to the home screen for the next person.
+    if (active) navigate("/");
+  }, [active, navigate]);
 
   useEffect(() => {
     const restartTimer = () => {
