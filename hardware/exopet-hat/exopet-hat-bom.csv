@@ -10,7 +10,6 @@
 "J2","12V screw term","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",""
 "J3","RPi GPIO (HAT)","Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical",""
 "J4","DS18B20 TRS jack","Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal",""
-"J5","DS18B20 JST","Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical",""
 "J8","CH1 12V OUT","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",""
 "J9","CH2 12V OUT","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",""
 "J10","CH3 12V OUT","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",""

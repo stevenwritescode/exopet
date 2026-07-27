@@ -12,9 +12,26 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
       eyeball still welcome
 - [x] Footprint assignment + LCSC part numbers (`exopet-hat-bom.csv`,
       see `BOM-NOTES.md` for confidence levels)
-- [ ] Board layout (65×56 mm HAT template)
-- [ ] DRC + JLCPCB DFM
+- [x] Board layout — generated placement + freerouting autoroute
+      (`tools/gen_board.py`, `tools/flip_backs.py`, `/tmp/finish_board.py`
+      pipeline); DRC clean except 3 documented courtyard overlaps
+      (flush-ganged terminal blocks — intentional)
+- [ ] Human eyeball pass on the routed board in the KiCad GUI
+- [ ] JLCPCB DFM check + fab package (gerbers/BOM/CPL)
 - [ ] Order prototypes
+
+## Layout notes (rev 1)
+
+- All SMD is on the **back side**, nested in pin-free channels between
+  the relay/terminal through-hole fields; top side is through-hole only.
+- **J5 (JST temp connector) was cut** — no board space; the TRS jack is
+  the temperature input (bare-wire probes: use a TRS pigtail).
+- **J2 (12V screw input) became heavy solder wire pads** — no room for a
+  fifth terminal block; barrel jack is the primary input.
+- Signal tracks are 0.25 mm (autorouted); bulk current rides the
+  full-board GND pours and short paths. Rev 2: netclass-driven widths.
+- GND zones both sides, thermal-relief pads, min spoke count relaxed to
+  1 (relieved pads also carry routed GND tracks).
 
 ## Datasheet verification (done in lieu of skipped human review)
 

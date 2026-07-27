@@ -32,7 +32,7 @@ codes do rotate.
 | U5 | 5V unidirectional ESD clamp, SOD-323 | e.g. ESD5B5.0ST1G class |
 
 **No LCSC (hand-solder / separately sourced):** J1 barrel jack, J2/J8–J11
-Phoenix terminals, J3 2×20 socket, J4 TRS jack, J5 JST-XH, PSU1 socket +
+Phoenix terminals, J3 2×20 socket, J4 TRS jack, PSU1 socket +
 the Pololu D24V50F5 module itself (buy from Pololu), JP1/JP2 (bare pads).
 JLC's through-hole assembly can take the terminals/relays if preferred.
 
@@ -45,3 +45,5 @@ JLC's through-hole assembly can take the terminals/relays if preferred.
 - Channel fuses: **MF-RHT100 (1A hold)** instead of MF-R110 — footprint
   availability; loads are ≤0.5A so 1A hold is correct
 - Terminals: Phoenix MKDS-1,5 footprints (generic 5.08mm blocks fit)
+- J5 (JST temp connector) deleted in layout — TRS jack only
+- J2 (12V screw terminal) is now a pair of 1.5mm² solder wire pads

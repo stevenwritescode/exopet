@@ -49,7 +49,7 @@ on the right/front board edge for enclosure-friendly wiring.
 | Ref | Part | Notes |
 |---|---|---|
 | J1 | 5.5×2.1 mm barrel jack, center-positive (CUI PJ-102A) | Primary input |
-| J2 | 2-pos 5.08 mm screw terminal | Parallel alternative input |
+| J2 | 2× 1.5 mm² solder wire pads | Alternative hardwired input (layout: no room for a 5th terminal block) |
 | F1 | 5A resettable polyfuse (Bourns MF-R500) | Upstream of everything |
 | D1 | SMBJ16A TVS, 12V line to GND | Surge/spike clamp after F1 |
 | Q1 | P-MOSFET reverse-polarity protection (Diodes DMP4015SK3, DPAK) | Source→load, drain→input, gate→GND via R 100k |
@@ -102,7 +102,6 @@ close → water stays put.
 | Ref | Part | Notes |
 |---|---|---|
 | J4 | 3.5 mm TRS jack (CUI SJ-3523-SMT) | Tip = DATA, Ring = 3V3, Sleeve = GND (matches common pre-wired DS18B20 TRS probes) |
-| J5 | 3-pin JST-XH footprint, parallel with J4 | Bare-wire probes |
 | R2 | 4.7 kΩ, DATA → 3V3 | The pull-up currently on a breadboard |
 | U5 | TPD1E10B06 ESD clamp on DATA | Probe cables are antennas |
 

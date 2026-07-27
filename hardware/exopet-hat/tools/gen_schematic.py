@@ -190,9 +190,7 @@ for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
 add("J4", "Connector_Audio:AudioJack3", "DS18B20 TRS jack", (30, 130),
     {"S": "GND", "R": "+3V3", "T": "1WIRE_DATA"},
     "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal")
-add("J5", "Connector_Generic:Conn_01x03", "DS18B20 JST", (30, 155),
-    {"1": "+3V3", "2": "1WIRE_DATA", "3": "GND"},
-    "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+# J5 (JST duplicate of the TRS jack) removed: no board space in rev 1.
 add("R2", "Device:R", "4.7k", (60, 130),
     {"1": "+3V3", "2": "1WIRE_DATA"},
     "Resistor_SMD:R_0805_2012Metric", "C17673")
