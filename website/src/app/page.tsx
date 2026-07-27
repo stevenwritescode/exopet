@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BenefitRow } from '@/components/benefits/BenefitRow';
 import { WaterChangeScene } from '@/components/benefits/WaterChangeScene';
 import { AtoScene } from '@/components/benefits/AtoScene';
+import { FeedingLogScene } from '@/components/benefits/FeedingLogScene';
 import '@/components/benefits/benefits.css';
 
 const features = [
@@ -110,6 +111,11 @@ export default function Home() {
               title="Evaporation, handled."
               body="Water evaporates around the clock, and level and salinity drift with it. A float switch catches the dip, a dosing pump eases the level back to the line, and a run-timeout failsafe makes sure a stuck switch can never flood the room."
               scene={<AtoScene />}
+            />
+            <BenefitRow
+              title="Every feeding, remembered."
+              body="Log a feeding in two taps and it lands in that animal's timeline — what, how much, when. Appetite changes become a pattern you can see instead of a hunch. Every entry syncs across the wall kiosk and your iPhone."
+              scene={<FeedingLogScene />}
             />
           </div>
         </div>

@@ -271,3 +271,72 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
 }
+
+/* ── Feeding log scene ── */
+.photo-ring {
+  fill: none;
+  stroke: var(--lagoon);
+  stroke-width: 3;
+}
+.card-name {
+  font: 500 22px var(--font-display);
+  fill: var(--ink);
+}
+.card-sub {
+  font: 400 13px var(--font-body);
+  fill: var(--ink-soft);
+}
+.screen-title {
+  font: 500 17px var(--font-display);
+  fill: var(--ink);
+}
+.feed-entry {
+  fill: var(--paper-sunken);
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+.feed-entry-text {
+  font: 500 12px var(--font-body);
+  fill: var(--ink);
+}
+.feed-bar {
+  fill: var(--lagoon);
+  opacity: 0.45;
+}
+.feed-bar-new {
+  opacity: 1;
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: feed-bar 4s ease-out 0.3s both;
+}
+.feed-ripple {
+  fill: var(--lagoon);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: feed-ripple 4s ease-out 0.3s both;
+}
+.feed-entry-new {
+  animation: feed-new 4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+.feed-entry-old {
+  animation: feed-old 4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+@keyframes feed-ripple {
+  0%, 8% { opacity: 0; transform: scale(0.3); }
+  14% { opacity: 0.45; }
+  26%, 100% { opacity: 0; transform: scale(2.2); }
+}
+@keyframes feed-new {
+  0%, 22% { opacity: 0; transform: translateX(28px); }
+  38%, 100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes feed-old {
+  0%, 22% { transform: translateY(-38px); }
+  38%, 100% { transform: translateY(0); }
+}
+@keyframes feed-bar {
+  0%, 40% { transform: scaleY(0.12); }
+  62%, 100% { transform: scaleY(1); }
+}
