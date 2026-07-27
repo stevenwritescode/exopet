@@ -59,7 +59,7 @@ export default function Screensaver({
         {`@keyframes screensaver-fade-in { from { opacity: 0; } to { opacity: 1; } }`}
       </style>
       <video
-        src="/media/cosmo-echo-vid.mp4"
+        src="/media/cosmo-echo-vid-2-loop.mp4"
         autoPlay
         loop
         muted
