@@ -5,6 +5,9 @@ struct TankDetailView: View {
     let api: APIService
     @ObservedObject var ws: WebSocketService
     @StateObject private var vm: TankDetailViewModel
+    @State private var showAddSump = false
+    @State private var showDisconnectConfirm = false
+    @State private var newSumpName = ""
 
     init(tankId: String, api: APIService, ws: WebSocketService) {
         self.tankId = tankId
@@ -33,6 +36,9 @@ struct TankDetailView: View {
 
                     // Animals section
                     animalsSection
+
+                    // Sump section
+                    sumpSection
 
                     // Maintenance controls
                     MaintenanceControlsView(vm: vm)
@@ -69,6 +75,85 @@ struct TankDetailView: View {
         }
         .onAppear { vm.onAppear() }
         .onDisappear { vm.onDisappear() }
+    }
+
+    @ViewBuilder
+    private var sumpSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Sump")
+                .font(.headline)
+                .textCase(.uppercase)
+                .foregroundColor(.white)
+
+            if let sump = vm.sump {
+                HStack {
+                    Image(systemName: "water.waves")
+                        .foregroundColor(.accentColor)
+                    Text(sump.name ?? "Sump")
+                        .foregroundColor(.white)
+                    Spacer()
+                    Button("Disconnect") {
+                        showDisconnectConfirm = true
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.red)
+                }
+                .padding()
+                .background(ExoPetColors.cardSurface)
+                .cornerRadius(8)
+                .alert("Disconnect sump?", isPresented: $showDisconnectConfirm) {
+                    Button("Disconnect", role: .destructive) { vm.disconnectSump() }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("\(sump.name ?? "The sump") will become a standalone tank.")
+                }
+            } else {
+                HStack(spacing: 8) {
+                    Button {
+                        newSumpName = ""
+                        showAddSump = true
+                    } label: {
+                        Label("Add Sump", systemImage: "plus")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                    .background(ExoPetColors.cardSurface)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+
+                    Menu {
+                        if vm.eligibleSumps.isEmpty {
+                            Text("No eligible tanks")
+                        } else {
+                            ForEach(vm.eligibleSumps) { candidate in
+                                Button(candidate.name ?? "Unnamed") {
+                                    vm.connectSump(candidate)
+                                }
+                            }
+                        }
+                    } label: {
+                        Label("Connect Existing", systemImage: "link")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                    .background(ExoPetColors.cardSurface)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+                .alert("Add Sump", isPresented: $showAddSump) {
+                    TextField("Sump name", text: $newSumpName)
+                    Button("Create") {
+                        let name = newSumpName.trimmingCharacters(in: .whitespaces)
+                        if !name.isEmpty { vm.addSump(named: name) }
+                    }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("Creates a sump tank connected to \(vm.tank.name ?? "this tank").")
+                }
+            }
+        }
     }
 
     @ViewBuilder

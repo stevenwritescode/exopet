@@ -21,6 +21,21 @@ struct DeleteResponse: Codable {
     let success: Bool
 }
 
+struct TankCreateRequest: Codable {
+    var name: String
+    var type: String?
+    var role: String?
+    var parent_tank_id: String?
+}
+
+private struct TankAddBody: Codable {
+    let tank: TankCreateRequest
+}
+
+private struct SumpEnvelope: Codable {
+    let sump: Tank?
+}
+
 class APIService {
     let baseURL: String
     private let session: URLSession
@@ -68,6 +83,23 @@ class APIService {
     func getTankTemperature(tankId: String) async throws -> TemperatureData {
         let data = try await get("/tank/\(tankId)/temperature")
         return try decoder.decode(TemperatureData.self, from: data)
+    }
+
+    func addTank(_ tank: TankCreateRequest) async throws -> Tank {
+        let data = try await post("/tank/add", body: TankAddBody(tank: tank))
+        return try decoder.decode(Tank.self, from: data)
+    }
+
+    // Dictionary values use String? so nil encodes as an explicit JSON
+    // null — required to clear parent_tank_id on disconnect.
+    func updateTank(tankId: String, fields: [String: String?]) async throws -> Tank {
+        let data = try await post("/tank/\(tankId)/update", body: fields)
+        return try decoder.decode(Tank.self, from: data)
+    }
+
+    func getTankSump(tankId: String) async throws -> Tank? {
+        let data = try await get("/tank/\(tankId)")
+        return try decoder.decode(SumpEnvelope.self, from: data).sump
     }
 
     func updateTankSettings(tankId: String, settings: TankSettings) async throws -> TankSettings {

@@ -15,6 +15,12 @@ class TankDetailViewModel: ObservableObject {
     @Published var fillProgress: Double = 0
     @Published var cancelInProgress = false
     @Published var settingsOpen = false
+    @Published var sump: Tank?
+    @Published var allTanks: [Tank] = []
+
+    var eligibleSumps: [Tank] {
+        allTanks.filter { $0.role != "sump" && $0.id != tankId }
+    }
 
     let tankId: String
     private let api: APIService
@@ -66,6 +72,60 @@ class TankDetailViewModel: ObservableObject {
                 self.logs = l
             } catch {
                 print("Error loading logs: \(error)")
+            }
+
+            do {
+                self.sump = try await api.getTankSump(tankId: tankId)
+                self.allTanks = try await api.getAllTanks()
+            } catch {
+                print("Error loading sump info: \(error)")
+            }
+        }
+    }
+
+    // MARK: - Sump
+
+    func addSump(named name: String) {
+        Task {
+            do {
+                let _ = try await api.addTank(TankCreateRequest(
+                    name: name,
+                    type: tank.type,
+                    role: "sump",
+                    parent_tank_id: tankId
+                ))
+                loadData()
+            } catch {
+                print("Error adding sump: \(error)")
+            }
+        }
+    }
+
+    func connectSump(_ candidate: Tank) {
+        Task {
+            do {
+                let _ = try await api.updateTank(
+                    tankId: candidate.id,
+                    fields: ["role": "sump", "parent_tank_id": tankId]
+                )
+                loadData()
+            } catch {
+                print("Error connecting sump: \(error)")
+            }
+        }
+    }
+
+    func disconnectSump() {
+        guard let sump else { return }
+        Task {
+            do {
+                let _ = try await api.updateTank(
+                    tankId: sump.id,
+                    fields: ["role": "display", "parent_tank_id": nil]
+                )
+                loadData()
+            } catch {
+                print("Error disconnecting sump: \(error)")
             }
         }
     }

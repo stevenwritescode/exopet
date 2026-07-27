@@ -26,8 +26,31 @@ struct TankListView: View {
 
             ScrollView {
                 LazyVStack(spacing: 8) {
-                    ForEach(vm.tanks) { tank in
+                    ForEach(vm.tanks.filter { !$0.isSump }) { tank in
                         TankCardView(tank: tank)
+                        if let sump = vm.tanks.first(where: {
+                            $0.isSump && $0.parent_tank_id == tank.id
+                        }) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "arrow.turn.down.right")
+                                    .foregroundColor(.gray)
+                                Text(sump.name ?? "Sump")
+                                    .foregroundColor(.white)
+                                Text("SUMP")
+                                    .font(.caption2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.gray)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                                Spacer()
+                            }
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 6)
+                        }
                     }
                 }
                 .padding()
