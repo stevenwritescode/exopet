@@ -1,0 +1,123 @@
+/* ── Benefit scenes: animated SVG illustrations ─────────────
+   Convention: base styles are the FINAL frame. Keyframes animate
+   from the start state and end at the base values, so disabling
+   animation (reduced motion) shows a finished illustration. */
+
+.benefit-scene {
+  margin: 0;
+}
+
+.benefit-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Everything is paused until the scene scrolls into view.
+   !important is required: scene rules below use the `animation`
+   shorthand, which resets play-state to running and would
+   otherwise win the cascade at equal specificity. */
+.benefit-scene:not(.is-visible) * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .benefit-scene * {
+    animation: none !important;
+  }
+}
+
+/* ── Row layout ── */
+.benefit-row {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: var(--space-6);
+  align-items: center;
+}
+.benefit-row + .benefit-row {
+  margin-top: var(--space-7);
+}
+.benefit-row-reverse .benefit-copy {
+  order: 2;
+}
+.benefit-copy h3 {
+  font-size: 1.75rem;
+  margin-bottom: var(--space-3);
+}
+.benefit-copy p {
+  color: var(--ink-soft);
+}
+@media (max-width: 760px) {
+  .benefit-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .benefit-row-reverse .benefit-copy {
+    order: 0;
+  }
+}
+
+/* ── Shared scene pieces ── */
+.panel {
+  fill: var(--paper-raised);
+  stroke: var(--hairline);
+  stroke-width: 1.5;
+}
+.water-fill {
+  fill: var(--lagoon-tint);
+}
+.water-surface {
+  stroke: var(--lagoon);
+  stroke-width: 2.5;
+}
+.chip-lagoon {
+  fill: var(--lagoon-tint);
+  stroke: var(--lagoon);
+  stroke-width: 1.5;
+}
+.chip-amber {
+  fill: #f5ead7;
+  stroke: var(--amber);
+  stroke-width: 1.5;
+}
+.chip-ink {
+  fill: var(--paper-sunken);
+  stroke: var(--ink-faint);
+  stroke-width: 1.5;
+}
+.chip-text {
+  font: 600 13px var(--font-body);
+  fill: var(--ink);
+}
+.phone-body {
+  fill: var(--ink);
+}
+.phone-screen {
+  fill: var(--paper-raised);
+}
+.pulse-core {
+  fill: var(--lagoon);
+}
+.pulse-ring {
+  fill: none;
+  stroke: var(--lagoon);
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
