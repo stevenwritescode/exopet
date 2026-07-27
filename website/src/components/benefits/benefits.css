@@ -340,3 +340,75 @@
   0%, 40% { transform: scaleY(0.12); }
   62%, 100% { transform: scaleY(1); }
 }
+
+/* ── Monitoring scene ── */
+.probe-wire {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.probe-tip {
+  fill: var(--lagoon);
+}
+.heater-body {
+  fill: var(--paper-sunken);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+.heater-coil {
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.mon-band {
+  fill: var(--amber);
+  opacity: 0.14;
+}
+.mon-band-label {
+  font: 600 11px var(--font-body);
+  fill: var(--amber);
+}
+.mon-line {
+  fill: none;
+  stroke: var(--lagoon);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  animation: mon-draw 6s linear 0.3s both;
+}
+.mon-live-dot {
+  animation: mon-appear 6s ease-out 0.3s both;
+}
+.mon-alert {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mon-alert 6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+.mon-alert-sub {
+  font: 400 12px var(--font-body);
+  fill: var(--ink-soft);
+  animation: mon-appear 6s ease-out 0.3s both;
+}
+.mon-heater {
+  animation: mon-heater 6s ease-out 0.3s both;
+}
+
+@keyframes mon-draw {
+  0% { stroke-dashoffset: 100; }
+  60%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes mon-appear {
+  0%, 60% { opacity: 0; }
+  70%, 100% { opacity: 1; }
+}
+@keyframes mon-alert {
+  0%, 62% { opacity: 0; transform: scale(0.4); }
+  72% { opacity: 1; transform: scale(1.06); }
+  78%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes mon-heater {
+  0%, 74% { opacity: 1; }
+  84%, 100% { opacity: 0.3; }
+}

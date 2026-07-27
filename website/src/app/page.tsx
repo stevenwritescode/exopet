@@ -3,6 +3,7 @@ import { BenefitRow } from '@/components/benefits/BenefitRow';
 import { WaterChangeScene } from '@/components/benefits/WaterChangeScene';
 import { AtoScene } from '@/components/benefits/AtoScene';
 import { FeedingLogScene } from '@/components/benefits/FeedingLogScene';
+import { MonitoringScene } from '@/components/benefits/MonitoringScene';
 import '@/components/benefits/benefits.css';
 
 const features = [
@@ -116,6 +117,12 @@ export default function Home() {
               title="Every feeding, remembered."
               body="Log a feeding in two taps and it lands in that animal's timeline — what, how much, when. Appetite changes become a pattern you can see instead of a hunch. Every entry syncs across the wall kiosk and your iPhone."
               scene={<FeedingLogScene />}
+            />
+            <BenefitRow
+              reverse
+              title="Know before it's a problem."
+              body="Probes stream temperature to the kiosk and your phone in real time, and alerts fire the moment a reading crosses a threshold you set. Everything runs local-first on hardware you own — no subscription required — with optional encrypted backup and remote access on the roadmap."
+              scene={<MonitoringScene />}
             />
           </div>
         </div>
