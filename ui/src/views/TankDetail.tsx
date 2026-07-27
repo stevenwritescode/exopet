@@ -56,6 +56,7 @@ const TankDetail: React.FC<TankProps> = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [tankSettings, setTankSettings] = useState<TankSettings>({});
   const [tankAnimals, setTankAnimals] = useState<Animal[]>([]);
+  const [sump, setSump] = useState<Tank | null>(null);
   const [tankLogs, setTankLogs] = useState<any[]>([]);
   const [waterChangeProgress, setWaterChangeProgress] = useState(0);
   const [drainProgress, setDrainProgress] = useState(0);
@@ -189,6 +190,7 @@ const TankDetail: React.FC<TankProps> = () => {
     getTankDetails(tank_id).then((d) => {
       setTankDetails(d);
       setStatus(d.service_status);
+      setSump((d as any).sump ?? null);
     });
     getAnimalsForTank(tank_id).then(setTankAnimals);
     getLogsForTank(tank_id).then(setTankLogs);
@@ -269,6 +271,7 @@ const TankDetail: React.FC<TankProps> = () => {
             <Item variant="button">No animals in this tank</Item>
           )}
         </Stack>
+        {sump && <Item variant="button">Sump: {sump.name}</Item>}
       </Stack>
 
       {/* Maintenance controls */}

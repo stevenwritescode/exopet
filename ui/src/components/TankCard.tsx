@@ -32,6 +32,7 @@ interface TankCardProps {
   name?: string;
   tank_id: string;
   type?: string;
+  sumpName?: string;
 }
 
 const TankCard: React.FC<TankCardProps> = (tank: TankCardProps) => {
@@ -59,6 +60,11 @@ const TankCard: React.FC<TankCardProps> = (tank: TankCardProps) => {
           <Typography color="text.secondary">
             {tank.type}
           </Typography>
+          {tank.sumpName && (
+            <Typography variant="caption" color="text.secondary">
+              Sump: {tank.sumpName}
+            </Typography>
+          )}
         </CardContent>
         <CardActions>
           <ManageTankButton id={tank.tank_id}>

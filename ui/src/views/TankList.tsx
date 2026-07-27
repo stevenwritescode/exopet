@@ -36,14 +36,21 @@ const TankList: React.FC = () => {
         >
           Tanks
         </Typography>
-        {tanks.map((tank) => (
-          <TankCard
-            key={tank.id}
-            name={tank.name}
-            tank_id={tank.id}
-            type={tank.type}
-          ></TankCard>
-        ))}
+        {tanks
+          .filter((tank) => tank.role !== "sump")
+          .map((tank) => (
+            <TankCard
+              key={tank.id}
+              name={tank.name}
+              tank_id={tank.id}
+              type={tank.type}
+              sumpName={
+                tanks.find(
+                  (t) => t.role === "sump" && t.parent_tank_id === tank.id
+                )?.name
+              }
+            ></TankCard>
+          ))}
       </Card>
     </React.Fragment>
   );
