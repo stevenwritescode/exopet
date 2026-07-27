@@ -37,7 +37,40 @@ router.get("/:tankId", async (req, res) => {
     return res.status(404).json({ error: "Tank not found" });
   }
 
-  res.json(tankData);
+  const sump = await TankDataManager.getSumpForTank(tankId);
+  res.json({ ...tankData, sump });
+});
+
+router.post("/:tankId/update", async (req, res) => {
+  try {
+    const tankId = req.params.tankId;
+    const fields = req.body || {};
+    if (fields.parent_tank_id) {
+      if (fields.parent_tank_id === tankId) {
+        return res.status(400).json({ error: "a tank cannot be its own sump parent" });
+      }
+      const parent = await TankDataManager.getTankData(fields.parent_tank_id);
+      if (!parent) {
+        return res.status(400).json({ error: "parent tank not found" });
+      }
+      if (parent.role === "sump") {
+        return res.status(400).json({ error: "cannot attach a sump to another sump" });
+      }
+      const current = await TankDataManager.getTankData(tankId);
+      if (
+        current?.role === "sump" &&
+        current?.parent_tank_id &&
+        current.parent_tank_id !== fields.parent_tank_id
+      ) {
+        return res.status(409).json({ error: "sump is already connected to another tank" });
+      }
+    }
+    await TankDataManager.updateTank(tankId, fields);
+    const updated = await TankDataManager.getTankData(tankId);
+    res.json(updated);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.get("/:tankId/animals", async (req, res) => {

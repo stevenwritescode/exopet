@@ -129,6 +129,20 @@ export async function runMigrations() {
       }
     }
   }
+  const tankColumns = [
+    { name: "role", type: "TEXT DEFAULT 'display'" },
+    { name: "parent_tank_id", type: "TEXT" },
+  ];
+  for (const col of tankColumns) {
+    try {
+      await conn.run(`ALTER TABLE tanks ADD COLUMN ${col.name} ${col.type}`);
+      console.log(`Migration: added tanks column ${col.name}`);
+    } catch (e: any) {
+      if (!e.message?.includes("duplicate column")) {
+        console.error(`Migration error for tanks.${col.name}:`, e);
+      }
+    }
+  }
   await conn.close();
 }
 

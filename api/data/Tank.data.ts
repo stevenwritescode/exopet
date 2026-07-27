@@ -4,16 +4,47 @@ import { v4 as uuid } from "uuid";
 
 export class TankDataManager {
   static addTank = async (tank: Tank): Promise<void> => {
-    const { type, name } = tank;
+    const { id, type, name, role, parent_tank_id } = tank;
     const conn = await dbConnection();
     if (!conn) return;
     await conn.run(
-      "INSERT INTO tanks (id, name, type) VALUES (?, ?, ?)",
-      uuid(),
+      "INSERT INTO tanks (id, name, type, role, parent_tank_id) VALUES (?, ?, ?, ?, ?)",
+      id,
       name,
-      type
+      type,
+      role || "display",
+      parent_tank_id ?? null
     );
     await conn.close();
+  };
+
+  static updateTank = async (
+    tankId: string,
+    fields: Partial<Pick<Tank, "name" | "type" | "role" | "parent_tank_id">>
+  ): Promise<void> => {
+    const allowedColumns = new Set(["name", "type", "role", "parent_tank_id"]);
+    const conn = await dbConnection();
+    if (!conn) return;
+    const entries = Object.entries(fields).filter(([k]) => allowedColumns.has(k));
+    if (entries.length === 0) {
+      await conn.close();
+      return;
+    }
+    const setClause = entries.map(([key]) => `${key} = ?`).join(", ");
+    const values = entries.map(([, v]) => v ?? null);
+    await conn.run(`UPDATE tanks SET ${setClause} WHERE id = ?`, ...values, tankId);
+    await conn.close();
+  };
+
+  static getSumpForTank = async (displayId: string): Promise<Tank | null> => {
+    const conn = await dbConnection();
+    if (!conn) return null;
+    const sump = await conn.get(
+      "SELECT * FROM tanks WHERE parent_tank_id = ? AND role = 'sump'",
+      displayId
+    );
+    await conn.close();
+    return sump ?? null;
   };
 
   static removeTank = async (tankId: number): Promise<void> => {
