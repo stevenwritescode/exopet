@@ -392,6 +392,7 @@
   animation: mon-appear 6s ease-out 0.3s both;
 }
 .mon-heater {
+  opacity: 0.3;
   animation: mon-heater 6s ease-out 0.3s both;
 }
 
