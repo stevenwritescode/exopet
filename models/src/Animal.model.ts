@@ -9,6 +9,7 @@ export class Animal {
   notes?: string;
   enclosure_id?: string;
   enclosure_type?: string;
+  image_url?: string;
   last_feeding_log?: {
     log_type: string;
     timestamp: string;
@@ -25,6 +26,7 @@ export class Animal {
     species,
     species_latin,
     notes,
+    image_url,
     last_feeding_log,
   }: Animal) {
     this.id = id || this.id;
@@ -33,6 +35,7 @@ export class Animal {
     this.enclosure_type = enclosure_type;
     this.species = species;
     this.species_latin = species_latin;
+    this.image_url = image_url;
     this.notes = notes || this.notes;
     this.last_feeding_log = last_feeding_log;
   }

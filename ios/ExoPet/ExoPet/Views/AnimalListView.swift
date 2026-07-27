@@ -30,7 +30,8 @@ struct AnimalListView: View {
                     ForEach(vm.animals) { animal in
                         AnimalCardView(
                             animal: animal,
-                            onFeed: { feedAnimal = animal }
+                            onFeed: { feedAnimal = animal },
+                            imageBaseURL: api.baseURL
                         )
                     }
                 }

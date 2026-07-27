@@ -47,6 +47,7 @@ app.post('/network', (req, res) => {
           res.send("WiFi settings updated. Please reconnect if necessary.");
       });
 });
+app.use("/media", express.static(__dirname + "/media"));
 app.use("/_health", healthCheck);
 app.use("/tank", jsonParser, urlencodedParser, tankController);
 app.use("/animal", jsonParser, urlencodedParser, animalController);

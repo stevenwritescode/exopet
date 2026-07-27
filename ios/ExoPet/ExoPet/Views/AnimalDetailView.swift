@@ -105,11 +105,24 @@ struct AnimalDetailView: View {
                 }
             }
 
-            // Avatar
-            Image(systemName: "pawprint.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(.accentColor)
+            // Avatar — animal photo when set, paw print fallback
+            if let imagePath = vm.animal.image_url, !imagePath.isEmpty,
+               let url = URL(string: imagePath.hasPrefix("http") ? imagePath : "\(api.baseURL)\(imagePath)") {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
                 .frame(width: 128, height: 128)
+                .clipShape(Circle())
+            } else {
+                Image(systemName: "pawprint.circle.fill")
+                    .font(.system(size: 80))
+                    .foregroundColor(.accentColor)
+                    .frame(width: 128, height: 128)
+            }
 
             Text(vm.animal.species ?? "")
                 .font(.title3)

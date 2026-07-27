@@ -9,14 +9,15 @@ struct Animal: Codable, Identifiable, Hashable {
     var notes: String?
     var enclosure_id: String?
     var enclosure_type: String?
+    var image_url: String?
     var last_feeding_log: LastFeedingLog?
 
     private enum CodingKeys: String, CodingKey {
         case id, tank_id, name, species, species_latin, notes
-        case enclosure_id, enclosure_type, last_feeding_log
+        case enclosure_id, enclosure_type, image_url, last_feeding_log
     }
 
-    init(id: String, tank_id: String? = nil, name: String? = nil, species: String? = nil, species_latin: String? = nil, notes: String? = nil, enclosure_id: String? = nil, enclosure_type: String? = nil, last_feeding_log: LastFeedingLog? = nil) {
+    init(id: String, tank_id: String? = nil, name: String? = nil, species: String? = nil, species_latin: String? = nil, notes: String? = nil, enclosure_id: String? = nil, enclosure_type: String? = nil, image_url: String? = nil, last_feeding_log: LastFeedingLog? = nil) {
         self.id = id
         self.tank_id = tank_id
         self.name = name
@@ -25,6 +26,7 @@ struct Animal: Codable, Identifiable, Hashable {
         self.notes = notes
         self.enclosure_id = enclosure_id
         self.enclosure_type = enclosure_type
+        self.image_url = image_url
         self.last_feeding_log = last_feeding_log
     }
 
@@ -43,6 +45,7 @@ struct Animal: Codable, Identifiable, Hashable {
         notes = try container.decodeIfPresent(String.self, forKey: .notes)
         enclosure_id = try Self.decodeOptionalStringOrInt(container, forKey: .enclosure_id)
         enclosure_type = try container.decodeIfPresent(String.self, forKey: .enclosure_type)
+        image_url = try container.decodeIfPresent(String.self, forKey: .image_url)
         last_feeding_log = try container.decodeIfPresent(LastFeedingLog.self, forKey: .last_feeding_log)
     }
 

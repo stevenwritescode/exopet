@@ -3,9 +3,29 @@ import SwiftUI
 struct AnimalCardView: View {
     let animal: Animal
     var onFeed: (() -> Void)?
+    var imageBaseURL: String?
+
+    private var imageURL: URL? {
+        guard let path = animal.image_url, !path.isEmpty else { return nil }
+        if path.hasPrefix("http") { return URL(string: path) }
+        guard let base = imageBaseURL else { return nil }
+        return URL(string: "\(base)\(path)")
+    }
 
     var body: some View {
         HStack {
+            if let url = imageURL {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 44, height: 44)
+                .clipShape(Circle())
+            }
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(animal.name ?? "Unnamed")
                     .font(.title3)
