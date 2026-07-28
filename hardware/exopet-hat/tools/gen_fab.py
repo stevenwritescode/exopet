@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Build the JLCPCB assembly files (BOM + CPL) for FULL assembly:
+bottom-side SMD + top-side through-hole. Run gen_board first.
+Positions come from kicad-cli pos export; run:
+  kicad-cli pcb export pos -o fab/positions-raw.csv --format csv --units mm \
+      --side both exopet-hat.kicad_pcb
+"""
+import csv
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent.parent
+FAB = HERE / "fab"
+
+# Parts assembled by JLC. JP1/JP2 are bare solder-jumper pads (no part);
+# H1-H4 are holes. PSU1 socket is soldered; the Pololu module itself is
+# customer-inserted.
+EXCLUDE = {"JP1", "JP2", "H1", "H2", "H3", "H4"}
+
+# LCSC picks / search hints for through-hole lines.
+THT_LCSC = {
+    "K1": "C1524650", "K2": "C1524650", "K3": "C1524650", "K4": "C1524650",
+    # terminals / connectors / fuses: pick in the JLC matching UI
+    # (comment carries the search hint)
+}
+SEARCH_HINT = {
+    "TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal":
+        "3.5mm pitch 2P screw terminal horizontal (KF350/XY350 class)",
+    "TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal":
+        "3.5mm pitch 3P screw terminal horizontal (KF350/XY350 class)",
+    "BarrelJack_CUI_PJ-102AH_Horizontal":
+        "DC barrel jack 5.5x2.1 PJ-102A compatible (check pad layout!)",
+    "PinSocket_2x20_P2.54mm_Vertical":
+        "female header 2x20 2.54mm TALL stacking >=11mm (back-side parts need clearance)",
+    "PinSocket_1x05_P2.54mm_Vertical":
+        "female header 1x5 2.54mm",
+    "Fuse_Bourns_MF-RG500": "radial PTC resettable fuse 5A (RGEF500 class)",
+    "Fuse_Bourns_MF-RHT100": "radial PTC resettable fuse 1A (RHT/RGEF100 class)",
+}
+
+tree = ET.parse("/tmp/hat-netlist.xml")
+comp = {}
+for c in tree.find("components"):
+    ref = c.get("ref")
+    if ref.startswith("#") or ref in EXCLUDE:
+        continue
+    lcsc = ""
+    for field in c.iter("field"):
+        if field.get("name") == "LCSC":
+            lcsc = (field.text or "").strip()
+    if lcsc == "VERIFY":
+        lcsc = ""
+    comp[ref] = {
+        "value": c.findtext("value") or "",
+        "fp": (c.findtext("footprint") or "").split(":")[-1],
+        "lcsc": THT_LCSC.get(ref, lcsc),
+    }
+
+# CPL from raw positions
+rows = []
+with open(FAB / "positions-raw.csv") as f:
+    for r in csv.DictReader(f):
+        ref = r["Ref"]
+        if ref in EXCLUDE or ref not in comp:
+            continue
+        rows.append({
+            "Designator": ref,
+            "Mid X": f'{float(r["PosX"]):.4f}mm',
+            "Mid Y": f'{float(r["PosY"]):.4f}mm',
+            "Layer": "Top" if r["Side"] == "top" else "Bottom",
+            "Rotation": r["Rot"],
+        })
+with open(FAB / "exopet-hat-cpl.csv", "w", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
+    w.writeheader()
+    w.writerows(rows)
+top = sum(1 for r in rows if r["Layer"] == "Top")
+print(f"CPL: {len(rows)} placements ({top} top THT, {len(rows)-top} bottom SMD)")
+
+# BOM grouped by value+footprint+lcsc
+groups = {}
+for ref, d in comp.items():
+    hint = SEARCH_HINT.get(d["fp"])
+    if hint and "terminal" in hint:
+        comment = hint  # identical hardware: group all channels on one line
+    elif hint:
+        comment = f'{d["value"]} [{hint}]'
+    else:
+        comment = d["value"]
+    key = (comment, d["fp"], d["lcsc"])
+    groups.setdefault(key, []).append(ref)
+with open(FAB / "exopet-hat-bom-jlc.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #"])
+    for (comment, fp, lcsc), refs in sorted(groups.items()):
+        w.writerow([comment, ",".join(sorted(refs)), fp, lcsc])
+print(f"BOM: {len(groups)} line items")
+for (comment, fp, lcsc), refs in sorted(groups.items()):
+    flag = "  <-- PICK IN MATCHING UI" if not lcsc else ""
+    print(f"  {comment[:58]:<58} {lcsc:<10}{flag}")

@@ -1,58 +1,49 @@
-# Ordering ExoPet HAT rev 1 prototypes (JLCPCB)
+# Ordering ExoPet HAT rev 1 — FULL ASSEMBLY (JLCPCB)
 
-Files in this directory:
-- `exopet-hat-gerbers.zip` — board fabrication data (upload this)
-- `exopet-hat-bom-jlc.csv` — SMD parts for assembly (15 line items)
-- `exopet-hat-cpl.csv` — SMD placement positions (31 parts, bottom side)
+Files:
+- `exopet-hat-gerbers.zip` — board fabrication data (upload first)
+- `exopet-hat-bom-jlc.csv` — ALL parts, 23 lines (SMD + through-hole)
+- `exopet-hat-cpl.csv` — 49 placements (31 bottom SMD, 18 top THT)
 
 ## Steps
 
 1. **jlcpcb.com → Order now → upload `exopet-hat-gerbers.zip`.**
-   It previews the board. Settings to confirm (defaults are mostly right):
-   - Layers 2, dimensions ~65×56 mm (auto-detected)
-   - Quantity: **5** (minimum, plenty for testing)
-   - Thickness 1.6 mm, HASL(with lead) or LeadFree HASL, green, 1 oz
-2. **Toggle "PCB Assembly" ON.**
-   - Assembly side: **Bottom** (all SMD is on the back)
-   - Economic assembly, 2 boards assembled (cheapest) or all 5
-   - Tooling holes: "Added by JLCPCB"
-3. **Upload `exopet-hat-bom-jlc.csv` and `exopet-hat-cpl.csv`** when asked.
-4. **Part matching page — the important step:**
-   - Most lines auto-match by LCSC code.
-   - Four lines say PICK AT ORDER (blank/VERIFY code). Use the search
-     button on each row and pick an in-stock basic part:
-     - `C1` 470 µF ≥25 V SMD electrolytic, 8×10.5 mm
-     - `D1` SMBJ16A TVS (search "SMBJ16A")
-     - `U4` I2C EEPROM SOIC-8: search "AT24C32" or "CAT24C32"
-     - `U5` 5 V ESD diode SOD-323 (search "ESD5B5.0" or similar)
-   - Spot-check the memory-sourced codes too (resistors, LEDs, SS34) —
-     one click each to confirm the part photo looks right.
-5. **Placement preview:** check polarized parts — LEDs (D5–D8), diodes
-   (D9–D11, D1), C1 stripe, and U2/U4 pin-1 dots. JLC's viewer lets you
-   rotate any part 90/180° if it looks wrong. This is the step that
-   catches assembly disasters — take five minutes.
-6. **Checkout.** Expect roughly $60–110 total for 5 boards / 2 assembled,
-   plus shipping. Lead time ~1–2 weeks to the US.
+   Qty 5, 2 layers, 1.6 mm, ~65×56 mm (auto), any color.
+2. **PCB Assembly ON → "Standard" assembly** (not Economic — needed for
+   through-hole), **Assembly sides: Both**. Assemble 2 or 5 boards.
+3. Upload the BOM and CPL files.
+4. **Part matching.** Lines with LCSC codes auto-match (spot-check
+   photos). Lines marked in brackets carry a search hint — use the row's
+   search button, filter In-Stock, pick the closest match:
+   - Screw terminals 3.5 mm 2P (×5) and 3P (×2) — KF350/XY350 class
+     clones are fine and cheap
+   - Barrel jack — search "PJ-102" first; **compare the footprint pad
+     drawing before accepting a DC-005-style jack** (pads differ!)
+   - 2×20 GPIO socket — **must be TALL/stacking ≥11 mm**: the back-side
+     bulk cap (C1, 10.5 mm) hangs toward the Pi and a standard 8.5 mm
+     socket will not clear it
+   - 1×5 socket, PTC fuses (5 A / 1 A radial), C1/D1/U4/U5 per the
+     descriptions
+5. **Placement preview:** verify relay orientation (notch), LED/diode
+   polarity, chip pin-1 dots, terminal wire-entry facing the board edge
+   (front row faces front, left column faces left), barrel jack opening
+   facing off-board.
+6. Checkout. Standard both-sides assembly on 5 boards typically lands
+   **$150–250 all-in** with parts and shipping.
 
-## Through-hole parts (hand-solder when boards arrive)
+## What still needs your hands (10 minutes, no soldering iron needed
+except one blob)
 
-Add to the same LCSC cart (lcsc.com, same login) or source locally:
-
-| Part | Qty/board | LCSC / source |
-|---|---|---|
-| Omron G5LE-1-CF DC12 relay | 4 | C1524650 |
-| Phoenix PT 1,5/2-3.5 terminal (or compatible 3.5 mm 2-pos) | 5 | search "3.5mm 2P terminal horizontal" |
-| Phoenix PT 1,5/3-3.5 terminal (3-pos) | 2 | ditto 3P |
-| Barrel jack CUI PJ-102AH | 1 | search "PJ-102A" or DigiKey |
-| 2×20 stacking header (extra-tall) | 1 | search "2x20 female header 2.54 stacking" |
-| 1×5 pin socket 2.54 mm | 1 | any |
-| MF-RG500 5 A polyfuse | 1 | search "RGEF500" / equivalent |
-| MF-RHT100 1 A polyfuse | 3 | search "RHT 1A radial PTC" |
-| Pololu D24V50F5 buck module | 1 | pololu.com #2851 (~$17) |
+- **Insert the Pololu D24V50F5 module** into its socket (buy from
+  pololu.com, #2851, ~$17) — observe pin labels: EN VIN GND GND VOUT.
+- **Bridge solder jumper JP1** (one solder blob) — this connects the
+  buck's 5 V to the Pi. It ships open so a bare board can be bench-
+  tested against USB-C power first. Bridge it only after the first
+  power-up check (bring-up step 1: 12 V in, verify 5 V at the jumper).
+- Program the HAT EEPROM (software; via the Pi itself, no hardware).
 
 ## After ordering
 
-While boards ship: program the HAT EEPROM image (`eepmake` — software
-task, ask Claude), and prep the bring-up checklist from the design spec
-§11. First power-up: **no Pi, no relays socketed** — verify 5 V rail
-first.
+While boards ship: build the EEPROM image and the bring-up checklist
+(design spec §11). First power-up is ALWAYS: barrel 12 V in, no Pi, no
+module — verify rails at the jumper and PSU socket.
