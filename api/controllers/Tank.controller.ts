@@ -18,6 +18,16 @@ router.get("/all", async (req, res) => {
   res.json(tanks);
 });
 
+// Registered before the /:tankId routes so the literal path wins.
+router.get("/temperatures", async (req, res) => {
+  try {
+    const statuses = await TankManager.getAllTemperatureStatuses();
+    res.json({ statuses });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.post("/add", async (req, res) => {
   try {
     const tank = new Tank(req.body.tank);
@@ -98,23 +108,8 @@ router.get("/:tankId/logs", async (req, res) => {
 router.get("/:tankId/temperature", async (req, res) => {
   try {
     const tankId = req.params.tankId;
-    const sensors = await SensorDataManager.getSensorsForTank(
-      tankId,
-      "Thermometer"
-    );
-    const temps: number[] = [];
-    for (const sensor of sensors) {
-      const temperature = await SensorDataManager.readTemperature(sensor);
-      if (!temperature) {
-        continue;
-      }
-      temps.push(temperature);
-      return;
-    }
-    res.json({
-      temperatures: temps,
-      average: temps.reduce((a, b) => a + b, 0) / temps.length,
-    });
+    const data = await TankManager.getTemperatures(tankId);
+    res.json(data);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
