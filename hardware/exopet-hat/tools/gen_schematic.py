@@ -108,9 +108,9 @@ add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
 add("R1", "Device:R", "100k", (80, 60),
     {"1": "Q1_G", "2": "GND"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
-add("C1", "Device:C_Polarized", "470uF 25V", (105, 40),
+add("C1", "Device:C_Polarized", "330uF 25V low-profile <=7.7mm", (105, 40),
     {"1": "+12V", "2": "GND"},
-    "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm", "VERIFY")
+    "Capacitor_SMD:CP_Elec_6.3x7.7", "VERIFY")
 add("C2", "Device:C", "100nF", (105, 60),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
@@ -195,7 +195,7 @@ add("R2", "Device:R", "4.7k", (60, 130),
     "Resistor_SMD:R_0805_2012Metric", "C17673")
 add("U5", "Device:D_TVS", "5V ESD clamp (SOD-323)", (60, 155),
     {"1": "1WIRE_DATA", "2": "GND"},
-    "Diode_SMD:D_SOD-323", "VERIFY")
+    "Diode_SMD:D_SOD-323", "C19224")
 add("C3", "Device:C", "100nF", (85, 130),
     {"1": "+3V3", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")

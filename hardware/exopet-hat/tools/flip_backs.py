@@ -12,5 +12,10 @@ for fp in board.GetFootprints():
     if fp.GetReference() in BACK and fp.GetLayer() == pcbnew.F_Cu:
         fp.Flip(fp.GetPosition(), True)
         n += 1
+    if fp.GetReference() == "J3" and fp.GetLayer() == pcbnew.F_Cu:
+        # official HAT template: socket body on B.Cu, rot 270 at (8.37,4.77)
+        fp.Flip(fp.GetPosition(), True)
+        fp.SetOrientationDegrees(270)
+        n += 1
 pcbnew.SaveBoard(sys.argv[1], board)
 print("flipped to back:", n)

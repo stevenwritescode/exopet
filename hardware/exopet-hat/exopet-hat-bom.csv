@@ -1,5 +1,5 @@
 "Reference","Value","Footprint","LCSC"
-"C1","470uF 25V","Capacitor_THT:CP_Radial_D8.0mm_P3.50mm","VERIFY"
+"C1","330uF 25V low-profile <=7.7mm","Capacitor_SMD:CP_Elec_6.3x7.7","VERIFY"
 "C2-C6","100nF","Capacitor_SMD:C_0805_2012Metric","C49678"
 "D1","SMBJ16A","Diode_SMD:D_SMB","VERIFY"
 "D5-D8","green","LED_SMD:LED_0805_2012Metric","C2297"
@@ -28,4 +28,4 @@
 "R12,R13","1k","Resistor_SMD:R_0805_2012Metric","C17513"
 "U2","TBD62003AFG","Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","C163227"
 "U4","CAT24C32","Package_SO:SOIC-8_3.9x4.9mm_P1.27mm","VERIFY"
-"U5","5V ESD clamp (SOD-323)","Diode_SMD:D_SOD-323","VERIFY"
+"U5","5V ESD clamp (SOD-323)","Diode_SMD:D_SOD-323","C19224"

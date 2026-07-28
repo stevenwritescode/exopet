@@ -29,7 +29,7 @@ def uid(*parts):
 # (x, y, rot). Rot per KiCad footprint conventions, verified by render.
 PLACEMENT = {
     # ── top: through-hole ───────────────────────────────────
-    "J3": (8.0, 3.2, 90),
+    "J3": (8.37, 4.77, 0),  # pre-flip; flip_backs sets B side + 270
     "J1": (14.6, 14.0, 270),
     "F1": (14.5, 29.5, 270),
     # left edge sensor stack: FLOAT1, FLOAT2, TEMP (wires exit left)
@@ -107,7 +107,7 @@ for net in tree.find("nets"):
 
 net_num = {name: i + 1 for i, name in enumerate(sorted(net_names))}
 
-comp_fp["C1"] = "Capacitor_SMD:CP_Elec_8x10.5"
+comp_fp["C1"] = "Capacitor_SMD:CP_Elec_6.3x7.7"
 
 missing = set(comp_fp) - set(PLACEMENT)
 extra = set(PLACEMENT) - set(comp_fp)
