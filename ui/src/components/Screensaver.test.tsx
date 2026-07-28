@@ -2,6 +2,10 @@ import { render, act, fireEvent } from "@testing-library/react";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import Screensaver from "./Screensaver";
 
+jest.mock("../dal/Tank.dal", () => ({
+  getTemperatureStatuses: jest.fn().mockResolvedValue([]),
+}));
+
 function LocationProbe() {
   const location = useLocation();
   return <div data-testid="location">{location.pathname}</div>;

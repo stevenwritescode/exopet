@@ -1,11 +1,8 @@
-// Import first to get setupTests mocks, then override the getTemperatureStatuses mock specifically
-import * as TankDal from "../dal/Tank.dal";
-
-// Override the mock with a fresh one for this test
-jest.mocked(TankDal.getTemperatureStatuses).mockClear();
-
 import { render, screen, waitFor } from "@testing-library/react";
 import TempStatusOverlay from "./TempStatusOverlay";
+import * as TankDal from "../dal/Tank.dal";
+
+jest.mock("../dal/Tank.dal");
 
 const mocked = TankDal as jest.Mocked<typeof TankDal>;
 

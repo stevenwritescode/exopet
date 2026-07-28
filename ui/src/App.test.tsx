@@ -9,5 +9,7 @@ test('renders app without crashing', () => {
       <App />
     </BrowserRouter>
   );
-  expect(container).toBeInTheDocument();
+  // App should render without throwing and produce DOM elements
+  const stack = container.querySelector('div[class*="MuiStack"]');
+  expect(stack).toBeInTheDocument();
 });
