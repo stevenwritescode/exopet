@@ -85,10 +85,14 @@ export async function initGpio() {
     console.error("GPIO init failed:", e);
   }
 
-  // now _ensure_ the relays get turned off
-  relayOff(RELAY_1_LINE);
-  relayOff(RELAY_2_LINE);
-  relayOff(RELAY_3_LINE);
+  // now _ensure_ the relays get turned off (best-effort; skip on non-Pi)
+  try {
+    relayOff(RELAY_1_LINE);
+    relayOff(RELAY_2_LINE);
+    relayOff(RELAY_3_LINE);
+  } catch (e) {
+    console.error("GPIO relay init failed (non-Pi host, skipping):", e);
+  }
 
   pollFloatSwitch();
 }
