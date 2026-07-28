@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TempStatusOverlay from "./TempStatusOverlay";
 
 export const IDLE_TIMEOUT_MS = 5 * 60 * 1000;
 
@@ -74,6 +75,7 @@ export default function Screensaver({
         playsInline
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
+      <TempStatusOverlay />
     </div>
   );
 }

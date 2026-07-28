@@ -76,3 +76,19 @@ export const updateTankSettings = async (tank: Tank): Promise<Log[]> => {
     throw error;
   }
 };
+
+export interface TankTempStatus {
+  tank_id: string;
+  name?: string;
+  average: number | null;
+  lower_temp_limit?: number;
+  upper_temp_limit?: number;
+}
+
+export const getTemperatureStatuses = async (): Promise<TankTempStatus[]> => {
+  const response = await axios.get<{ statuses: TankTempStatus[] }>(
+    `${API_BASE_URL}/tank/temperatures`,
+    { timeout: 5000 }
+  );
+  return response.data.statuses;
+};
