@@ -20,7 +20,6 @@ if "--dump" in sys.argv:
 # intentional: flush-ganged terminal blocks, connector noses over the edge,
 # terminal wire-entry overhang past the front edge
 ALLOW_PAIRS = {frozenset(x) for x in [
-    ("J11","J8"),("J8","J9"),("J9","J10"),
 ]}
 ALLOW_OFFBOARD = {"J1","J4","J8","J9","J10","J11"}
 

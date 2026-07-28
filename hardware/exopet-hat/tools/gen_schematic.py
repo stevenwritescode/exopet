@@ -95,9 +95,7 @@ def add(ref, lib_id, value, pos, nets, footprint="", lcsc=""):
 add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
     {"1": "+12V_IN", "2": "GND", "3": NC},
     "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal")
-add("J2", "Connector_Generic:Conn_01x02", "12V screw term", (30, 60),
-    {"1": "+12V_IN", "2": "GND"},
-    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal")
+# J2 (aux 12V input) removed: barrel jack is the sole input.
 add("F1", "Device:Polyfuse", "MF-RG500 5A", (55, 40),
     {"1": "+12V_IN", "2": "+12V_F"},
     "Fuse:Fuse_Bourns_MF-RG500", "VERIFY")
@@ -138,9 +136,10 @@ add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
         "7": "1WIRE_DATA",
         "11": "GPIO17", "13": "GPIO27", "15": "GPIO22", "16": "GPIO23",
         "27": "EEPROM_SDA", "28": "EEPROM_SCL",
+        "36": "FLOAT1_GPIO", "32": "FLOAT2_GPIO",
         "8": NC, "10": NC, "12": NC, "18": NC, "19": NC, "21": NC,
-        "22": NC, "23": NC, "24": NC, "26": NC, "29": NC, "31": NC, "32": NC,
-        "33": NC, "35": NC, "36": NC, "37": NC, "38": NC, "40": NC,
+        "22": NC, "23": NC, "24": NC, "26": NC, "29": NC, "31": NC,
+        "33": NC, "35": NC, "37": NC, "38": NC, "40": NC,
     }, "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical")
 
 # — Relay driver (column 3) —
@@ -167,7 +166,7 @@ for n, y in ((1, 40), (2, 80), (3, 120)):
         "Diode_SMD:D_SMA", "C8678")
     add(f"J{n+7}", "Connector_Generic:Conn_01x02", f"CH{n} 12V OUT", (365, y),
         {"1": f"CH{n}_OUT", "2": "GND"},
-        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal")
+        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
 
 add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     {"2": "+12V", "5": "RLY4_DRV",
@@ -175,7 +174,7 @@ add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
 add("J11", "Connector_Generic:Conn_01x03", "CH4 dry contact", (340, 160),
     {"1": "CH4_COM", "2": "CH4_NO", "3": "CH4_NC"},
-    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal")
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal")
 
 # — Relay state LEDs (column 3 lower) —
 for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
@@ -187,9 +186,9 @@ for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
         "LED_SMD:LED_0805_2012Metric", "C2297")
 
 # — 1-Wire temperature (column 1, lower) —
-add("J4", "Connector_Audio:AudioJack3", "DS18B20 TRS jack", (30, 130),
-    {"S": "GND", "R": "+3V3", "T": "1WIRE_DATA"},
-    "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal")
+add("J4", "Connector_Generic:Conn_01x03", "TEMP (3V3/DATA/GND)", (30, 130),
+    {"1": "+3V3", "2": "1WIRE_DATA", "3": "GND"},
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal")
 # J5 (JST duplicate of the TRS jack) removed: no board space in rev 1.
 add("R2", "Device:R", "4.7k", (60, 130),
     {"1": "+3V3", "2": "1WIRE_DATA"},
@@ -202,6 +201,21 @@ add("C3", "Device:C", "100nF", (85, 130),
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # pH deferred to rev 2 (isolated design). I2C1 left unconnected.
+
+# — Float switch inputs (tank: GPIO16, sump: GPIO12) —
+for n, gpio_net, y in ((1, "FLOAT1_GPIO", 185), (2, "FLOAT2_GPIO", 210)):
+    add(f"J{n+12}", "Connector_Generic:Conn_01x02", f"FLOAT{n} switch", (30, y),
+        {"1": f"FLOAT{n}_SW", "2": "GND"},
+        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
+    add(f"R{n+9}", "Device:R", "10k", (55, y),
+        {"1": "+3V3", "2": f"FLOAT{n}_SW"},
+        "Resistor_SMD:R_0805_2012Metric", "C17414")
+    add(f"R{n+11}", "Device:R", "1k", (75, y),
+        {"1": f"FLOAT{n}_SW", "2": gpio_net},
+        "Resistor_SMD:R_0805_2012Metric", "C17513")
+    add(f"C{n+4}", "Device:C", "100nF", (95, y),
+        {"1": f"FLOAT{n}_SW", "2": "GND"},
+        "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # — HAT ID EEPROM (column 2, lower) —
 add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),

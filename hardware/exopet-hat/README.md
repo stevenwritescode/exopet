@@ -14,20 +14,27 @@ Rev 1 hardware per `docs/superpowers/specs/2026-07-27-exopet-hat-design.md`.
       see `BOM-NOTES.md` for confidence levels)
 - [x] Board layout — generated placement + freerouting autoroute
       (`tools/gen_board.py`, `tools/flip_backs.py`, `tools/finish_board.py`
-      pipeline); DRC clean except 3 documented courtyard overlaps
-      (flush-ganged terminal blocks — intentional)
+      pipeline); DRC fully clean (0 violations)
 - [ ] Human eyeball pass on the routed board in the KiCad GUI
 - [ ] JLCPCB DFM check + fab package (gerbers/BOM/CPL)
 - [ ] Order prototypes
 
 ## Layout notes (rev 1)
 
+- **Terminal grouping (per Steven):** front edge = the four relay
+  channels as separated blocks, CH1 CH2 CH3 then the CH4 dry contact
+  last; left edge = sensor stack: FLOAT1, FLOAT2, TEMP (3-pos screw
+  terminal — 3V3/DATA/GND, no plugs or soldering).
+- **Float switch inputs added** (they were missing!): FLOAT1 → GPIO16
+  (tank, matches existing hub code), FLOAT2 → GPIO12 (sump spec). Each
+  has 10k pull-up, 1k series protection, 100nF filter on board.
+- All terminals are Phoenix PT-1,5 3.5 mm pitch (17.5 A rated — loads
+  are ≤1 A).
 - All SMD is on the **back side**, nested in pin-free channels between
-  the relay/terminal through-hole fields; top side is through-hole only.
-- **J5 (JST temp connector) was cut** — no board space; the TRS jack is
-  the temperature input (bare-wire probes: use a TRS pigtail).
-- **J2 (12V screw input) became heavy solder wire pads** — no room for a
-  fifth terminal block; barrel jack is the primary input.
+  the through-hole fields; top side is through-hole only.
+- **J5 (JST temp connector) and the TRS jack were cut** — temperature is
+  the 3-pos screw terminal.
+- **J2 (aux 12V input) was cut** — barrel jack is the sole input.
 - Signal tracks are 0.25 mm (autorouted); bulk current rides the
   full-board GND pours and short paths. Rev 2: netclass-driven widths.
 - GND zones both sides, thermal-relief pads, min spoke count relaxed to

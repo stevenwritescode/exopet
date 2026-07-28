@@ -49,7 +49,6 @@ on the right/front board edge for enclosure-friendly wiring.
 | Ref | Part | Notes |
 |---|---|---|
 | J1 | 5.5×2.1 mm barrel jack, center-positive (CUI PJ-102A) | Primary input |
-| J2 | 2× 1.5 mm² solder wire pads | Alternative hardwired input (layout: no room for a 5th terminal block) |
 | F1 | 5A resettable polyfuse (Bourns MF-R500) | Upstream of everything |
 | D1 | SMBJ16A TVS, 12V line to GND | Surge/spike clamp after F1 |
 | Q1 | P-MOSFET reverse-polarity protection (Diodes DMP4015SK3, DPAK) | Source→load, drain→input, gate→GND via R 100k |
@@ -101,7 +100,7 @@ close → water stays put.
 
 | Ref | Part | Notes |
 |---|---|---|
-| J4 | 3.5 mm TRS jack (CUI SJ-3523-SMT) | Tip = DATA, Ring = 3V3, Sleeve = GND (matches common pre-wired DS18B20 TRS probes) |
+| J4 | 3-pos 3.5 mm screw terminal (3V3 / DATA / GND) | Bare-wire DS18B20 probes screw straight in |
 | R2 | 4.7 kΩ, DATA → 3V3 | The pull-up currently on a breadboard |
 | U5 | TPD1E10B06 ESD clamp on DATA | Probe cables are antennas |
 
@@ -117,6 +116,18 @@ behind an ADM3260-based isolation stage (Atlas publishes the reference
 circuit in the EZO-pH datasheet, p.8): isolated 3.3V island, isolated
 I2C, moat in the copper. GPIO2/3 (header pins 3/5) are left unconnected
 in rev 1 and reserved for this.
+
+## 6b. Float switch inputs
+
+| Ref | Part | Notes |
+|---|---|---|
+| J13 / J14 | 2-pos 3.5 mm screw terminals | FLOAT1 (tank) / FLOAT2 (sump); dry-contact switch to GND, no polarity |
+| R10 / R11 | 10 kΩ pull-up to 3V3 | Defines open state |
+| R12 / R13 | 1 kΩ series to GPIO | Pin protection |
+| C5 / C6 | 100 nF to GND | Debounce / noise filter |
+
+FLOAT1 → GPIO16 (pin 36) — matches the hub's existing tank float code.
+FLOAT2 → GPIO12 (pin 32) — reserved by the sump control spec.
 
 ## 7. HAT ID EEPROM
 
