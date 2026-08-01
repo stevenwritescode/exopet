@@ -42,8 +42,10 @@ JLC's through-hole assembly can take the terminals/relays if preferred.
 - P-FET: **AOD403** instead of DMP4015SK3
 - Driver: **TBD62003AFG (SOIC-16)** instead of TBD62003APG (DIP) — SMD
   assembles at JLC; DIP would be hand-solder
-- Channel fuses: **MF-RHT100 (1A hold)** instead of MF-R110 — footprint
-  availability; loads are ≤0.5A so 1A hold is correct
+- Channel fuses F2–F4: **Bourns MF-R110 (C208481)** — the original spec
+  part. Do NOT substitute Littelfuse RXEF110 (C3760872): its 0.81mm
+  leads do not fit the footprint's 0.71mm holes (caught by JLC DFM on
+  the first production run, 2026-07)
 - Terminals: Phoenix MKDS-1,5 footprints (generic 5.08mm blocks fit)
 - J5 (JST temp connector) deleted in layout — TRS jack only
 - J2 (12V screw terminal) is now a pair of 1.5mm² solder wire pads

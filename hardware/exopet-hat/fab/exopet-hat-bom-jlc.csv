@@ -2,7 +2,7 @@ Comment,Designator,Footprint,LCSC Part #
 100k,R1,R_0805_2012Metric,C17407
 100nF,"C2,C3,C4,C5,C6",C_0805_2012Metric,C49678
 10k,"R10,R11,R9",R_0805_2012Metric,C17414
-12V DC in [DC barrel jack 5.5x2.1 PJ-102A compatible (check pad layout!)],J1,BarrelJack_CUI_PJ-102AH_Horizontal,C20518877
+12V DC in [DC barrel jack 5.5x2.1 PJ-102A compatible (check pad layout!)],J1,BarrelJack_CUI_PJ-102AH_Horizontal,
 1k,"R12,R13",R_0805_2012Metric,C17513
 2.2k,"R5,R6,R7,R8",R_0805_2012Metric,C17520
 3.5mm pitch 2P screw terminal horizontal (KF350/XY350 class),"J10,J13,J14,J8,J9","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",C474892

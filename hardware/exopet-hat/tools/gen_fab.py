@@ -19,12 +19,13 @@ EXCLUDE = {"JP1", "JP2", "H1", "H2", "H3", "H4"}
 
 # LCSC picks / search hints for through-hole lines.
 THT_LCSC = {
+    # leave J1 blank so the row survives as searchable/unmatched
     "K1": "C1524650", "K2": "C1524650", "K3": "C1524650", "K4": "C1524650",
-    "J1": "C20518877",   # genuine CUI PJ-102A
+    # J1 barrel jack: C20518877 exists at LCSC but NOT in JLC assembly library;
     "J3": "C35165",      # 2x20 PC104 stacking 12.3mm
     "PSU1": "C50950",    # 1x5 female 2.54
     "F1": "C468988",     # RGEF500 5A
-    "F2": "C3760872", "F3": "C3760872", "F4": "C3760872",  # RXEF110 1.1A
+    "F2": "C208481", "F3": "C208481", "F4": "C208481",  # Bourns MF-R110 — RXEF110 legs (0.81mm) do not fit the 0.71mm holes
     "J8": "C474892", "J9": "C474892", "J10": "C474892",
     "J13": "C474892", "J14": "C474892",                    # KF350-3.5-2P
     "J11": "C474893", "J4": "C474893",                     # KF350-3.5-3P
