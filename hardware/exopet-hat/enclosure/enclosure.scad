@@ -4,7 +4,13 @@
 //
 // Frame: HAT board top-left = origin, x→right, y→down (matches the
 // KiCad board file). Pi 4 sits under the HAT, extends to x=85.
-// Mounted orientation: y=56 edge (terminals) faces DOWN.
+// Mounted orientation: terminal edge faces DOWN.
+//
+// HANDEDNESS: KiCad files are y-down (left-handed on screen); OpenSCAD
+// is y-up (right-handed). All modules below are authored in raw board
+// file coords, and the output stage emits them through handed(), a
+// global y-mirror, so the printed parts match the physical board.
+// Without it the case is a mirror image (terminals swap sides).
 
 part = "both"; // "base" | "cover" | "roof" | "both" (all three)
 
@@ -209,17 +215,17 @@ module cover() {
             // debossed numeral between the screw port and the front edge
             translate([bx + (gx0+gx1)/2, by + 56.5, oz - label_depth])
                 linear_extrude(label_depth + 1)
-                    rotate(180) text(g[1], size = 4.4, halign = "center",
+                    mirror([0,1,0]) text(g[1], size = 4.4, halign = "center",
                                      valign = "center", font = "Liberation Sans:style=Bold");
         }
         // EXOPET wordmark + 12V jack label in open lid space
         translate([bx + 50, by + 30, oz - label_depth])
             linear_extrude(label_depth + 1)
-                rotate(180) text("EXOPET", size = 9, halign = "center",
+                mirror([0,1,0]) text("EXOPET", size = 9, halign = "center",
                                  valign = "center", font = "Liberation Sans:style=Bold");
         translate([bx + 17, by + 14, oz - label_depth])
             linear_extrude(label_depth + 1)
-                rotate(180) text("12V", size = 3.6, halign = "center",
+                mirror([0,1,0]) text("12V", size = 3.6, halign = "center",
                                  valign = "center", font = "Liberation Sans:style=Bold");
         // left groups: same treatment through the x=0 wall
         for (g = LEFT_GROUPS) {
@@ -231,7 +237,7 @@ module cover() {
             // horizontal label beside the slot; groups stack cleanly in y
             translate([bx + 17, by + (gy0+gy1)/2, oz - label_depth])
                 linear_extrude(label_depth + 1)
-                    rotate(180) text(g[1], size = 3.6, halign = "center",
+                    mirror([0,1,0]) text(g[1], size = 3.6, halign = "center",
                                      valign = "center", font = "Liberation Sans:style=Bold");
         }
         // Pi USB-C + HDMI slots (same face, Pi level)
@@ -269,11 +275,15 @@ module cover() {
 }
 
 /* ════════ output ════════════════════════════════════════ */
-if (part == "base" || part == "both") base();
+// KiCad board coords are y-down; the model is built in board coords,
+// so emit everything through a y-mirror to match the physical board.
+module handed() { translate([0, oy, 0]) mirror([0, 1, 0]) children(); }
+
+if (part == "base" || part == "both") handed() base();
 if (part == "cover" || part == "both")
-    color("steelblue", 0.5) cover();
+    color("steelblue", 0.5) handed() cover();
 if (part == "roof" || part == "both")
-    color("tomato", 0.7) roof();
+    color("tomato", 0.7) handed() roof();
 
 // dimension echoes for the verification script
 echo("DIM ox", ox); echo("DIM oy", oy); echo("DIM oz", oz);

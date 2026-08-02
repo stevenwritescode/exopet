@@ -49,7 +49,7 @@ for fp in board.GetFootprints():
 fail = 0
 
 # front groups: scad pad x-lists vs board pad x of J8..J11 (pads at y≈52)
-FRONT_REF = {"CH1": "J8", "CH2": "J9", "CH3": "J10", "AUX": "J11"}
+FRONT_REF = {"1": "J8", "2": "J9", "3": "J10", "AUX": "J11"}
 for label, scad_xs in groups("FRONT_GROUPS"):
     ref = FRONT_REF[label]
     board_xs = sorted(x for x, y in pads[ref])
@@ -80,6 +80,18 @@ j1y = sorted(set(round(y, 1) for x, y in pads["J1"]))
 print(f"jack: scad y={jack_y} vs J1 pad ys {j1y} (opening axis should be within)")
 if not (min(j1y) - 6 <= jack_y <= max(j1y) + 6):
     fail += 1
+
+# chirality guard: modules are authored in KiCad's y-down board coords;
+# the output stage must emit every part through the handed() y-mirror or
+# the print is a mirror image of the physical board.
+import re as _re
+emits = _re.findall(r'(?:base|cover|roof)\(\);', scad)
+wrapped = _re.findall(r'handed\(\)\s+(?:\w+\([^)]*\)\s+)?(?:base|cover|roof)\(\)', scad)
+if "module handed()" not in scad or len(wrapped) < 3:
+    print("FAIL chirality: not all parts emitted through handed() y-mirror")
+    fail += 1
+else:
+    print("OK  chirality: all parts emitted through handed() y-mirror")
 
 print("PORTS:", "FAIL" if fail else "ALL MATCH THE BOARD FILE")
 sys.exit(1 if fail else 0)

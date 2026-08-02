@@ -17,13 +17,15 @@ its overhangs break surface tension so water falls clear of the walls,
 vents, and wiring.
 
 Assembly workflow (by design): screw the base to the wall, mount the
-Pi+HAT stack, terminate ALL field wiring with the cover off, then drop
-the cover on — the terminal openings are open-bottom notches so wires
-pass straight through. Barrel/USB/Ethernet plug in afterward through
-closed ports. Fit tolerance is the
+Pi+HAT stack, snap the cover on once, then wire through the case:
+push each wire in through its labeled wall port (1/2/3/AUX on the
+bottom, FLT1/FLT2/TEMP + 12V on the left) and tighten the screw with
+a driver through the matching slot in the lid. Barrel/USB/Ethernet
+plug straight in. Fit tolerance is the
 `fit`/`slot_fit` params — first print is a fit-check; adjust and re-render:
   openscad -D 'part="base"' -o base.stl enclosure.scad
-Openings are derived from connector positions measured off
-`../exopet-hat.kicad_pcb` (see tools/check_placement.py --dump).
+Openings are derived from connector pad positions measured off
+`../exopet-hat.kicad_pcb` — run `check_ports.py` (KiCad's bundled
+python) to re-verify port alignment and chirality after any edit.
 v2 backlog: separate jack port from sensor slot, fan boss, tall-relay
 clearance re-measure after physical fit check.
