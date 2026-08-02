@@ -32,15 +32,18 @@ bx = wall + slack;  by = wall + slack;
 
 /* ── connector cutouts (from exopet-hat.kicad_pcb dump) ──── */
 slot_fit = 0.6;
-// front terminal notch trimmed to the outermost WIRE HOLES (J8 first
-// hole from x=10.75, J11 last to x=56.75) — the cover lip overlaps the
-// end terminal bodies ~2mm; wires and screw access stay clear
-front_x0 = 10.5;       front_x1 = 57.0;
+// terminal groups (board coords of each screw/wire position + label).
+// Wires enter through wall ports; screws are tightened through lid
+// ports directly above each position.
+FRONT_GROUPS = [ [[12.5,16],"CH1"], [[24.5,28],"CH2"],
+                 [[36.5,40],"CH3"], [[49.5,53,56.5],"AUX"] ];
+LEFT_GROUPS  = [ [[26.3,29.8],"FLT1"], [[34.6,38.1],"FLT2"],
+                 [[39.5,43,46.5],"TEMP"] ];
+wire_slot_h = 5.5;   wire_z = 4.5;   // entry height above HAT top
+screw_slot_w = 4.2;  label_depth = 0.6;
 term_h = 12;                      // opening height above HAT top
 // left face sensor stack J13/J14/J4: y 20.5..48.8
-// sensor notch likewise trimmed to wire-hole extents (J13 first hole
-// from y=21.05, J4 last to y=48.25); bridge to jack port preserved
-left_y0 = 21.0;        left_y1 = 49.0;
+
 // barrel jack J1: body y 9.0..20.5, opening center y≈14.0 (per J1 at
 // (14.6,14) rot270); center z ≈ HAT top + 5.5, Ø ~9 opening
 jack_y = 14.0;  jack_z = 5.5;  jack_d = 10;
@@ -194,17 +197,39 @@ module cover() {
             translate([wall, wall, -1]) cube([inx, iny, inner_h + 1]);
         }
         /* openings — all positions from board frame + (bx,by) offset */
-        // front terminal notch: open to the cover rim so pre-wired
-        // terminals pass through as the cover drops on
-        translate([bx + front_x0 - slot_fit, oy - wall - 1, floor_t - 1])
-            cube([front_x1 - front_x0 + 2*slot_fit, wall + 2, z_hat + term_h + 1]);
+        // front groups: wall wire ports + lid screw ports + labels
+        for (g = FRONT_GROUPS) {
+            gx0 = min(g[0]) - 2.75;  gx1 = max(g[0]) + 2.75;
+            // wire port through the y=oy wall at entry height
+            translate([bx + gx0, oy - wall - 1, floor_t + z_hat + wire_z - wire_slot_h/2])
+                cube([gx1 - gx0, wall + 2, wire_slot_h]);
+            // screw port through the lid above the screws
+            translate([bx + gx0, by + 52 - screw_slot_w/2, floor_t + inner_h - 1])
+                cube([gx1 - gx0, screw_slot_w, top_t + 2]);
+            // debossed label on the lid, inboard of the screw port
+            translate([bx + (gx0+gx1)/2, by + 44, oz - label_depth])
+                linear_extrude(label_depth + 1)
+                    rotate(180) text(g[1], size = 4.4, halign = "center",
+                                     valign = "center", font = "Liberation Sans:style=Bold");
+        }
+        // left groups: same treatment through the x=0 wall
+        for (g = LEFT_GROUPS) {
+            gy0 = min(g[0]) - 2.75;  gy1 = max(g[0]) + 2.75;
+            translate([-1, by + gy0, floor_t + z_hat + wire_z - wire_slot_h/2])
+                cube([wall + 2, gy1 - gy0, wire_slot_h]);
+            translate([bx + 4 - screw_slot_w/2, by + gy0, floor_t + inner_h - 1])
+                cube([screw_slot_w, gy1 - gy0, top_t + 2]);
+            // vertical text beside the slot (avoids the CH1 label zone)
+            translate([bx + 10.5, by + (gy0+gy1)/2, oz - label_depth])
+                linear_extrude(label_depth + 1)
+                    rotate(90) text(g[1], size = 4, halign = "center",
+                                    valign = "center", font = "Liberation Sans:style=Bold");
+        }
         // Pi USB-C + HDMI slots (same face, Pi level)
         for (c = [[usbc_x, usbc_w], [hdmi0_x, hdmi_w], [hdmi1_x, hdmi_w]])
             translate([bx + c[0] - c[1]/2 - slot_fit, oy - wall - 1, floor_t + boss_h - 0.5])
                 cube([c[1] + 2*slot_fit, wall + 2, pi_edge_h]);
-        // left sensor terminal notch: open to the rim (same reason)
-        translate([-1, by + left_y0 - slot_fit, floor_t - 1])
-            cube([wall + 2, left_y1 - left_y0 + 2*slot_fit, z_hat + term_h + 1]);
+
         // left face: barrel jack round port
         translate([-1, by + jack_y, floor_t + z_hat + jack_z])
             rotate([0, 90, 0]) cylinder(h=wall + 2, d=jack_d);
