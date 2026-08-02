@@ -142,7 +142,34 @@ module gills_x(x0, y0, z0, n, slot_l) {
                 cube([wall*3, slot_l, 2.2], center=true);
 }
 
+/* rain cap: pitched roof over the mounted-top (y=0) face. High edge at
+   the wall (z=0), sloping ~5deg toward the front, overhanging the front
+   and both sides by 5mm. Drip nubs under the overhangs break surface
+   tension so leak water falls clear of the walls and vents. */
+eave_over = 5;   cap_high = 6;   cap_low = 1.5;
+
+module roof_cap() {
+    // wedge: tall edge at the wall (z=0), thin edge past the front,
+    // built as a hull between the two edge slabs — unambiguous geometry
+    hull() {
+        translate([-eave_over, -cap_high, 0])
+            cube([ox + 2*eave_over, cap_high, 0.1]);
+        translate([-eave_over, -cap_low, oz + eave_over - 0.1])
+            cube([ox + 2*eave_over, cap_low, 0.1]);
+    }
+    // drip nubs: under the front overhang lip...
+    for (xi = [6 : 12 : ox])
+        translate([xi, 0, oz + eave_over - 2])
+            rotate([-90, 0, 0]) cylinder(h = 2.2, d1 = 3, d2 = 0.6);
+    // ...and under each side overhang
+    for (sx = [-eave_over/2, ox + eave_over/2])
+        for (zi = [12, 26, 40])
+            translate([sx, 0, zi])
+                rotate([-90, 0, 0]) cylinder(h = 2.2, d1 = 3, d2 = 0.6);
+}
+
 module cover() {
+    roof_cap();
 
     difference() {
         // shell: walls + top (open bottom mates onto base floor)

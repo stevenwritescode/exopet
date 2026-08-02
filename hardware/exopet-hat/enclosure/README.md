@@ -4,7 +4,10 @@ Parametric OpenSCAD. Two parts, PETG, no supports:
 - `base.stl` — tray: Pi bosses (M2.5 self-tap), SD relief, keyhole wall flanges
 - `cover.stl` — shell: terminal/port openings, 45° gill vents
 
-Mount with the terminal edge DOWN (drip loops).
+Mount with the terminal edge DOWN (drip loops). The pitched rain cap
+on top sheds leak-water forward off the front edge; drip nubs under
+its overhangs break surface tension so water falls clear of the walls,
+vents, and wiring.
 
 Assembly workflow (by design): screw the base to the wall, mount the
 Pi+HAT stack, terminate ALL field wiring with the cover off, then drop
