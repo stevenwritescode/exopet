@@ -35,8 +35,8 @@ slot_fit = 0.6;
 // terminal groups (board coords of each screw/wire position + label).
 // Wires enter through wall ports; screws are tightened through lid
 // ports directly above each position.
-FRONT_GROUPS = [ [[12.5,16],"CH1"], [[24.5,28],"CH2"],
-                 [[36.5,40],"CH3"], [[49.5,53,56.5],"AUX"] ];
+FRONT_GROUPS = [ [[12.5,16],"1"], [[24.5,28],"2"],
+                 [[36.5,40],"3"], [[49.5,53,56.5],"AUX"] ];
 LEFT_GROUPS  = [ [[22.8,26.3],"FLT1"], [[31.1,34.6],"FLT2"],
                  [[39.5,43,46.5],"TEMP"] ];
 wire_slot_h = 5.5;   wire_z = 4.5;   // entry height above HAT top
@@ -206,12 +206,21 @@ module cover() {
             // screw port through the lid above the screws
             translate([bx + gx0, by + 52 - screw_slot_w/2, floor_t + inner_h - 1])
                 cube([gx1 - gx0, screw_slot_w, top_t + 2]);
-            // debossed label on the lid, inboard of the screw port
-            translate([bx + (gx0+gx1)/2, by + 44, oz - label_depth])
+            // debossed numeral between the screw port and the front edge
+            translate([bx + (gx0+gx1)/2, by + 56.5, oz - label_depth])
                 linear_extrude(label_depth + 1)
                     rotate(180) text(g[1], size = 4.4, halign = "center",
                                      valign = "center", font = "Liberation Sans:style=Bold");
         }
+        // legend + 12V jack label in open lid space
+        translate([bx + 40, by + 24, oz - label_depth])
+            linear_extrude(label_depth + 1)
+                rotate(180) text("RELAY OUT", size = 3.2, halign = "center",
+                                 valign = "center", font = "Liberation Sans:style=Bold");
+        translate([bx + 17, by + 14, oz - label_depth])
+            linear_extrude(label_depth + 1)
+                rotate(180) text("12V", size = 3.6, halign = "center",
+                                 valign = "center", font = "Liberation Sans:style=Bold");
         // left groups: same treatment through the x=0 wall
         for (g = LEFT_GROUPS) {
             gy0 = min(g[0]) - 2.75;  gy1 = max(g[0]) + 2.75;
@@ -219,11 +228,11 @@ module cover() {
                 cube([wall + 2, gy1 - gy0, wire_slot_h]);
             translate([bx + 4 - screw_slot_w/2, by + gy0, floor_t + inner_h - 1])
                 cube([screw_slot_w, gy1 - gy0, top_t + 2]);
-            // vertical text beside the slot (avoids the CH1 label zone)
-            translate([bx + 10.5, by + (gy0+gy1)/2, oz - label_depth])
+            // horizontal label beside the slot; groups stack cleanly in y
+            translate([bx + 17, by + (gy0+gy1)/2, oz - label_depth])
                 linear_extrude(label_depth + 1)
-                    rotate(90) text(g[1], size = 4, halign = "center",
-                                    valign = "center", font = "Liberation Sans:style=Bold");
+                    rotate(180) text(g[1], size = 3.6, halign = "center",
+                                     valign = "center", font = "Liberation Sans:style=Bold");
         }
         // Pi USB-C + HDMI slots (same face, Pi level)
         for (c = [[usbc_x, usbc_w], [hdmi0_x, hdmi_w], [hdmi1_x, hdmi_w]])
@@ -268,6 +277,4 @@ if (part == "roof" || part == "both")
 
 // dimension echoes for the verification script
 echo("DIM ox", ox); echo("DIM oy", oy); echo("DIM oz", oz);
-echo("DIM z_hat", z_hat); echo("DIM front_x0", front_x0);
-echo("DIM front_x1", front_x1); echo("DIM left_y0", left_y0);
-echo("DIM left_y1", left_y1); echo("DIM jack_y", jack_y);
+echo("DIM z_hat", z_hat); echo("DIM jack_y", jack_y);
