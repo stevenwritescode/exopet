@@ -36,10 +36,12 @@ slot_fit = 0.6;
 front_x0 = 10.2 - 2;   front_x1 = 58.8 + 2;
 term_h = 12;                      // opening height above HAT top
 // left face sensor stack J13/J14/J4: y 20.5..48.8
-left_y0 = 20.5 - 2;    left_y1 = 48.8 + 2;
+// notch starts at the terminal screw-access line (pads from y=22.8),
+// not the body edge, to keep a solid bridge to the jack port
+left_y0 = 21.5;        left_y1 = 48.8 + 2;
 // barrel jack J1: body y 9.0..20.5, opening center y≈14.0 (per J1 at
 // (14.6,14) rot270); center z ≈ HAT top + 5.5, Ø ~9 opening
-jack_y = 14.0;  jack_z = 5.5;  jack_d = 11;
+jack_y = 14.0;  jack_z = 5.5;  jack_d = 10;
 // Pi right edge (x=85): USB/Eth block
 pi_port_y0 = 1.5;  pi_port_y1 = 54.5;  pi_port_h = 17;
 // Pi bottom edge (y=56): USB-C + 2x microHDMI (Pi4 drawing, x from Pi origin)
@@ -78,16 +80,18 @@ module base() {
             // wall-mount flanges beyond the x extents (mounted: left/right ears)
             for (fx = [-flange_w, ox])
                 translate([fx, oy/2 - 14, 0]) cube([flange_w, 28, flange_t]);
+            // cover-fastening lugs on solid faces (top face + bottom-right band)
+            for (lg = [[15, -8], [69, -8], [74, oy]])
+                translate([lg[0], lg[1], 0]) cube([10, 8, flange_t]);
         }
         // boss screw pilots (M2.5 self-tap)
         for (h = [[hole_off, hole_off], [hole_off+hole_dx, hole_off],
                   [hole_off, hole_off+hole_dy], [hole_off+hole_dx, hole_off+hole_dy]])
             translate([bx + h[0], by + h[1], floor_t - 1])
                 cylinder(h=boss_h + 2, d=2.1);
-        // pilots in the flanges for the cover's ears (M2.5 self-tap)
-        for (ey = [oy/2 - 11, oy/2 + 11])
-            for (ex = [-flange_w/2, ox + flange_w/2])
-                translate([ex, ey, -1]) cylinder(h=flange_t + 2, d=2.1);
+        // pilots in the fastening lugs (M2.5 self-tap)
+        for (lp = [[20, -4], [74, -4], [79, oy + 4]])
+            translate([lp[0], lp[1], -1]) cylinder(h=flange_t + 2, d=2.1);
         // keyholes in flanges
         for (fx = [-flange_w/2, ox + flange_w/2])
             translate([fx, oy/2, -1]) linear_extrude(flange_t + 2) keyhole();
@@ -106,14 +110,13 @@ module gills_x(x0, y0, z0, n, slot_l) {
 }
 
 module cover() {
-    // external ears: land on the base flanges, screwed down into them
-    for (ey = [oy/2 - 11, oy/2 + 11])
-        for (side = [0, 1])
-            translate([side ? ox : -flange_w + 0.01, ey - 5, flange_t])
-                difference() {
-                    cube([flange_w, 10, 3]);
-                    translate([flange_w/2, 5, -1]) cylinder(h=5, d=2.8);
-                }
+    // external ears land on the base lugs (solid-wall faces only)
+    for (lg = [[15, -8, -4], [69, -8, -4], [74, oy - 0.01, oy + 4]])
+        translate([lg[0], lg[1] + (lg[1] < 0 ? 0.01 : 0), flange_t])
+            difference() {
+                cube([10, 8, 3]);
+                translate([5, lg[2] - lg[1], -1]) cylinder(h=5, d=2.8);
+            }
     difference() {
         // shell: walls + top (open bottom mates onto base floor)
         translate([0, 0, floor_t]) difference() {
