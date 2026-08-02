@@ -212,10 +212,10 @@ module cover() {
                     rotate(180) text(g[1], size = 4.4, halign = "center",
                                      valign = "center", font = "Liberation Sans:style=Bold");
         }
-        // legend + 12V jack label in open lid space
-        translate([bx + 40, by + 24, oz - label_depth])
+        // EXOPET wordmark + 12V jack label in open lid space
+        translate([bx + 50, by + 30, oz - label_depth])
             linear_extrude(label_depth + 1)
-                rotate(180) text("RELAY OUT", size = 3.2, halign = "center",
+                rotate(180) text("EXOPET", size = 9, halign = "center",
                                  valign = "center", font = "Liberation Sans:style=Bold");
         translate([bx + 17, by + 14, oz - label_depth])
             linear_extrude(label_depth + 1)
