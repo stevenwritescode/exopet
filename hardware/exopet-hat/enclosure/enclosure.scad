@@ -72,7 +72,7 @@ module keyhole() {
 /* snap-fit: rim segments on the base (clear of SD path, Pi port
    overhangs, and the wire notches), each carrying a detent bump that
    clicks into a dimple inside the cover wall. */
-rim_h = 7;  rim_t = 1.2;  rim_gap = 0.15;  bump_d = 4;  bump_proud = 0.7;
+rim_h = 7;  rim_t = 1.2;  rim_gap = 0.15;  bump_d = 2.4;  bump_proud = 0.7;
 // board edge to rim inner face: slack - rim_gap - rim_t = 1.65mm clear
 rim_z0 = floor_t;
 // segments: [face, from, to] — face: 0=y0(back) 1=y=oy(front) 2=x0(left)
@@ -107,15 +107,19 @@ module base() {
             // snap rim segments + detent bumps
             for (s = RIM) rim_seg(s[0], s[1], s[2], rim_h, rim_t);
             for (bp = BUMPS) {
+                // center sits inside the rim so the sphere protrudes
+                // bump_proud from the OUTER face (toward the cover) and
+                // its backside stays well clear of the board zone
                 bz = rim_z0 + rim_h - 2.5;
+                bo = bump_d/2 - bump_proud;   // center inset from outer face
                 if (bp[0] == 0)
-                    translate([bp[1], wall + rim_gap + rim_t, bz])
+                    translate([bp[1], wall + rim_gap + bo, bz])
                         sphere(d=bump_d);
                 if (bp[0] == 1)
-                    translate([bp[1], oy - wall - rim_gap - rim_t, bz])
+                    translate([bp[1], oy - wall - rim_gap - bo, bz])
                         sphere(d=bump_d);
                 if (bp[0] == 2)
-                    translate([wall + rim_gap + rim_t, bp[1], bz])
+                    translate([wall + rim_gap + bo, bp[1], bz])
                         sphere(d=bump_d);
             }
 
