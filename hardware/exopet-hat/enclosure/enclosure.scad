@@ -137,10 +137,9 @@ module cover() {
         // right face (x=ox): Pi USB/Ethernet block
         translate([ox - wall - 1, by + pi_port_y0, floor_t + boss_h - 0.5])
             cube([wall + 2, pi_port_y1 - pi_port_y0, pi_port_h]);
-        // gill vents: exhaust high on right face (clear of top face and
-        // USB block), intake high on left face (clear of sensor notch)
+        // exhaust gills high on the right face only; intake is the two
+        // open-bottom terminal notches (low, when wall-mounted)
         gills_x(ox - wall/2, by + 28, floor_t + inner_h - 13, 3, 40);
-        gills_x(wall/2, by + 8, floor_t + inner_h - 13, 3, 12);
     }
 }
 
