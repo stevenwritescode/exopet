@@ -69,6 +69,27 @@ module keyhole() {
     circle(d=key_d1);
 }
 
+/* snap-fit: rim segments on the base (clear of SD path, Pi port
+   overhangs, and the wire notches), each carrying a detent bump that
+   clicks into a dimple inside the cover wall. */
+rim_h = 7;  rim_t = 1.8;  rim_gap = 0.15;  bump_d = 4;  bump_proud = 0.7;
+rim_z0 = floor_t;
+// segments: [face, from, to] — face: 0=y0(back) 1=y=oy(front) 2=x0(left)
+RIM = [
+    [0,  4, 90],          // back face: fully solid
+    [1, 60, 90],          // front face right of the notch/ports
+    [1,  3,  9],          // front face left sliver
+    [2,  4, 19],          // left face below the SD/notch zone
+    [2, 51, 61],          // left face above the notch
+];
+BUMPS = [[0, 25], [0, 70], [1, 75], [2, 11], [2, 56]];
+
+module rim_seg(face, a, b, h, th) {
+    if (face == 0) translate([a, wall + rim_gap, rim_z0]) cube([b - a, th, h]);
+    if (face == 1) translate([a, oy - wall - rim_gap - th, rim_z0]) cube([b - a, th, h]);
+    if (face == 2) translate([wall + rim_gap, a, rim_z0]) cube([th, b - a, h]);
+}
+
 module base() {
     difference() {
         union() {
@@ -82,18 +103,27 @@ module base() {
             // wall-mount flanges beyond the x extents (mounted: left/right ears)
             for (fx = [-flange_w, ox])
                 translate([fx, oy/2 - 14, 0]) cube([flange_w, 28, flange_t]);
-            // cover-fastening lugs on solid faces (top face + bottom-right band)
-            for (lg = [[15, -8], [69, -8], [74, oy]])
-                translate([lg[0], lg[1], 0]) cube([10, 8, flange_t]);
+            // snap rim segments + detent bumps
+            for (s = RIM) rim_seg(s[0], s[1], s[2], rim_h, rim_t);
+            for (bp = BUMPS) {
+                bz = rim_z0 + rim_h - 2.5;
+                if (bp[0] == 0)
+                    translate([bp[1], wall + rim_gap + rim_t, bz])
+                        sphere(d=bump_d);
+                if (bp[0] == 1)
+                    translate([bp[1], oy - wall - rim_gap - rim_t, bz])
+                        sphere(d=bump_d);
+                if (bp[0] == 2)
+                    translate([wall + rim_gap + rim_t, bp[1], bz])
+                        sphere(d=bump_d);
+            }
+
         }
         // boss screw pilots (M2.5 self-tap)
         for (h = [[hole_off, hole_off], [hole_off+hole_dx, hole_off],
                   [hole_off, hole_off+hole_dy], [hole_off+hole_dx, hole_off+hole_dy]])
             translate([bx + h[0], by + h[1], floor_t - 1])
                 cylinder(h=boss_h + 2, d=2.1);
-        // pilots in the fastening lugs (M2.5 self-tap)
-        for (lp = [[20, -4], [74, -4], [79, oy + 4]])
-            translate([lp[0], lp[1], -1]) cylinder(h=flange_t + 2, d=2.1);
         // keyholes in flanges
         for (fx = [-flange_w/2, ox + flange_w/2])
             translate([fx, oy/2, -1]) linear_extrude(flange_t + 2) keyhole();
@@ -112,13 +142,7 @@ module gills_x(x0, y0, z0, n, slot_l) {
 }
 
 module cover() {
-    // external ears land on the base lugs (solid-wall faces only)
-    for (lg = [[15, -8, -4], [69, -8, -4], [74, oy - 0.01, oy + 4]])
-        translate([lg[0], lg[1] + (lg[1] < 0 ? 0.01 : 0), flange_t])
-            difference() {
-                cube([10, 8, 3]);
-                translate([5, lg[2] - lg[1], -1]) cylinder(h=5, d=2.8);
-            }
+
     difference() {
         // shell: walls + top (open bottom mates onto base floor)
         translate([0, 0, floor_t]) difference() {
@@ -146,6 +170,16 @@ module cover() {
         // right face (x=ox): Pi USB/Ethernet block
         translate([ox - wall - 1, by + pi_port_y0, floor_t + boss_h - 0.5])
             cube([wall + 2, pi_port_y1 - pi_port_y0, pi_port_h]);
+        // snap dimples on the cover's inner faces (mate the rim bumps)
+        for (bp = BUMPS) {
+            bz = rim_z0 + rim_h - 2.5;
+            if (bp[0] == 0)
+                translate([bp[1], wall, bz]) sphere(d=bump_d + 0.6);
+            if (bp[0] == 1)
+                translate([bp[1], oy - wall, bz]) sphere(d=bump_d + 0.6);
+            if (bp[0] == 2)
+                translate([wall, bp[1], bz]) sphere(d=bump_d + 0.6);
+        }
         // exhaust gills high on the right face only; intake is the two
         // open-bottom terminal notches (low, when wall-mounted)
         gills_x(ox - wall/2, by + 28, floor_t + inner_h - 13, 3, 40);
