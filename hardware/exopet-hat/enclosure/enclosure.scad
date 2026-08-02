@@ -22,7 +22,7 @@ inner_h = z_hat + relay_h + 4;     // headroom above relays
 
 /* ── case shell ─────────────────────────────────────────── */
 wall = 2.4;     floor_t = 3;      top_t = 2.4;
-slack = 2;                         // board-to-wall clearance each side
+slack = 3;                         // board-to-wall clearance each side (rim lives in it)
 fit = 0.3;                         // per-side print tolerance
 inx = pi_l + 2*slack;              // inner cavity x
 iny = pi_w + 2*slack;              // inner cavity y
@@ -72,7 +72,8 @@ module keyhole() {
 /* snap-fit: rim segments on the base (clear of SD path, Pi port
    overhangs, and the wire notches), each carrying a detent bump that
    clicks into a dimple inside the cover wall. */
-rim_h = 7;  rim_t = 1.8;  rim_gap = 0.15;  bump_d = 4;  bump_proud = 0.7;
+rim_h = 7;  rim_t = 1.2;  rim_gap = 0.15;  bump_d = 4;  bump_proud = 0.7;
+// board edge to rim inner face: slack - rim_gap - rim_t = 1.65mm clear
 rim_z0 = floor_t;
 // segments: [face, from, to] — face: 0=y0(back) 1=y=oy(front) 2=x0(left)
 RIM = [
