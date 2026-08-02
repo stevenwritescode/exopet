@@ -130,6 +130,24 @@ export default function Home() {
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <span className="eyebrow">Two minutes</span>
+            <h2 className="page-title" style={{ fontSize: '1.75rem' }}>
+              What could ExoPet automate for you?
+            </h2>
+            <p className="lede" style={{ margin: '0 auto var(--space-4)' }}>
+              Tell us about your enclosure — eight quick questions — and
+              we&rsquo;ll show you what the hub could take off your plate.
+            </p>
+            <Link href="/quiz" className="btn btn-primary">
+              Take the setup quiz
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
           <span className="eyebrow">Three ways in</span>
           <div className="grid-3" style={{ marginTop: 'var(--space-4)' }}>
             {pathways.map((p) => (

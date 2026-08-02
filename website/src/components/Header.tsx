@@ -8,6 +8,7 @@ export default function Header() {
           Exo<span>Pet</span>
         </Link>
         <nav className="site-nav">
+          <Link href="/quiz">Quiz</Link>
           <Link href="/guide">Build Guide</Link>
           <Link href="/downloads">Downloads</Link>
           <Link href="/shop" className="btn btn-primary btn-small">
