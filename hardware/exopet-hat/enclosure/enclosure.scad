@@ -129,9 +129,11 @@ module base() {
                   [hole_off, hole_off+hole_dy], [hole_off+hole_dx, hole_off+hole_dy]])
             translate([bx + h[0], by + h[1], floor_t - 1])
                 cylinder(h=boss_h + 2, d=2.1);
-        // keyholes in flanges
+        // keyholes in flanges — narrow slot points UP (toward y=0/roof):
+        // screw enters the big hole, case drops, shank locks in the slot
         for (fx = [-flange_w/2, ox + flange_w/2])
-            translate([fx, oy/2, -1]) linear_extrude(flange_t + 2) keyhole();
+            translate([fx, oy/2, -1])
+                linear_extrude(flange_t + 2) rotate(180) keyhole();
         // SD relief pocket in floor (card sits below Pi PCB at left edge)
         translate([bx - slack - 1, by + sd_y - sd_w/2, floor_t - 1])
             cube([slack + 6, sd_w, boss_h + 1]);
