@@ -32,13 +32,15 @@ bx = wall + slack;  by = wall + slack;
 
 /* ── connector cutouts (from exopet-hat.kicad_pcb dump) ──── */
 slot_fit = 0.6;
-// front terminals CH1..CH4 (y=56 face): x extents from board dump
-front_x0 = 10.2 - 2;   front_x1 = 58.8 + 2;
+// front terminal notch trimmed to the outermost WIRE HOLES (J8 first
+// hole from x=10.75, J11 last to x=56.75) — the cover lip overlaps the
+// end terminal bodies ~2mm; wires and screw access stay clear
+front_x0 = 10.5;       front_x1 = 57.0;
 term_h = 12;                      // opening height above HAT top
 // left face sensor stack J13/J14/J4: y 20.5..48.8
-// notch starts at the terminal screw-access line (pads from y=22.8),
-// not the body edge, to keep a solid bridge to the jack port
-left_y0 = 21.5;        left_y1 = 48.8 + 2;
+// sensor notch likewise trimmed to wire-hole extents (J13 first hole
+// from y=21.05, J4 last to y=48.25); bridge to jack port preserved
+left_y0 = 21.0;        left_y1 = 49.0;
 // barrel jack J1: body y 9.0..20.5, opening center y≈14.0 (per J1 at
 // (14.6,14) rot270); center z ≈ HAT top + 5.5, Ø ~9 opening
 jack_y = 14.0;  jack_z = 5.5;  jack_d = 10;
