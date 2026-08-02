@@ -37,7 +37,7 @@ slot_fit = 0.6;
 // ports directly above each position.
 FRONT_GROUPS = [ [[12.5,16],"CH1"], [[24.5,28],"CH2"],
                  [[36.5,40],"CH3"], [[49.5,53,56.5],"AUX"] ];
-LEFT_GROUPS  = [ [[26.3,29.8],"FLT1"], [[34.6,38.1],"FLT2"],
+LEFT_GROUPS  = [ [[22.8,26.3],"FLT1"], [[31.1,34.6],"FLT2"],
                  [[39.5,43,46.5],"TEMP"] ];
 wire_slot_h = 5.5;   wire_z = 4.5;   // entry height above HAT top
 screw_slot_w = 4.2;  label_depth = 0.6;
