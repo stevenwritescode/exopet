@@ -117,16 +117,17 @@ module cover() {
             translate([wall, wall, -1]) cube([inx, iny, inner_h + 1]);
         }
         /* openings — all positions from board frame + (bx,by) offset */
-        // front terminal slot (y = oy face), at HAT top level
-        translate([bx + front_x0 - slot_fit, oy - wall - 1, floor_t + z_hat - 1])
-            cube([front_x1 - front_x0 + 2*slot_fit, wall + 2, term_h + 1]);
+        // front terminal notch: open to the cover rim so pre-wired
+        // terminals pass through as the cover drops on
+        translate([bx + front_x0 - slot_fit, oy - wall - 1, floor_t - 1])
+            cube([front_x1 - front_x0 + 2*slot_fit, wall + 2, z_hat + term_h + 1]);
         // Pi USB-C + HDMI slots (same face, Pi level)
         for (c = [[usbc_x, usbc_w], [hdmi0_x, hdmi_w], [hdmi1_x, hdmi_w]])
             translate([bx + c[0] - c[1]/2 - slot_fit, oy - wall - 1, floor_t + boss_h - 0.5])
                 cube([c[1] + 2*slot_fit, wall + 2, pi_edge_h]);
-        // left face (x=0): sensor terminal slot at HAT level
-        translate([-1, by + left_y0 - slot_fit, floor_t + z_hat - 1])
-            cube([wall + 2, left_y1 - left_y0 + 2*slot_fit, term_h + 1]);
+        // left sensor terminal notch: open to the rim (same reason)
+        translate([-1, by + left_y0 - slot_fit, floor_t - 1])
+            cube([wall + 2, left_y1 - left_y0 + 2*slot_fit, z_hat + term_h + 1]);
         // left face: barrel jack round port
         translate([-1, by + jack_y, floor_t + z_hat + jack_z])
             rotate([0, 90, 0]) cylinder(h=wall + 2, d=jack_d);
@@ -136,9 +137,10 @@ module cover() {
         // right face (x=ox): Pi USB/Ethernet block
         translate([ox - wall - 1, by + pi_port_y0, floor_t + boss_h - 0.5])
             cube([wall + 2, pi_port_y1 - pi_port_y0, pi_port_h]);
-        // gill vents: exhaust high on right face, intake low on left face
-        gills_x(ox - wall/2, by + 8 + 20, floor_t + inner_h - 14, 5, 40);
-        gills_x(wall/2, by + 54, floor_t + 6, 5, 8);
+        // gill vents: exhaust high on right face (clear of top face and
+        // USB block), intake high on left face (clear of sensor notch)
+        gills_x(ox - wall/2, by + 28, floor_t + inner_h - 13, 3, 40);
+        gills_x(wall/2, by + 8, floor_t + inner_h - 13, 3, 12);
     }
 }
 
