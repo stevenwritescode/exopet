@@ -3,6 +3,11 @@
 // mailto: link so signups are never lost.
 export const WAITLIST_ENDPOINT = '';
 
+// Same pattern as WAITLIST_ENDPOINT: set to a form service endpoint to
+// collect setup-quiz responses. While empty, responses are not submitted
+// and the result screen offers a mailto fallback instead.
+export const QUIZ_ENDPOINT = '';
+
 export const CONTACT_EMAIL = 'steven@livication.com';
 
 // Update once the repository is public.
