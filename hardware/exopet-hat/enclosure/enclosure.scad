@@ -70,10 +70,6 @@ module base() {
         union() {
             // floor
             cube([ox, oy, floor_t]);
-            // corner posts for cover screws
-            for (p = [[wall, wall], [ox-wall-6, wall],
-                      [wall, oy-wall-6], [ox-wall-6, oy-wall-6]])
-                translate([p[0], p[1], 0]) cube([6, 6, floor_t + 6]);
             // Pi bosses
             for (h = [[hole_off, hole_off], [hole_off+hole_dx, hole_off],
                       [hole_off, hole_off+hole_dy], [hole_off+hole_dx, hole_off+hole_dy]])
@@ -88,10 +84,10 @@ module base() {
                   [hole_off, hole_off+hole_dy], [hole_off+hole_dx, hole_off+hole_dy]])
             translate([bx + h[0], by + h[1], floor_t - 1])
                 cylinder(h=boss_h + 2, d=2.1);
-        // cover screw pilots in posts
-        for (p = [[wall+3, wall+3], [ox-wall-3, wall+3],
-                  [wall+3, oy-wall-3], [ox-wall-3, oy-wall-3]])
-            translate([p[0], p[1], floor_t + 1]) cylinder(h=6, d=2.1);
+        // pilots in the flanges for the cover's ears (M2.5 self-tap)
+        for (ey = [oy/2 - 11, oy/2 + 11])
+            for (ex = [-flange_w/2, ox + flange_w/2])
+                translate([ex, ey, -1]) cylinder(h=flange_t + 2, d=2.1);
         // keyholes in flanges
         for (fx = [-flange_w/2, ox + flange_w/2])
             translate([fx, oy/2, -1]) linear_extrude(flange_t + 2) keyhole();
@@ -110,6 +106,14 @@ module gills_x(x0, y0, z0, n, slot_l) {
 }
 
 module cover() {
+    // external ears: land on the base flanges, screwed down into them
+    for (ey = [oy/2 - 11, oy/2 + 11])
+        for (side = [0, 1])
+            translate([side ? ox : -flange_w + 0.01, ey - 5, flange_t])
+                difference() {
+                    cube([flange_w, 10, 3]);
+                    translate([flange_w/2, 5, -1]) cylinder(h=5, d=2.8);
+                }
     difference() {
         // shell: walls + top (open bottom mates onto base floor)
         translate([0, 0, floor_t]) difference() {
