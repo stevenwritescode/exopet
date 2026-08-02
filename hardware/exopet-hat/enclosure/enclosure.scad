@@ -6,7 +6,7 @@
 // KiCad board file). Pi 4 sits under the HAT, extends to x=85.
 // Mounted orientation: y=56 edge (terminals) faces DOWN.
 
-part = "both"; // "base" | "cover" | "both"
+part = "both"; // "base" | "cover" | "roof" | "both" (all three)
 
 /* ── boards & stack ─────────────────────────────────────── */
 pi_l = 85;      pi_w = 56;      pcb_t = 1.6;
@@ -174,8 +174,18 @@ module roof_cap() {
                 rotate([-90, 0, 0]) cylinder(h = 2.2, d1 = 3, d2 = 0.6);
 }
 
-module cover() {
+// peg positions shared by roof underside and cover top face
+PEGS = [[15, 12], [15, 32], [78, 12], [78, 32]];
+
+module roof() {
     roof_cap();
+    // pegs on the underside: mate blind holes in the cover's top face
+    for (pg = PEGS)
+        translate([pg[0], -0.01, pg[1]])
+            rotate([-90, 0, 0]) cylinder(h = 1.8, d = 2.8);
+}
+
+module cover() {
 
     difference() {
         // shell: walls + top (open bottom mates onto base floor)
@@ -204,6 +214,10 @@ module cover() {
         // right face (x=ox): Pi USB/Ethernet block
         translate([ox - wall - 1, by + pi_port_y0, floor_t + boss_h - 0.5])
             cube([wall + 2, pi_port_y1 - pi_port_y0, pi_port_h]);
+        // blind holes for the optional roof's pegs (y=0 face)
+        for (pg = PEGS)
+            translate([pg[0], -0.5, pg[1]])
+                rotate([-90, 0, 0]) cylinder(h = 2.5, d = 3.2);
         // snap dimples on the cover's inner faces (mate the rim bumps)
         for (bp = BUMPS) {
             bz = rim_z0 + rim_h - 2.5;
@@ -224,6 +238,8 @@ module cover() {
 if (part == "base" || part == "both") base();
 if (part == "cover" || part == "both")
     color("steelblue", 0.5) cover();
+if (part == "roof" || part == "both")
+    color("tomato", 0.7) roof();
 
 // dimension echoes for the verification script
 echo("DIM ox", ox); echo("DIM oy", oy); echo("DIM oz", oz);
