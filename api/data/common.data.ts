@@ -9,6 +9,7 @@ import {
   fillEndpoint,
   waterChangeEndpoint,
 } from "../controllers/Maintenance.controller";
+import { startSumpEndpoint, stopSumpEndpoint, resetSumpEndpoint } from "../controllers/Sump.controller";
 import { execSync } from "child_process";
 import { System } from "aquario-models/lib/System.model";
 
@@ -276,6 +277,29 @@ export class DataManager {
                         data: {
                           tank_id: data.tank_id,
                           waterFull: MaintenanceManager.waterFull,
+                        },
+                      })
+                    );
+                    break;
+                  }
+                  case System.ServiceRequest.START_SUMP:
+                    startSumpEndpoint(data.tank_id);
+                    break;
+                  case System.ServiceRequest.STOP_SUMP:
+                    stopSumpEndpoint();
+                    break;
+                  case System.ServiceRequest.RESET_SUMP_LOCKOUT:
+                    resetSumpEndpoint();
+                    break;
+                  case System.ParameterCheck.SUMP_WATER_LEVEL: {
+                    const { SumpManager } = require("../logic/Sump.logic");
+                    wsClient.send(
+                      JSON.stringify({
+                        action: System.ParameterUpdate.SUMP_WATER_LEVEL,
+                        data: {
+                          tank_id: data?.tank_id,
+                          sumpFull: SumpManager.sumpFull,
+                          state: SumpManager.state,
                         },
                       })
                     );

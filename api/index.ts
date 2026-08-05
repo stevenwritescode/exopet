@@ -8,8 +8,10 @@ import tankController from "./controllers/Tank.controller";
 import animalController from "./controllers/Animal.controller";
 import maintenanceController from "./controllers/Maintenance.controller";
 import logController from "./controllers/Log.controller";
+import sumpController from "./controllers/Sump.controller";
 import healthCheck from "./healthCheck";
 import { ScheduleManager } from "./logic/Schedule.logic";
+import { SumpManager } from "./logic/Sump.logic";
 
 const app = express();
 const port = parseInt(process.env.API_PORT || "3001", 10);
@@ -53,6 +55,7 @@ app.use("/tank", jsonParser, urlencodedParser, tankController);
 app.use("/animal", jsonParser, urlencodedParser, animalController);
 app.use("/maintenance", jsonParser, urlencodedParser, maintenanceController);
 app.use("/log", jsonParser, urlencodedParser, logController);
+app.use("/sump", jsonParser, urlencodedParser, sumpController);
 
 // Start the Express server
 export const server = app.listen(port, '0.0.0.0', async () => {
@@ -61,6 +64,7 @@ export const server = app.listen(port, '0.0.0.0', async () => {
   initGpio();
   await DataManager.initSocket(server);
   ScheduleManager.start();
+  await SumpManager.autostart();
 
   // Advertise via Bonjour/mDNS for iOS auto-discovery
   const bonjour = new Bonjour();
