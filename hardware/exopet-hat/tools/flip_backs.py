@@ -21,5 +21,33 @@ for fp in board.GetFootprints():
         fp.Flip(fp.GetPosition(), True)
         fp.SetOrientationDegrees(270)
         n += 1
+# rev 2: freerouting reliably strands the +3V3 island feeding the
+# EEPROM cluster. Pre-place a LOCKED bridge (J3.17 -> C4.1) so the DSN
+# export marks it fixed and the router works around it.
+def pad_pos(ref, num):
+    for fp in board.GetFootprints():
+        if fp.GetReference() == ref:
+            for pad in fp.Pads():
+                if pad.GetNumber() == num:
+                    pos = pad.GetPosition()
+                    return (pcbnew.ToMM(pos.x), pcbnew.ToMM(pos.y))
+    raise KeyError(f"{ref}.{num}")
+
+j17 = pad_pos("J3", "17")
+c41 = pad_pos("C4", "1")
+pts = [j17, (j17[0], 3.45), (19.83, 3.45), (19.83, 24.3),
+       (c41[0], 24.3), c41]
+net = board.FindNet("+3V3")
+for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
+    tr = pcbnew.PCB_TRACK(board)
+    tr.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(x1), pcbnew.FromMM(y1)))
+    tr.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(x2), pcbnew.FromMM(y2)))
+    tr.SetLayer(pcbnew.B_Cu)
+    tr.SetWidth(pcbnew.FromMM(0.25))
+    tr.SetNetCode(net.GetNetCode())
+    tr.SetLocked(True)
+    board.Add(tr)
+print("locked +3V3 bridge placed")
+
 pcbnew.SaveBoard(sys.argv[1], board)
 print("flipped to back:", n)
