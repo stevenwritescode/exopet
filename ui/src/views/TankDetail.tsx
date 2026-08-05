@@ -20,6 +20,10 @@ import {
   fillTank,
   drainTank,
   reset,
+  startSump,
+  stopSump,
+  resetSumpLockout,
+  checkSumpLevel,
 } from "../dal/Maintenance.dal";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Animal, System, Tank, TankSettings } from "aquario-models";
@@ -30,6 +34,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import OpacityIcon from "@mui/icons-material/Opacity";
+
+const SUMP_STATE_LABELS: Record<number, string> = {
+  [System.SumpState.STOPPED]: "Stopped",
+  [System.SumpState.OPENING_VALVE]: "Opening Valve…",
+  [System.SumpState.RUNNING]: "Running",
+  [System.SumpState.STOPPING]: "Stopping…",
+  [System.SumpState.LOCKED_OUT]: "LOCKED OUT — SUMP FULL",
+};
 
 interface TankProps {
   tank_id?: string | number;
@@ -57,6 +69,10 @@ const TankDetail: React.FC<TankProps> = () => {
   const [tankSettings, setTankSettings] = useState<TankSettings>({});
   const [tankAnimals, setTankAnimals] = useState<Animal[]>([]);
   const [sump, setSump] = useState<Tank | null>(null);
+  const [sumpState, setSumpState] = useState<System.SumpState>(
+    System.SumpState.STOPPED
+  );
+  const [sumpFull, setSumpFull] = useState(false);
   const [tankLogs, setTankLogs] = useState<any[]>([]);
   const [waterChangeProgress, setWaterChangeProgress] = useState(0);
   const [drainProgress, setDrainProgress] = useState(0);
@@ -158,11 +174,19 @@ const TankDetail: React.FC<TankProps> = () => {
             setStatus(System.State.IDLE);
             setCancelInProgress(false);
             break;
+          case System.ServiceUpdate.SUMP_STATE:
+            setSumpState(msg.data.state);
+            break;
+          case System.ParameterUpdate.SUMP_WATER_LEVEL:
+            setSumpFull(!!msg.data.sumpFull);
+            if (msg.data.state !== undefined) setSumpState(msg.data.state);
+            break;
         }
     });
 
     // 3) Fire initial checks & start intervals
     handleCheckWaterLevel();
+    checkSumpLevel({ tank_id });
     const levelIv = setInterval(handleCheckWaterLevel, 5000);
 
     const svcIv = setInterval(() => {
@@ -271,7 +295,47 @@ const TankDetail: React.FC<TankProps> = () => {
             <Item variant="button">No animals in this tank</Item>
           )}
         </Stack>
-        {sump && <Item variant="button">Sump: {sump.name}</Item>}
+        {sump && (
+          <Stack direction="column" alignItems="center" spacing={1} sx={{ p: 1 }}>
+            <Item
+              variant="button"
+              sx={
+                sumpState === System.SumpState.LOCKED_OUT
+                  ? { color: "error.main", fontWeight: "bold" }
+                  : undefined
+              }
+            >
+              Sump: {sump.name} — {SUMP_STATE_LABELS[sumpState]}
+              {sumpFull ? " (float: FULL)" : ""}
+            </Item>
+            <Stack direction="row" spacing={2}>
+              {sumpState === System.SumpState.LOCKED_OUT ? (
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={() => resetSumpLockout({ tank_id })}
+                >
+                  Reset Lockout
+                </Button>
+              ) : sumpState === System.SumpState.STOPPED ? (
+                <Button
+                  variant="outlined"
+                  disabled={serviceStatus > System.State.IDLE}
+                  onClick={() => startSump({ tank_id })}
+                >
+                  Start Sump
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  onClick={() => stopSump({ tank_id })}
+                >
+                  Stop Sump
+                </Button>
+              )}
+            </Stack>
+          </Stack>
+        )}
       </Stack>
 
       {/* Maintenance controls */}

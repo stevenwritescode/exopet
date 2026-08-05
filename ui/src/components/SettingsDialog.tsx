@@ -36,15 +36,19 @@ const SettingsDialog: React.FC<SettingsDialogProps> = ({
   const [drain_time, setDrainTime] = useState(0);
   const [fill_time, setFillTime] = useState(0);
   const [has_reservoir, setHasReservoir] = useState(false);
+  const [valve_travel_time, setValveTravelTime] = useState(10);
+  const [sump_autostart, setSumpAutostart] = useState(true);
 
   useEffect(() => {
     setDrainTime(settings.drain_time || 0);
     setFillTime(settings.fill_time || 0);
     setHasReservoir(settings.has_reservoir || false);
+    setValveTravelTime(settings.valve_travel_time ?? 10);
+    setSumpAutostart(settings.sump_autostart ?? true);
   }, [settings]);
 
   const handleSave = () => {
-    onSave({ drain_time, fill_time, has_reservoir });
+    onSave({ drain_time, fill_time, has_reservoir, valve_travel_time, sump_autostart });
     onClose();
   };
   const handleClose = () => {
@@ -111,7 +115,32 @@ const SettingsDialog: React.FC<SettingsDialogProps> = ({
             checked={has_reservoir}
             onChange={(e, newValue) => setHasReservoir(newValue)}
           />
-        </ListItem>        
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <div>
+            <Typography gutterBottom>Sump Valve Travel Time:</Typography>
+            <Typography gutterBottom>{valve_travel_time}s</Typography>
+          </div>
+          <Slider
+            value={valve_travel_time}
+            onChange={(e, newValue) => setValveTravelTime(newValue as number)}
+            step={1}
+            min={1}
+            max={60}
+            valueLabelFormat={(v) => `${v}s`}
+            valueLabelDisplay="auto"
+          />
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <Typography gutterBottom>Sump Auto-Start:</Typography>
+          <Switch
+            name="sump_autostart"
+            checked={sump_autostart}
+            onChange={(e, newValue) => setSumpAutostart(newValue)}
+          />
+        </ListItem>
         <Divider />
       </List>
     </Dialog>

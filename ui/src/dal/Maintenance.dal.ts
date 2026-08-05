@@ -137,6 +137,36 @@ export const fillReservoir = async ({
   });
 };
 
+export const startSump = async ({ tank_id }: { tank_id?: string | number }) => {
+  sendMessage({ action: System.ServiceRequest.START_SUMP, data: { tank_id } });
+};
+
+export const stopSump = async ({ tank_id }: { tank_id?: string | number }) => {
+  sendMessage({ action: System.ServiceRequest.STOP_SUMP, data: { tank_id } });
+};
+
+export const resetSumpLockout = async ({
+  tank_id,
+}: {
+  tank_id?: string | number;
+}) => {
+  sendMessage({
+    action: System.ServiceRequest.RESET_SUMP_LOCKOUT,
+    data: { tank_id },
+  });
+};
+
+export const checkSumpLevel = async ({
+  tank_id,
+}: {
+  tank_id?: string | number;
+}) => {
+  sendMessage({
+    action: System.ParameterCheck.SUMP_WATER_LEVEL,
+    data: { tank_id },
+  });
+};
+
 // You can also expose convenience getters if you need them:
 export let serviceStatus = System.State.IDLE;
 export let waterChangeInProgress = false;
