@@ -24,7 +24,8 @@ stack = 12.3;                      // HAT board-to-board (PC104 socket)
 z_pi = boss_h + pcb_t;             // top of Pi PCB
 z_hat = boss_h + stack + pcb_t;    // top of HAT PCB  (≈17.9+1.6)
 relay_h = 15.7;
-inner_h = z_hat + relay_h + 4;     // headroom above relays
+psu_clear = 32;                    // standing Pololu D24V50F5 (~30 above HAT)
+inner_h = z_hat + max(relay_h + 4, psu_clear);
 
 /* ── case shell ─────────────────────────────────────────── */
 wall = 2.4;     floor_t = 3;      top_t = 2.4;

@@ -27,5 +27,7 @@ plug straight in. Fit tolerance is the
 Openings are derived from connector pad positions measured off
 `../exopet-hat.kicad_pcb` — run `check_ports.py` (KiCad's bundled
 python) to re-verify port alignment and chirality after any edit.
-v2 backlog: separate jack port from sensor slot, fan boss, tall-relay
-clearance re-measure after physical fit check.
+v2 backlog: separate jack port from sensor slot, fan boss. Board rev 2:
+relocate PSU1 — the standing Pololu module leans on relay K3 (2mm gap)
+and overtops the relays; case headroom is raised (psu_clear=32) to
+house it. Pad the relay flank with Kapton where they touch.
