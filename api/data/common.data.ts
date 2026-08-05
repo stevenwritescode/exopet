@@ -100,13 +100,28 @@ function pollFloatSwitch() {
 
 function pollSumpFloatSwitch() {
   let lastValue = readGpio(SUMP_FLOAT_SWITCH_LINE);
+  // Deliver initial sump-float state to SumpManager if valid
+  if (lastValue === 0 || lastValue === 1) {
+    try {
+      const { SumpManager } = require("../logic/Sump.logic");
+      SumpManager.onSumpLevelChange(lastValue === 1);
+    } catch {
+      // Sump.logic lands in the next task; harmless until then
+    }
+  }
   setInterval(() => {
     const value = readGpio(SUMP_FLOAT_SWITCH_LINE);
+    // Skip failed GPIO reads (returns -1)
+    if (value === -1) return;
     if (value !== lastValue) {
       lastValue = value;
       const sumpFull = value === 1;
-      const { SumpManager } = require("../logic/Sump.logic");
-      SumpManager.onSumpLevelChange(sumpFull);
+      try {
+        const { SumpManager } = require("../logic/Sump.logic");
+        SumpManager.onSumpLevelChange(sumpFull);
+      } catch {
+        // Sump.logic lands in the next task; harmless until then
+      }
       DataManager.send({
         action: System.ParameterUpdate.SUMP_WATER_LEVEL,
         data: { sumpFull },
