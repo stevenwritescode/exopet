@@ -1,17 +1,10 @@
-jest.mock("../dal/Species.dal", () => {
-  const mockFn = jest.fn();
-  mockFn.mockImplementation((_query?: string) => {
-    return Promise.resolve({
-      title: "Axolotl",
-      extract: "A paedomorphic salamander.",
-      image: "https://upload.wikimedia.org/axolotl.jpg",
-    });
-  });
-  return {
-    __esModule: true,
-    getSpeciesInfo: mockFn,
-  };
-});
+jest.mock("../dal/Species.dal", () => ({
+  getSpeciesInfo: jest.fn().mockResolvedValue({
+    title: "Axolotl",
+    extract: "A paedomorphic salamander.",
+    image: "https://upload.wikimedia.org/axolotl.jpg",
+  }),
+}));
 
 import { render, screen, act } from "@testing-library/react";
 import AnimalCardScene from "./AnimalCardScene";
@@ -39,16 +32,24 @@ describe("AnimalCardScene", () => {
   });
 
   it("shows the Wikipedia extract once loaded", async () => {
-    // Disable fake timers for this test to allow Promises to resolve
+    // Switch to real timers so that Promise microtasks and React's scheduler
+    // (which uses setImmediate/MessageChannel) can flush state updates.
+    // Provide a fresh mockResolvedValue so the mock returns a properly-resolved
+    // promise in the real-timer context.
     jest.useRealTimers();
-    try {
-      render(<AnimalCardScene animals={ANIMALS} cardMs={1000} />);
-      expect(
-        await screen.findByText(/A paedomorphic salamander/)
-      ).toBeInTheDocument();
-    } finally {
-      jest.useFakeTimers();
-    }
+    const { getSpeciesInfo: mockFn } = jest.requireMock("../dal/Species.dal");
+    mockFn.mockResolvedValue({
+      title: "Axolotl",
+      extract: "A paedomorphic salamander.",
+      image: "https://upload.wikimedia.org/axolotl.jpg",
+    });
+    render(<AnimalCardScene animals={ANIMALS} cardMs={60_000} />);
+    // Wrap the wait in async act() so React 18 commits the state update
+    // triggered by the mocked getSpeciesInfo promise resolving.
+    await act(async () => {
+      await new Promise(r => setTimeout(r, 100));
+    });
+    expect(screen.getByText(/A paedomorphic salamander/)).toBeInTheDocument();
   });
 
   it("advances to the next animal after cardMs", async () => {
