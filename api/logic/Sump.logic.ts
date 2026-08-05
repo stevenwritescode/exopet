@@ -71,6 +71,12 @@ export class SumpManager {
     if (this.sumpFull) {
       return { ok: false, error: "sump float reads full" };
     }
+    if (
+      stateNow === System.SumpState.RUNNING ||
+      stateNow === System.SumpState.OPENING_VALVE
+    ) {
+      return { ok: true }; // concurrent start won during the awaits — don't restart
+    }
     this.tankId = tankId;
     if (this.valveTimer) clearTimeout(this.valveTimer);
     safeRelayOn(MAIN_VALVE_LINE); // valve starts motoring open
