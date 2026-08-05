@@ -63,10 +63,9 @@ export default function Screensaver({
       setScene("video");
       return;
     }
-    const result = getAnimals();
-    if (result && typeof result.then === "function") {
-      result.then(setAnimals).catch(() => setAnimals([]));
-    }
+    getAnimals()
+      .then(setAnimals)
+      .catch(() => setAnimals([]));
   }, [active]);
 
   // Scene cycling: video → cards → video → …
