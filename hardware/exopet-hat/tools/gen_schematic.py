@@ -73,6 +73,9 @@ LIBS = {
     "Transistor_Array:ULN2003": None,
     "Memory_EEPROM:24LC16": None,
     "Jumper:SolderJumper_2_Open": None,
+    "Regulator_Switching:TPS54302": None,
+    "Device:L": None,
+    "Connector:TestPoint": None,
     "power:PWR_FLAG": None,
 }
 
@@ -99,8 +102,11 @@ add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
 add("F1", "Device:Polyfuse", "MF-RG500 5A", (55, 40),
     {"1": "+12V_IN", "2": "+12V_F"},
     "Fuse:Fuse_Bourns_MF-RG500", "VERIFY")
-add("D1", "Device:D_TVS", "SMBJ16A", (55, 60),
-    {"1": "GND", "2": "+12V_F"},
+# pad 1 (cathode mark) on the rail: a unidirectional substitution
+# still lands reverse-biased. Rev 1 had this swapped — the installed
+# SMBJ16A forward-clamped the input and the board played dead.
+add("D1", "Device:D_TVS", "SMBJ16CA bidirectional", (55, 60),
+    {"1": "+12V_F", "2": "GND"},
     "Diode_SMD:D_SMB", "VERIFY")
 add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
     {"D": "+12V_F", "G": "Q1_G", "S": "+12V"},
@@ -108,19 +114,64 @@ add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
 add("R1", "Device:R", "100k", (80, 60),
     {"1": "Q1_G", "2": "GND"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
-add("C1", "Device:C_Polarized", "330uF 25V low-profile <=7.7mm", (105, 40),
+# rev 2: bulk electrolytic replaced by ceramics (C8/C16); the tall
+# radial was the part that forced the >=11mm stacking GPIO socket.
+add("C16", "Device:C", "10uF 25V X7R 1206", (105, 40),
     {"1": "+12V", "2": "GND"},
-    "Capacitor_SMD:CP_Elec_6.3x7.7", "VERIFY")
+    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
 add("C2", "Device:C", "100nF", (105, 60),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
-# — Buck module + link (column 1 lower) —
-# D24V50F5 has 5 pins: EN, VIN, 2x GND, VOUT. Socket pin order must be
-# confirmed against the module silkscreen at layout time.
-add("PSU1", "Connector_Generic:Conn_01x05", "Pololu D24V50F5 5V/5A", (30, 90),
-    {"1": NC, "2": "+12V", "3": "GND", "4": "GND", "5": "+5V_BUCK"},
-    "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical")
+# — Integrated 5V buck: TPS54302 (synchronous, 3A, internal comp/SS).
+# Chosen over the spec's TPS54531 in rev 2: half the parts, no catch
+# diode, and it fits the board. Pi 4 official supply is the same 3A
+# class. FB divider 100k/13.3k -> 5.06V (Vref 0.596V).
+add("U6", "Regulator_Switching:TPS54302", "TPS54302DDC", (30, 90),
+    {"1": "GND", "2": "BUCK_SW", "3": "+12V", "4": "BUCK_FB",
+     "5": NC, "6": "BUCK_BOOT"},
+    "Package_TO_SOT_SMD:SOT-23-6", "VERIFY")
+add("C7", "Device:C", "100nF 16V X7R (boot)", (55, 85),
+    {"1": "BUCK_BOOT", "2": "BUCK_SW"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+add("L1", "Device:L", "6.8uH 5A+ (IHLP-2525 class)", (75, 85),
+    {"1": "BUCK_SW", "2": "+5V_BUCK"},
+    "Inductor_SMD:L_Vishay_IHLP-2525", "VERIFY")
+add("C8", "Device:C", "10uF 25V X7R 1206", (95, 85),
+    {"1": "+12V", "2": "GND"},
+    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+add("C10", "Device:C", "100nF 50V (HF in)", (110, 85),
+    {"1": "+12V", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+add("C11", "Device:C", "22uF 10V X5R 1210", (95, 100),
+    {"1": "+5V_BUCK", "2": "GND"},
+    "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
+add("C12", "Device:C", "22uF 10V X5R 1210", (110, 100),
+    {"1": "+5V_BUCK", "2": "GND"},
+    "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
+add("R16", "Device:R", "100k (FB hi)", (75, 110),
+    {"1": "+5V_BUCK", "2": "BUCK_FB"},
+    "Resistor_SMD:R_0805_2012Metric", "C17407")
+add("R17", "Device:R", "13.3k (FB lo -> 5.06V)", (90, 110),
+    {"1": "BUCK_FB", "2": "GND"},
+    "Resistor_SMD:R_0805_2012Metric", "VERIFY")
+# — Rail indicator LEDs (TOP side) + test points —
+add("R19", "Device:R", "2.2k", (30, 240),
+    {"1": "+12V", "2": "LED12V_A"},
+    "Resistor_SMD:R_0805_2012Metric", "C17520")
+add("D12", "Device:LED", "green 12V-OK", (45, 240),
+    {"2": "LED12V_A", "1": "GND"},
+    "LED_SMD:LED_0805_2012Metric", "C2297")
+add("R20", "Device:R", "1k", (60, 240),
+    {"1": "+5V_BUCK", "2": "LED5V_A"},
+    "Resistor_SMD:R_0805_2012Metric", "C17513")
+add("D13", "Device:LED", "green 5V-OK", (75, 240),
+    {"2": "LED5V_A", "1": "GND"},
+    "LED_SMD:LED_0805_2012Metric", "C2297")
+for i, (tp, net) in enumerate([("TP1", "+12V"), ("TP2", "+5V_BUCK"),
+                               ("TP3", "+3V3"), ("TP4", "GND")]):
+    add(tp, "Connector:TestPoint", net, (95 + i * 15, 240),
+        {"1": net}, "TestPoint:TestPoint_Pad_D1.5mm")
 add("JP1", "Jumper:SolderJumper_2_Open", "5V link (open = USB-C debug)", (55, 90),
     {"1": "+5V_BUCK", "2": "+5V"},
     "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm")

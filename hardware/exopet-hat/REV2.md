@@ -41,8 +41,13 @@ failure that motivated it.
 
 ## Power / packaging
 
-- **Integrate the 5 V buck (TPS54531 per spec §3 rev-2 note), delete
-  the socketed Pololu module.** The standing module leans on relay K3
+- **Integrate the 5 V buck, delete the socketed Pololu module.**
+  Implemented with the **TPS54302** (synchronous, 3 A, internal
+  comp/slow-start) instead of the spec's TPS54531: half the parts, no
+  catch diode, and the 5 A non-sync circuit physically does not fit
+  the relay-pad corridors. Pi 4's official supply is the same 3 A
+  class. The 330 µF input electrolytic is also deleted (2×10 µF
+  ceramics) — it was the part forcing the tall stacking GPIO socket. The standing module leans on relay K3
   (2 mm gap), overtops the relays, and forced +10 mm of enclosure
   height. If a module survives another rev: keep-out zone + horizontal
   mount.

@@ -39,4 +39,31 @@ for i, a in enumerate(refs):
                 continue
             print(f"OVERLAP {a} <-> {b}")
             bad += 1
+# THT pads exist on BOTH sides: check SMD courtyards against them.
+# (Rev 2 packs the buck into the relay-pad corridors on the back; this
+# was the checker's blind spot when that packing was first attempted.)
+tht_pads = []
+for fp in board.GetFootprints():
+    for pad in fp.Pads():
+        if pad.GetAttribute() == pcbnew.PAD_ATTRIB_PTH:
+            pos = pad.GetPosition()
+            r = max(pcbnew.ToMM(pad.GetSizeX()), pcbnew.ToMM(pad.GetSizeY())) / 2
+            tht_pads.append((fp.GetReference(), pad.GetNumber(),
+                             pcbnew.ToMM(pos.x), pcbnew.ToMM(pos.y), r))
+
+smd_refs = [r for r in refs
+            if not any(pp.GetAttribute() == pcbnew.PAD_ATTRIB_PTH
+                       for f in board.GetFootprints() if f.GetReference() == r
+                       for pp in f.Pads())]
+CLEAR = 0.0
+for ref in smd_refs:
+    l, tt, r, b = boxes[ref]
+    for pref, pnum, px, py, pr in tht_pads:
+        if pref == ref:
+            continue
+        if l - CLEAR < px + pr and px - pr < r + CLEAR and \
+           tt - CLEAR < py + pr and py - pr < b + CLEAR:
+            print(f"SMD-vs-PAD {ref} <-> {pref}.{pnum} at ({px:.1f},{py:.1f})")
+            bad += 1
+
 print("PLACEMENT:", "FAIL" if bad else "CLEAN")
