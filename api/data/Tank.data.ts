@@ -95,6 +95,7 @@ export class TankDataManager {
         if (tankSettings) {
           if (tankSettings.has_reservoir !== undefined) tankSettings.has_reservoir = !!tankSettings.has_reservoir;
           if (tankSettings.schedule_enabled !== undefined) tankSettings.schedule_enabled = !!tankSettings.schedule_enabled;
+          if (tankSettings.sump_autostart !== undefined) tankSettings.sump_autostart = !!tankSettings.sump_autostart;
         }
         return new Tank({ ...tankData, settings: tankSettings });
       }
@@ -117,6 +118,9 @@ export class TankDataManager {
       if (!tankSettings) {
         return null;
       } else {
+        if (tankSettings.sump_autostart !== undefined) {
+          tankSettings.sump_autostart = !!tankSettings.sump_autostart;
+        }
         return tankSettings;
       }
     } catch (error) {

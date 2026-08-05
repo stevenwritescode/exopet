@@ -20,12 +20,38 @@ export const RELAY_2_LINE = 20;
 export const RELAY_3_LINE = 21;
 export const FLOAT_SWITCH_LINE = 16;
 
+// Sump hardware — relay 3 is repurposed as the anti-siphon main valve
+// (2-wire auto-return motorized ball valve: energize = open, off = close).
+export const MAIN_VALVE_LINE = RELAY_3_LINE;
+export const SUMP_PUMP_LINE = 19;
+export const SUMP_FLOAT_SWITCH_LINE = 12;
+
 // Relay helpers (active-low)
 export function relayOn(line: number) {
   execSync(`gpioset --mode=exit ${CHIP} ${line}=0`);
 }
 export function relayOff(line: number) {
   execSync(`gpioset --mode=exit ${CHIP} ${line}=1`);
+}
+
+export function safeRelayOn(line: number): boolean {
+  try {
+    relayOn(line);
+    return true;
+  } catch (e) {
+    console.error(`Failed to energize GPIO ${line}:`, e);
+    return false;
+  }
+}
+
+export function safeRelayOff(line: number): boolean {
+  try {
+    relayOff(line);
+    return true;
+  } catch (e) {
+    console.error(`Failed to de-energize GPIO ${line}:`, e);
+    return false;
+  }
 }
 
 // Float switch reading
@@ -72,15 +98,34 @@ function pollFloatSwitch() {
   }, 1000);
 }
 
+function pollSumpFloatSwitch() {
+  let lastValue = readGpio(SUMP_FLOAT_SWITCH_LINE);
+  setInterval(() => {
+    const value = readGpio(SUMP_FLOAT_SWITCH_LINE);
+    if (value !== lastValue) {
+      lastValue = value;
+      const sumpFull = value === 1;
+      const { SumpManager } = require("../logic/Sump.logic");
+      SumpManager.onSumpLevelChange(sumpFull);
+      DataManager.send({
+        action: System.ParameterUpdate.SUMP_WATER_LEVEL,
+        data: { sumpFull },
+      });
+    }
+  }, 1000);
+}
+
 // Initialize GPIO
 export async function initGpio() {
   try {
     initGpioLine(RELAY_1_LINE, "op");
     initGpioLine(RELAY_2_LINE, "op");
     initGpioLine(RELAY_3_LINE, "op");
+    initGpioLine(SUMP_PUMP_LINE, "op");
 
     // input pull‑up on the float switch
     initGpioLine(FLOAT_SWITCH_LINE, "ip_pu");
+    initGpioLine(SUMP_FLOAT_SWITCH_LINE, "ip_pu");
   } catch (e) {
     console.error("GPIO init failed:", e);
   }
@@ -90,11 +135,13 @@ export async function initGpio() {
     relayOff(RELAY_1_LINE);
     relayOff(RELAY_2_LINE);
     relayOff(RELAY_3_LINE);
+    relayOff(SUMP_PUMP_LINE);
   } catch (e) {
     console.error("GPIO relay init failed (non-Pi host, skipping):", e);
   }
 
   pollFloatSwitch();
+  pollSumpFloatSwitch();
 }
 
 
@@ -120,6 +167,8 @@ export async function runMigrations() {
     { name: "schedule_enabled", type: "INTEGER DEFAULT 0" },
     { name: "schedule_days", type: "TEXT DEFAULT ''" },
     { name: "schedule_time", type: "TEXT DEFAULT ''" },
+    { name: "valve_travel_time", type: "INTEGER DEFAULT 10" },
+    { name: "sump_autostart", type: "INTEGER DEFAULT 1" },
   ];
   for (const col of columns) {
     try {
