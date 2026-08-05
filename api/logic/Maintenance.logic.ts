@@ -52,7 +52,7 @@ export class MaintenanceManager {
     await this.drain(tank_id, drainTime, true);
 
     this.setServiceDelay(
-      "fill",
+      "fill_start",
       async () => {
         await this.fill(tank_id, fillTime, true);
       },
@@ -70,9 +70,9 @@ export class MaintenanceManager {
     };
 
     if (resFillTime && resFillTime > 0) {
-      this.setServiceDelay("fill_res", completeAction, (drainTime + fillTime + resFillTime) * 1000);
+      this.setServiceDelay("wc_complete", completeAction, (drainTime + fillTime + resFillTime) * 1000);
     } else {
-      this.setServiceDelay("fill", completeAction, (drainTime + fillTime) * 1000);
+      this.setServiceDelay("wc_complete", completeAction, (drainTime + fillTime) * 1000);
     }
   };
 
@@ -80,7 +80,7 @@ export class MaintenanceManager {
     if (this.fillCheckInterval) {
       clearInterval(this.fillCheckInterval);
     }
-    this.reset(tank_id);
+    await this.reset(tank_id);
     this.clearAllServiceDelays();
     const { SumpManager } = require("./Sump.logic");
     SumpManager.resumeIfPaused();
