@@ -70,6 +70,16 @@ class APIService {
         return try decoder.decode(Tank.self, from: data)
     }
 
+    struct SumpStatus: Codable {
+        let state: Int
+        let sumpFull: Bool
+    }
+
+    func getSumpStatus(tankId: String) async throws -> SumpStatus {
+        let data = try await get("/sump/status/\(tankId)")
+        return try decoder.decode(SumpStatus.self, from: data)
+    }
+
     func getAnimalsForTank(tankId: String) async throws -> [Animal] {
         let data = try await get("/tank/\(tankId)/animals")
         return try decoder.decode([Animal].self, from: data)

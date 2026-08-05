@@ -16,6 +16,8 @@ class TankDetailViewModel: ObservableObject {
     @Published var cancelInProgress = false
     @Published var settingsOpen = false
     @Published var sump: Tank?
+    @Published var sumpState: SumpState = .stopped
+    @Published var sumpFull = false
     @Published var allTanks: [Tank] = []
 
     var eligibleSumps: [Tank] {
@@ -77,6 +79,12 @@ class TankDetailViewModel: ObservableObject {
             do {
                 self.sump = try await api.getTankSump(tankId: tankId)
                 self.allTanks = try await api.getAllTanks()
+                if self.sump != nil {
+                    if let status = try? await api.getSumpStatus(tankId: tankId) {
+                        self.sumpState = SumpState(rawValue: status.state) ?? .stopped
+                        self.sumpFull = status.sumpFull
+                    }
+                }
             } catch {
                 print("Error loading sump info: \(error)")
             }
@@ -190,6 +198,19 @@ class TankDetailViewModel: ObservableObject {
             fillProgress = 0
             waterChangeProgress = 0
 
+        case ServiceUpdate.sumpState.rawValue:
+            if let raw = data?["state"] as? Int, let s = SumpState(rawValue: raw) {
+                sumpState = s
+            }
+
+        case ParameterAction.sumpWaterLevel.rawValue:
+            if let full = data?["sumpFull"] as? Bool {
+                sumpFull = full
+            }
+            if let raw = data?["state"] as? Int, let s = SumpState(rawValue: raw) {
+                sumpState = s
+            }
+
         default:
             break
         }
@@ -251,6 +272,18 @@ class TankDetailViewModel: ObservableObject {
 
     func handleWaterChange() {
         ws.startWaterChange(tankId: tankId)
+    }
+
+    func handleStartSump() {
+        ws.startSump(tankId: tankId)
+    }
+
+    func handleStopSump() {
+        ws.stopSump(tankId: tankId)
+    }
+
+    func handleResetSumpLockout() {
+        ws.resetSumpLockout(tankId: tankId)
     }
 
     func handleFillTank() {

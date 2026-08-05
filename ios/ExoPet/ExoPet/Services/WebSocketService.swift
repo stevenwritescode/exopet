@@ -70,6 +70,18 @@ class WebSocketService: ObservableObject {
         send(action: ServiceRequest.startWaterChange.rawValue, data: ["tank_id": tankId])
     }
 
+    func startSump(tankId: String) {
+        send(action: ServiceRequest.startSump.rawValue, data: ["tank_id": tankId])
+    }
+
+    func stopSump(tankId: String) {
+        send(action: ServiceRequest.stopSump.rawValue, data: ["tank_id": tankId])
+    }
+
+    func resetSumpLockout(tankId: String) {
+        send(action: ServiceRequest.resetSumpLockout.rawValue, data: ["tank_id": tankId])
+    }
+
     func startFillTank(tankId: String) {
         send(action: ServiceRequest.startFillTank.rawValue, data: ["tank_id": tankId])
     }

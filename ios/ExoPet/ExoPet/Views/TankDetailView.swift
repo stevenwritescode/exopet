@@ -86,21 +86,48 @@ struct TankDetailView: View {
                 .foregroundColor(.white)
 
             if let sump = vm.sump {
-                HStack {
-                    Image(systemName: "water.waves")
-                        .foregroundColor(.accentColor)
-                    Text(sump.name ?? "Sump")
-                        .foregroundColor(.white)
-                    Spacer()
-                    Button("Disconnect") {
-                        showDisconnectConfirm = true
+                VStack(spacing: 0) {
+                    HStack {
+                        Image(systemName: "water.waves")
+                            .foregroundColor(.accentColor)
+                        Text(sump.name ?? "Sump")
+                            .foregroundColor(.white)
+                        Spacer()
+                        Button("Disconnect") {
+                            showDisconnectConfirm = true
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.red)
                     }
-                    .font(.subheadline)
-                    .foregroundColor(.red)
+                    .padding()
+                    .background(ExoPetColors.cardSurface)
+                    .cornerRadius(8)
+
+                    HStack {
+                        Circle()
+                            .fill(sumpStatusColor)
+                            .frame(width: 10, height: 10)
+                        Text(sumpStatusLabel)
+                            .font(.subheadline)
+                            .foregroundColor(vm.sumpState == .lockedOut ? .red : .white)
+                        Spacer()
+                        if vm.sumpState == .lockedOut {
+                            Button("Reset Lockout") { vm.handleResetSumpLockout() }
+                                .font(.subheadline)
+                                .foregroundColor(.red)
+                        } else if vm.sumpState == .stopped {
+                            Button("Start") { vm.handleStartSump() }
+                                .font(.subheadline)
+                                .disabled(vm.serviceStatus > .idle)
+                        } else {
+                            Button("Stop") { vm.handleStopSump() }
+                                .font(.subheadline)
+                        }
+                    }
+                    .padding()
+                    .background(ExoPetColors.cardSurface)
+                    .cornerRadius(8)
                 }
-                .padding()
-                .background(ExoPetColors.cardSurface)
-                .cornerRadius(8)
                 .alert("Disconnect sump?", isPresented: $showDisconnectConfirm) {
                     Button("Disconnect", role: .destructive) { vm.disconnectSump() }
                     Button("Cancel", role: .cancel) {}
@@ -153,6 +180,25 @@ struct TankDetailView: View {
                     Text("Creates a sump tank connected to \(vm.tank.name ?? "this tank").")
                 }
             }
+        }
+    }
+
+    private var sumpStatusLabel: String {
+        switch vm.sumpState {
+        case .stopped: return "Stopped"
+        case .openingValve: return "Opening Valve…"
+        case .running: return "Running"
+        case .stopping: return "Stopping…"
+        case .lockedOut: return vm.sumpFull ? "LOCKED OUT — Sump Full" : "LOCKED OUT"
+        }
+    }
+
+    private var sumpStatusColor: Color {
+        switch vm.sumpState {
+        case .running: return .green
+        case .openingValve, .stopping: return .yellow
+        case .stopped: return .gray
+        case .lockedOut: return .red
         }
     }
 
