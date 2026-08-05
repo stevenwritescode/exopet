@@ -62,6 +62,15 @@ export class SumpManager {
     // relay-on → state change → broadcast → setTimeout sequence is fully
     // synchronous and cannot be interrupted by a concurrent stop()/lockout().
     const travel = await this.getValveTravelTime(tankId);
+    // Re-check: a lockout or float trip may have landed during the awaits.
+    // Cast through unknown to defeat TS's pre-await control-flow narrowing on this.state.
+    const stateNow = this.state as unknown as System.SumpState;
+    if (stateNow === System.SumpState.LOCKED_OUT) {
+      return { ok: false, error: "sump is locked out — reset required" };
+    }
+    if (this.sumpFull) {
+      return { ok: false, error: "sump float reads full" };
+    }
     this.tankId = tankId;
     if (this.valveTimer) clearTimeout(this.valveTimer);
     safeRelayOn(MAIN_VALVE_LINE); // valve starts motoring open
@@ -89,6 +98,15 @@ export class SumpManager {
     // relay-off → state change → broadcast → setTimeout sequence is fully
     // synchronous and cannot be interrupted by a concurrent start()/lockout().
     const travel = await this.getValveTravelTime(this.tankId);
+    // Re-check: a lockout (or completed stop) may have landed during the await.
+    // Cast through unknown to defeat TS's pre-await control-flow narrowing on this.state.
+    const stateNow = this.state as unknown as System.SumpState;
+    if (
+      stateNow === System.SumpState.STOPPED ||
+      stateNow === System.SumpState.LOCKED_OUT
+    ) {
+      return;
+    }
     if (this.valveTimer) clearTimeout(this.valveTimer);
     safeRelayOff(SUMP_PUMP_LINE); // pump off first, always
     safeRelayOff(MAIN_VALVE_LINE); // valve motors closed on its own power-off
