@@ -21,13 +21,15 @@ export const waterChangeEndpoint = async (tankId: string) => {
   const settings = tankData.settings;
   const { drain_time, fill_time, has_reservoir, res_fill_time } = settings;
 
-  if (has_reservoir) {
-    MaintenanceManager.waterChange(
-      tankId,
-      drain_time,
-      fill_time,
-      res_fill_time
-    ); // Assume waterChange is an async function
+  const sump = await TankDataManager.getSumpForTank(tankId);
+  if (has_reservoir && sump) {
+    console.warn(
+      `Tank ${tankId} has has_reservoir set but a sump is connected — ` +
+        "skipping reservoir fill (relay 3 is the sump main valve)."
+    );
+  }
+  if (has_reservoir && !sump) {
+    MaintenanceManager.waterChange(tankId, drain_time, fill_time, res_fill_time);
   } else {
     MaintenanceManager.waterChange(tankId, drain_time, fill_time);
   }

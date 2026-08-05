@@ -41,6 +41,8 @@ export class MaintenanceManager {
     fillTime: number = 0,
     resFillTime: number = 0
   ): Promise<void> => {
+    const { SumpManager } = require("./Sump.logic");
+    await SumpManager.pauseForMaintenance();
     this.reset(tank_id);
     DataManager.send({
       data: { tank_id },
@@ -57,11 +59,14 @@ export class MaintenanceManager {
       drainTime * 1000
     );
 
-    const completeAction = () => {
+    const completeAction = async () => {
+      this.serviceStatus = System.State.IDLE;
+      await MaintenanceDataManager.setServiceStatus(tank_id, this.serviceStatus);
       DataManager.send({
         data: { tank_id },
         action: System.ServiceUpdate.WATER_CHANGE_COMPLETE,
       });
+      SumpManager.resumeIfPaused();
     };
 
     if (resFillTime && resFillTime > 0) {
@@ -77,13 +82,21 @@ export class MaintenanceManager {
     }
     this.reset(tank_id);
     this.clearAllServiceDelays();
+    const { SumpManager } = require("./Sump.logic");
+    SumpManager.resumeIfPaused();
   };
 
   static reset = async (tank_id: string): Promise<void> => {
     this.serviceStatus = System.State.IDLE;
     relayOff(RELAY_1_LINE);
     relayOff(RELAY_2_LINE);
-    relayOff(RELAY_3_LINE);
+    const { SumpManager } = require("./Sump.logic");
+    if (
+      SumpManager.state !== System.SumpState.RUNNING &&
+      SumpManager.state !== System.SumpState.OPENING_VALVE
+    ) {
+      relayOff(RELAY_3_LINE); // main valve — safe to close, sump isn't using it
+    }
     await MaintenanceDataManager.setServiceStatus(tank_id, this.serviceStatus);
   };
 
@@ -92,6 +105,10 @@ export class MaintenanceManager {
     drainTime: number = 0,
     changing: boolean = false
   ): Promise<number> => {
+    const { SumpManager } = require("./Sump.logic");
+    if (!changing) {
+      await SumpManager.pauseForMaintenance();
+    }
     relayOn(RELAY_1_LINE); // Begin draining
     DataManager.send({
       data: { tank_id, duration: drainTime, durationMs: drainTime * 1000 },
@@ -113,6 +130,11 @@ export class MaintenanceManager {
         });
         console.log("Drain complete");
         this.clearServiceDelay("drain");
+        if (!changing) {
+          this.serviceStatus = System.State.IDLE;
+          MaintenanceDataManager.setServiceStatus(tank_id, this.serviceStatus);
+          SumpManager.resumeIfPaused();
+        }
       },
       drainTime * 1000
     );
@@ -147,6 +169,10 @@ export class MaintenanceManager {
       });
       if (this.fillCheckInterval) {
         clearInterval(this.fillCheckInterval);
+      }
+      if (!changing) {
+        this.serviceStatus = System.State.IDLE;
+        MaintenanceDataManager.setServiceStatus(tank_id, this.serviceStatus);
       }
     };
 
