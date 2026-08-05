@@ -49,7 +49,7 @@ export default function AnimalCardScene({
 
   if (!animal) return null;
 
-  const backdrop = animalImageSrc((animal as any).image_url) ?? info?.image;
+  const backdrop = animalImageSrc(animal.image_url) ?? info?.image;
   const fed = lastFedLabel(animal);
 
   return (

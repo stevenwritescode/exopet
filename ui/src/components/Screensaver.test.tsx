@@ -18,6 +18,7 @@ jest.mock("../dal/Maintenance.dal", () => ({
   onMessage: jest.fn((cb: any) => {
     wsHandler = cb;
   }),
+  checkSumpLevel: jest.fn(),
 }));
 
 jest.mock("../dal/Species.dal", () => ({
@@ -48,6 +49,7 @@ describe("Screensaver", () => {
     (require("../dal/Maintenance.dal").onMessage as jest.Mock).mockImplementation((cb: any) => {
       wsHandler = cb;
     });
+    (require("../dal/Maintenance.dal").checkSumpLevel as jest.Mock).mockImplementation(() => {});
     jest.useFakeTimers();
   });
 
@@ -179,5 +181,33 @@ describe("Screensaver", () => {
       });
     });
     expect(screen.queryByText(/SUMP LOCKED OUT/i)).toBeNull();
+  });
+
+  it("shows the lockout banner when a sump_water_level reply with state 4 arrives on activation", async () => {
+    renderSaver(1000);
+    // Activate the screensaver — this also fires checkSumpLevel
+    await act(async () => {
+      jest.advanceTimersByTime(1001);
+    });
+    // Simulate the API reply to checkSumpLevel carrying state = LOCKED_OUT (4)
+    act(() => {
+      wsHandler?.({
+        data: JSON.stringify({
+          action: "sump_water_level",
+          data: { sumpFull: true, state: 4 },
+        }),
+      });
+    });
+    expect(screen.getByText(/SUMP LOCKED OUT/i)).toBeInTheDocument();
+    // A float-poll reply without a state field must NOT clear the banner
+    act(() => {
+      wsHandler?.({
+        data: JSON.stringify({
+          action: "sump_water_level",
+          data: { sumpFull: true },
+        }),
+      });
+    });
+    expect(screen.getByText(/SUMP LOCKED OUT/i)).toBeInTheDocument();
   });
 });

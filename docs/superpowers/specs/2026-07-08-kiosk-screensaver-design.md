@@ -69,3 +69,20 @@ screensaver is what fills it.
 4. Disconnect network → cards still render from DB + cache.
 5. Force a temperature alert (or sump lockout) while the saver is up →
    banner breaks through.
+
+## Amendments
+
+**2026-08-03 — user decisions recorded post-implementation**
+
+(a) **Scene alternation cadence (multi-animal):** By user decision the saver
+    ALTERNATES the existing video loop (90 s, `VIDEO_SCENE_MS`) with the animal
+    card scene (25 s per animal, `CARD_MS`): video → cards → video → … This
+    supersedes the original "cards only" description in "Screensaver content"
+    above.
+
+(b) **Single-animal enclosure behaviour:** When there is only one animal the
+    screensaver shows a static card between video scenes rather than alternating
+    emphasised detail panels. This is an intentional simplification — the
+    original spec's "alternates emphasized detail" sentence applies only to the
+    card-cycling logic (`AnimalCardScene` index drift), not to a separate
+    detail-emphasis mode. No additional implementation is planned.

@@ -29,14 +29,51 @@ export class AnimalDataManager {
     try {
       const conn = await dbConnection();
       if (!conn) return [];
-      const animals = await conn.all("SELECT * FROM animals");
+      // Enrich each animal row with its latest feeding log so that
+      // consumers (e.g. the kiosk screensaver card scene) can render
+      // "last fed X ago" without a separate per-animal request.
+      const animals = await conn.all(`
+        SELECT
+          a.*,
+          fl.timestamp   AS fl_timestamp,
+          fl.action_type AS fl_action_type,
+          fl.log_json    AS fl_log_json
+        FROM animals a
+        LEFT JOIN (
+          SELECT animal_id, timestamp, action_type, log_json
+          FROM logs
+          WHERE action_type = 'Feeding'
+            AND (animal_id, timestamp) IN (
+              SELECT animal_id, MAX(timestamp)
+              FROM logs
+              WHERE action_type = 'Feeding'
+              GROUP BY animal_id
+            )
+        ) fl ON fl.animal_id = a.id
+      `);
       await conn.close();
 
       if (!animals) {
         return [];
-      } else {
-        return animals;
       }
+
+      return animals.map((row: any) => {
+        const animal: Animal = { ...row };
+        if (row.fl_timestamp) {
+          let parsedLog: any = row.fl_log_json;
+          try { parsedLog = JSON.parse(row.fl_log_json); } catch { /* keep raw */ }
+          animal.last_feeding_log = {
+            log_type: row.fl_action_type,
+            timestamp: row.fl_timestamp,
+            log_json: parsedLog,
+          };
+        }
+        // Remove the flat join columns from the returned object
+        delete (animal as any).fl_timestamp;
+        delete (animal as any).fl_action_type;
+        delete (animal as any).fl_log_json;
+        return animal;
+      });
     } catch (error) {
       console.log(error);
       return [];

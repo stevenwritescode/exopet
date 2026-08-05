@@ -4,7 +4,7 @@ import { Animal, System } from "aquario-models";
 import TempStatusOverlay from "./TempStatusOverlay";
 import AnimalCardScene from "./AnimalCardScene";
 import { getAnimals } from "../dal/Animal.dal";
-import { initWebSocket, onMessage } from "../dal/Maintenance.dal";
+import { initWebSocket, onMessage, checkSumpLevel } from "../dal/Maintenance.dal";
 
 export const IDLE_TIMEOUT_MS = 5 * 60 * 1000;
 export const VIDEO_SCENE_MS = 90_000;
@@ -57,7 +57,10 @@ export default function Screensaver({
     };
   }, [timeoutMs]);
 
-  // Load animals and reset scene when screensaver activates/deactivates
+  // Load animals and reset scene when screensaver activates/deactivates;
+  // also re-request sump state so the banner is correct from the moment
+  // the saver shows (handles the case where a lockout was already active
+  // before the saver mounted).
   useEffect(() => {
     if (!active) {
       setScene("video");
@@ -66,6 +69,7 @@ export default function Screensaver({
     getAnimals()
       .then(setAnimals)
       .catch(() => setAnimals([]));
+    checkSumpLevel({});
   }, [active]);
 
   // Scene cycling: video → cards → video → …
@@ -91,6 +95,12 @@ export default function Screensaver({
         const msg = JSON.parse(event.data);
         if (msg.action === System.ServiceUpdate.SUMP_STATE) {
           setSumpLockedOut(msg.data?.state === System.SumpState.LOCKED_OUT);
+        } else if (msg.action === System.ParameterUpdate.SUMP_WATER_LEVEL) {
+          // Only update lockout flag when state is present; background float
+          // polls emit sumpFull only (no state field).
+          if (msg.data?.state !== undefined) {
+            setSumpLockedOut(msg.data.state === System.SumpState.LOCKED_OUT);
+          }
         }
       } catch {
         // non-JSON frames (hello message) — ignore
