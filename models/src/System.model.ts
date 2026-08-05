@@ -19,11 +19,20 @@ export namespace System {
     WATER_CHANGE_FILLING_RESERVOIR,
   }
 
+  export enum SumpState {
+    STOPPED,
+    OPENING_VALVE,
+    RUNNING,
+    STOPPING,
+    LOCKED_OUT,
+  }
+
   export enum ParameterUpdate {
     TEMPERATURE = "temperature",
     PH = "ph",
     OXYGEN = "oxygen",
     WATER_LEVEL = "water_level",
+    SUMP_WATER_LEVEL = "sump_water_level",
   }
 
   export enum ParameterCheck {
@@ -31,6 +40,7 @@ export namespace System {
     PH = "ph",
     OXYGEN = "oxygen",
     WATER_LEVEL = "water_level",
+    SUMP_WATER_LEVEL = "sump_water_level",
   }
 
   export enum ServiceUpdate {
@@ -43,6 +53,7 @@ export namespace System {
     FILL_COMPLETE = "water_fill_complete",
     FILL_RESERVOIR_BEGAN = "fill_reservoir_began",
     FILL_RESERVOIR_COMPLETE = "fill_reservoir_complete",
+    SUMP_STATE = "sump_state",
   }
 
   export enum ServiceRequest {
@@ -55,5 +66,8 @@ export namespace System {
     CANCEL_FILL_TANK = "cancel_fill_tank",
     CANCEL_FILL_RESERVOIR = "cancel_fill_reservoir",
     CANCEL_DRAIN_TANK = "cancel_drain_tank",
+    START_SUMP = "start_sump",
+    STOP_SUMP = "stop_sump",
+    RESET_SUMP_LOCKOUT = "reset_sump_lockout",
   }
 }

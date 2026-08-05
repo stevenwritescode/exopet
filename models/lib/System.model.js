@@ -13,12 +13,21 @@ var System;
         State[State["WATER_CHANGE_FILLING_TANK"] = 5] = "WATER_CHANGE_FILLING_TANK";
         State[State["WATER_CHANGE_FILLING_RESERVOIR"] = 6] = "WATER_CHANGE_FILLING_RESERVOIR";
     })(State = System.State || (System.State = {}));
+    var SumpState;
+    (function (SumpState) {
+        SumpState[SumpState["STOPPED"] = 0] = "STOPPED";
+        SumpState[SumpState["OPENING_VALVE"] = 1] = "OPENING_VALVE";
+        SumpState[SumpState["RUNNING"] = 2] = "RUNNING";
+        SumpState[SumpState["STOPPING"] = 3] = "STOPPING";
+        SumpState[SumpState["LOCKED_OUT"] = 4] = "LOCKED_OUT";
+    })(SumpState = System.SumpState || (System.SumpState = {}));
     var ParameterUpdate;
     (function (ParameterUpdate) {
         ParameterUpdate["TEMPERATURE"] = "temperature";
         ParameterUpdate["PH"] = "ph";
         ParameterUpdate["OXYGEN"] = "oxygen";
         ParameterUpdate["WATER_LEVEL"] = "water_level";
+        ParameterUpdate["SUMP_WATER_LEVEL"] = "sump_water_level";
     })(ParameterUpdate = System.ParameterUpdate || (System.ParameterUpdate = {}));
     var ParameterCheck;
     (function (ParameterCheck) {
@@ -26,6 +35,7 @@ var System;
         ParameterCheck["PH"] = "ph";
         ParameterCheck["OXYGEN"] = "oxygen";
         ParameterCheck["WATER_LEVEL"] = "water_level";
+        ParameterCheck["SUMP_WATER_LEVEL"] = "sump_water_level";
     })(ParameterCheck = System.ParameterCheck || (System.ParameterCheck = {}));
     var ServiceUpdate;
     (function (ServiceUpdate) {
@@ -38,6 +48,7 @@ var System;
         ServiceUpdate["FILL_COMPLETE"] = "water_fill_complete";
         ServiceUpdate["FILL_RESERVOIR_BEGAN"] = "fill_reservoir_began";
         ServiceUpdate["FILL_RESERVOIR_COMPLETE"] = "fill_reservoir_complete";
+        ServiceUpdate["SUMP_STATE"] = "sump_state";
     })(ServiceUpdate = System.ServiceUpdate || (System.ServiceUpdate = {}));
     var ServiceRequest;
     (function (ServiceRequest) {
@@ -50,5 +61,8 @@ var System;
         ServiceRequest["CANCEL_FILL_TANK"] = "cancel_fill_tank";
         ServiceRequest["CANCEL_FILL_RESERVOIR"] = "cancel_fill_reservoir";
         ServiceRequest["CANCEL_DRAIN_TANK"] = "cancel_drain_tank";
+        ServiceRequest["START_SUMP"] = "start_sump";
+        ServiceRequest["STOP_SUMP"] = "stop_sump";
+        ServiceRequest["RESET_SUMP_LOCKOUT"] = "reset_sump_lockout";
     })(ServiceRequest = System.ServiceRequest || (System.ServiceRequest = {}));
 })(System || (exports.System = System = {}));

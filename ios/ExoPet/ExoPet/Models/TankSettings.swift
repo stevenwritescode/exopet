@@ -13,6 +13,8 @@ struct TankSettings: Codable, Hashable {
     var schedule_enabled: Bool?
     var schedule_days: String?
     var schedule_time: String?
+    var valve_travel_time: Int?
+    var sump_autostart: Bool?
 
     var effectiveLowerTempLimit: Double { lower_temp_limit ?? 25.0 }
     var effectiveUpperTempLimit: Double { upper_temp_limit ?? 30.0 }

@@ -47,4 +47,6 @@ export interface TankSettings {
   schedule_enabled?: boolean;
   schedule_days?: string;
   schedule_time?: string;
+  valve_travel_time?: number;
+  sump_autostart?: boolean;
 }

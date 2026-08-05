@@ -15,12 +15,22 @@ enum ServiceState: Int, Codable, Comparable {
     }
 }
 
+// MARK: - Sump State Machine (matches System.SumpState in aquario-models)
+enum SumpState: Int, Codable {
+    case stopped = 0
+    case openingValve = 1
+    case running = 2
+    case stopping = 3
+    case lockedOut = 4
+}
+
 // MARK: - Parameter Check / Update (matches System.ParameterCheck / ParameterUpdate)
 enum ParameterAction: String {
     case temperature = "temperature"
     case ph = "ph"
     case oxygen = "oxygen"
     case waterLevel = "water_level"
+    case sumpWaterLevel = "sump_water_level"
 }
 
 // MARK: - Service Requests (client → server)
@@ -34,6 +44,9 @@ enum ServiceRequest: String {
     case cancelFillTank = "cancel_fill_tank"
     case cancelFillReservoir = "cancel_fill_reservoir"
     case cancelDrainTank = "cancel_drain_tank"
+    case startSump = "start_sump"
+    case stopSump = "stop_sump"
+    case resetSumpLockout = "reset_sump_lockout"
 }
 
 // MARK: - Service Updates (server → client)
@@ -47,6 +60,7 @@ enum ServiceUpdate: String {
     case fillComplete = "water_fill_complete"
     case fillReservoirBegan = "fill_reservoir_began"
     case fillReservoirComplete = "fill_reservoir_complete"
+    case sumpState = "sump_state"
 }
 
 // MARK: - Food Types (Feeding Dialog)
