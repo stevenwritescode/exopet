@@ -1,9 +1,10 @@
-# Ordering ExoPet HAT rev 1 — FULL ASSEMBLY (JLCPCB)
+# Ordering ExoPet HAT rev 2 — FULL ASSEMBLY (JLCPCB)
 
 Files:
 - `exopet-hat-gerbers.zip` — board fabrication data (upload first)
-- `exopet-hat-bom-jlc.csv` — ALL parts, 23 lines (SMD + through-hole)
-- `exopet-hat-cpl.csv` — 49 placements (31 bottom SMD, 18 top THT)
+- `exopet-hat-bom-jlc.csv` — ALL parts, 31 lines (SMD + through-hole)
+- `exopet-hat-cpl.csv` — 61 placements (39 bottom SMD, 22 top incl.
+  channel/rail LEDs)
 
 ## Steps
 
@@ -19,11 +20,12 @@ Files:
      clones are fine and cheap
    - Barrel jack — search "PJ-102" first; **compare the footprint pad
      drawing before accepting a DC-005-style jack** (pads differ!)
-   - 2×20 GPIO socket — **must be TALL/stacking ≥11 mm**: the back-side
-     bulk cap (C1, 10.5 mm) hangs toward the Pi and a standard 8.5 mm
-     socket will not clear it
-   - 1×5 socket, PTC fuses (5 A / 1 A radial), C1/D1/U4/U5 per the
-     descriptions
+   - 2×20 GPIO socket — TALL/stacking (PC104, ~12.3 mm) to match the
+     enclosure stack height
+   - **TPS54302** buck (SOT-23-6), **6.8 µH inductor** (IHLP-2525
+     class, Isat ≥5 A), 10 µF/22 µF ceramics, 13.3 k FB resistor
+   - **D1 = SMBJ16CA (the CA bidirectional part, not SMBJ16A)**
+   - PTC fuses (5 A / 1 A radial), U4/U5 per the descriptions
 5. **Placement preview:** verify relay orientation (notch), LED/diode
    polarity, chip pin-1 dots, terminal wire-entry facing the board edge
    (front row faces front, left column faces left), barrel jack opening
@@ -31,19 +33,20 @@ Files:
 6. Checkout. Standard both-sides assembly on 5 boards typically lands
    **$150–250 all-in** with parts and shipping.
 
-## What still needs your hands (10 minutes, no soldering iron needed
-except one blob)
+## What still needs your hands (5 minutes)
 
-- **Insert the Pololu D24V50F5 module** into its socket (buy from
-  pololu.com, #2851, ~$17) — observe pin labels: EN VIN GND GND VOUT.
-- **Bridge solder jumper JP1** (one solder blob) — this connects the
-  buck's 5 V to the Pi. It ships open so a bare board can be bench-
-  tested against USB-C power first. Bridge it only after the first
-  power-up check (bring-up step 1: 12 V in, verify 5 V at the jumper).
+- **Bridge solder jumper JP1** (one solder blob) — connects the
+  on-board buck's 5 V to the Pi. It ships open so a bare board can be
+  bench-tested against USB-C power first. Bridge only after the first
+  power-up check: 12 V in — the green **12V** and **5V** LEDs by the
+  test points must both light; verify 5.0–5.1 V at TP2 (+5) vs TP4
+  (GND).
 - Program the HAT EEPROM (software; via the Pi itself, no hardware).
+- No Pololu module in rev 2 — the buck is on the board.
 
 ## After ordering
 
 While boards ship: build the EEPROM image and the bring-up checklist
-(design spec §11). First power-up is ALWAYS: barrel 12 V in, no Pi, no
-module — verify rails at the jumper and PSU socket.
+(design spec §11). First power-up is ALWAYS: barrel 12 V in, no Pi —
+both rail LEDs on, then rails at TP1 (+12), TP2 (+5), TP3 (3V3 stays
+dark until a Pi is attached) against TP4 (GND).

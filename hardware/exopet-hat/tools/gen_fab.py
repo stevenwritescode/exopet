@@ -13,9 +13,9 @@ HERE = Path(__file__).resolve().parent.parent
 FAB = HERE / "fab"
 
 # Parts assembled by JLC. JP1/JP2 are bare solder-jumper pads (no part);
-# H1-H4 are holes. PSU1 socket is soldered; the Pololu module itself is
-# customer-inserted.
-EXCLUDE = {"JP1", "JP2", "H1", "H2", "H3", "H4"}
+# H1-H4 are holes; TP1-TP4 are bare test pads.
+EXCLUDE = {"JP1", "JP2", "H1", "H2", "H3", "H4",
+           "TP1", "TP2", "TP3", "TP4"}
 
 # LCSC picks / search hints for through-hole lines.
 THT_LCSC = {
@@ -23,7 +23,6 @@ THT_LCSC = {
     "K1": "C1524650", "K2": "C1524650", "K3": "C1524650", "K4": "C1524650",
     # J1 barrel jack: C20518877 exists at LCSC but NOT in JLC assembly library;
     "J3": "C35165",      # 2x20 PC104 stacking 12.3mm
-    "PSU1": "C50950",    # 1x5 female 2.54
     "F1": "C468988",     # RGEF500 5A
     "F2": "C208481", "F3": "C208481", "F4": "C208481",  # Bourns MF-R110 — RXEF110 legs (0.81mm) do not fit the 0.71mm holes
     "J8": "C474892", "J9": "C474892", "J10": "C474892",
@@ -39,8 +38,10 @@ SEARCH_HINT = {
         "DC barrel jack 5.5x2.1 PJ-102A compatible (check pad layout!)",
     "PinSocket_2x20_P2.54mm_Vertical":
         "female header 2x20 2.54mm TALL stacking >=11mm (back-side parts need clearance)",
-    "PinSocket_1x05_P2.54mm_Vertical":
-        "female header 1x5 2.54mm",
+    "SOT-23-6":
+        "TPS54302DDCR buck (search TPS54302)",
+    "L_Vishay_IHLP-2525":
+        "6.8uH shielded power inductor, Isat>=5A, 6.5x6.9mm (IHLP2525CZ-6R8 class)",
     "Fuse_Bourns_MF-RG500": "radial PTC resettable fuse 5A (RGEF500 class)",
     "Fuse_Bourns_MF-RHT100": "radial PTC resettable fuse 1A (RHT/RGEF100 class)",
 }
