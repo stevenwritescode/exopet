@@ -304,6 +304,7 @@ export class DataManager {
   };
 
   static send = (data: System.Update | { message: string }) => {
+    if (!this.wss) return; // wss not yet assigned (pre-initSocket boot path)
     const payload = JSON.stringify(data);
     this.wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {

@@ -58,13 +58,15 @@ export class SumpManager {
       return { ok: false, error: "no sump connected to this tank" };
     }
 
+    // Resolve travel time BEFORE touching relays/state so the subsequent
+    // relay-on → state change → broadcast → setTimeout sequence is fully
+    // synchronous and cannot be interrupted by a concurrent stop()/lockout().
+    const travel = await this.getValveTravelTime(tankId);
     this.tankId = tankId;
     if (this.valveTimer) clearTimeout(this.valveTimer);
     safeRelayOn(MAIN_VALVE_LINE); // valve starts motoring open
     this.state = System.SumpState.OPENING_VALVE;
     this.broadcast();
-
-    const travel = await this.getValveTravelTime(tankId);
     this.valveTimer = setTimeout(() => {
       // Only proceed if nothing interrupted the opening sequence
       if (this.state === System.SumpState.OPENING_VALVE) {
@@ -83,13 +85,15 @@ export class SumpManager {
     ) {
       return;
     }
+    // Resolve travel time BEFORE touching relays/state so the subsequent
+    // relay-off → state change → broadcast → setTimeout sequence is fully
+    // synchronous and cannot be interrupted by a concurrent start()/lockout().
+    const travel = await this.getValveTravelTime(this.tankId);
     if (this.valveTimer) clearTimeout(this.valveTimer);
     safeRelayOff(SUMP_PUMP_LINE); // pump off first, always
     safeRelayOff(MAIN_VALVE_LINE); // valve motors closed on its own power-off
     this.state = System.SumpState.STOPPING;
     this.broadcast(reason);
-
-    const travel = await this.getValveTravelTime(this.tankId);
     this.valveTimer = setTimeout(() => {
       if (this.state === System.SumpState.STOPPING) {
         this.state = System.SumpState.STOPPED;
