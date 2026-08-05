@@ -15,24 +15,27 @@ import { System } from "aquario-models/lib/System.model";
 
 const CHIP = "gpiochip0";
 
-// GPIO line numbers (BCM)
-export const RELAY_1_LINE = 26;
-export const RELAY_2_LINE = 20;
-export const RELAY_3_LINE = 21;
-export const FLOAT_SWITCH_LINE = 16;
+// GPIO line numbers (BCM) — ExoPet HAT rev 1 header map (spec §8).
+// Old external relay board used 26/20/21/19; the HAT drives CH1..CH4
+// through a TBD62003 sink driver on 17/27/22/23.
+export const RELAY_1_LINE = 17;        // CH1 terminal (switched 12V)
+export const RELAY_2_LINE = 27;        // CH2 terminal (switched 12V)
+export const RELAY_3_LINE = 22;        // CH3 terminal (switched 12V)
+export const FLOAT_SWITCH_LINE = 16;   // FLT1 terminal
 
 // Sump hardware — relay 3 is repurposed as the anti-siphon main valve
 // (2-wire auto-return motorized ball valve: energize = open, off = close).
 export const MAIN_VALVE_LINE = RELAY_3_LINE;
-export const SUMP_PUMP_LINE = 19;
-export const SUMP_FLOAT_SWITCH_LINE = 12;
+export const SUMP_PUMP_LINE = 23;      // CH4 / AUX terminal (dry contact)
+export const SUMP_FLOAT_SWITCH_LINE = 12; // FLT2 terminal
 
-// Relay helpers (active-low)
+// Relay helpers — the HAT is ACTIVE-HIGH (TBD62003 Darlington sinks the
+// 12V coil when the GPIO is 1). The old external board was active-low.
 export function relayOn(line: number) {
-  execSync(`gpioset --mode=exit ${CHIP} ${line}=0`);
+  execSync(`gpioset --mode=exit ${CHIP} ${line}=1`);
 }
 export function relayOff(line: number) {
-  execSync(`gpioset --mode=exit ${CHIP} ${line}=1`);
+  execSync(`gpioset --mode=exit ${CHIP} ${line}=0`);
 }
 
 export function safeRelayOn(line: number): boolean {
