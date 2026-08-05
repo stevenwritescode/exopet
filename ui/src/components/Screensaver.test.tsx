@@ -1,9 +1,27 @@
-import { render, act, fireEvent } from "@testing-library/react";
+import { render, act, fireEvent, screen } from "@testing-library/react";
 import { MemoryRouter, useLocation } from "react-router-dom";
-import Screensaver from "./Screensaver";
+import Screensaver, { VIDEO_SCENE_MS, CARD_MS } from "./Screensaver";
+import { getAnimals } from "../dal/Animal.dal";
+import { System } from "aquario-models";
 
 jest.mock("../dal/Tank.dal", () => ({
   getTemperatureStatuses: jest.fn().mockResolvedValue([]),
+}));
+
+jest.mock("../dal/Animal.dal", () => ({
+  getAnimals: jest.fn().mockResolvedValue([]),
+}));
+
+let wsHandler: ((evt: any) => void) | null = null;
+jest.mock("../dal/Maintenance.dal", () => ({
+  initWebSocket: jest.fn(),
+  onMessage: jest.fn((cb: any) => {
+    wsHandler = cb;
+  }),
+}));
+
+jest.mock("../dal/Species.dal", () => ({
+  getSpeciesInfo: jest.fn().mockResolvedValue(null),
 }));
 
 function LocationProbe() {
@@ -22,6 +40,14 @@ function renderSaver(timeoutMs: number, initialPath = "/") {
 
 describe("Screensaver", () => {
   beforeEach(() => {
+    // resetMocks (set by CRA's jest config) wipes mock implementations between
+    // tests, so re-apply the defaults here so every test starts with working mocks.
+    (require("../dal/Tank.dal").getTemperatureStatuses as jest.Mock).mockResolvedValue([]);
+    (require("../dal/Animal.dal").getAnimals as jest.Mock).mockResolvedValue([]);
+    (require("../dal/Species.dal").getSpeciesInfo as jest.Mock).mockResolvedValue(null);
+    (require("../dal/Maintenance.dal").onMessage as jest.Mock).mockImplementation((cb: any) => {
+      wsHandler = cb;
+    });
     jest.useFakeTimers();
   });
 
@@ -82,5 +108,76 @@ describe("Screensaver", () => {
     });
     expect(document.querySelector("video")).not.toBeNull();
     expect(getByTestId("location").textContent).toBe("/");
+  });
+
+  const ANIMALS = [
+    { id: "a1", name: "Cosmo", species: "Axolotl" },
+    { id: "a2", name: "Echo", species: "Axolotl" },
+  ];
+
+  it("switches from video to animal cards after the video scene", async () => {
+    (getAnimals as jest.Mock).mockResolvedValue(ANIMALS);
+    renderSaver(1000);
+    await act(async () => {
+      jest.advanceTimersByTime(1001);
+    });
+    expect(document.querySelector("video")).not.toBeNull();
+    await act(async () => {
+      jest.advanceTimersByTime(VIDEO_SCENE_MS + 10);
+    });
+    expect(document.querySelector("video")).toBeNull();
+    expect(screen.getByText("Cosmo")).toBeInTheDocument();
+  });
+
+  it("returns to the video after all cards have shown", async () => {
+    (getAnimals as jest.Mock).mockResolvedValue(ANIMALS);
+    renderSaver(1000);
+    await act(async () => {
+      jest.advanceTimersByTime(1001);
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(VIDEO_SCENE_MS + 10);
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(ANIMALS.length * CARD_MS + 10);
+    });
+    expect(document.querySelector("video")).not.toBeNull();
+  });
+
+  it("stays on the video when there are no animals", async () => {
+    (getAnimals as jest.Mock).mockResolvedValue([]);
+    renderSaver(1000);
+    await act(async () => {
+      jest.advanceTimersByTime(1001);
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(VIDEO_SCENE_MS * 2);
+    });
+    expect(document.querySelector("video")).not.toBeNull();
+  });
+
+  it("shows the sump lockout banner when a lockout broadcast arrives", async () => {
+    renderSaver(1000);
+    await act(async () => {
+      jest.advanceTimersByTime(1001);
+    });
+    act(() => {
+      wsHandler?.({
+        data: JSON.stringify({
+          action: "sump_state",
+          data: { state: 4 },
+        }),
+      });
+    });
+    expect(screen.getByText(/SUMP LOCKED OUT/i)).toBeInTheDocument();
+    act(() => {
+      wsHandler?.({
+        data: JSON.stringify({
+          action: "sump_state",
+          data: { state: 0 },
+        }),
+      });
+    });
+    expect(screen.queryByText(/SUMP LOCKED OUT/i)).toBeNull();
   });
 });
