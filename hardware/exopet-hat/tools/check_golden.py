@@ -48,7 +48,7 @@ EXPECT = {
     "C12": {"1": "+5V_BUCK", "2": "GND"},
     "R16": {"1": "+5V_BUCK", "2": "BUCK_FB"},
     "R17": {"1": "BUCK_FB", "2": "GND"},
-    "JP1": {"1": "+5V_BUCK", "2": "+5V"},
+    "R21": {"1": "+5V_BUCK", "2": "+5V"},
     # relay driver: GPIO 17/27/22/23 in, open-drain sinks out,
     # COM (flyback) pin on +12V
     "U2": {"1": "GPIO17", "2": "GPIO27", "3": "GPIO22", "4": "GPIO23",

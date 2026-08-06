@@ -1,4 +1,5 @@
 Comment,Designator,Footprint,LCSC Part #
+0R (5V link; remove to isolate buck),R21,R_0805_2012Metric,C17477
 100k,R1,R_0805_2012Metric,C17407
 100k (FB hi),R16,R_0805_2012Metric,C17407
 100nF,"C2,C3,C4,C5,C6",C_0805_2012Metric,C49678

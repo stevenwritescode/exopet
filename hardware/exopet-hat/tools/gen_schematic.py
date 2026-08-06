@@ -172,9 +172,12 @@ for i, (tp, net) in enumerate([("TP1", "+12V"), ("TP2", "+5V_BUCK"),
                                ("TP3", "+3V3"), ("TP4", "GND")]):
     add(tp, "Connector:TestPoint", net, (95 + i * 15, 240),
         {"1": net}, "TestPoint:TestPoint_Pad_D1.5mm")
-add("JP1", "Jumper:SolderJumper_2_Open", "5V link (open = USB-C debug)", (55, 90),
+# rev 2: machine-placed 0R replaces the hand-soldered JP1 so boards
+# leave assembly fully powered (production: no per-board hand step).
+# Remove it with an iron to isolate the buck from the Pi rail.
+add("R21", "Device:R", "0R (5V link; remove to isolate buck)", (55, 90),
     {"1": "+5V_BUCK", "2": "+5V"},
-    "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm")
+    "Resistor_SMD:R_0805_2012Metric", "C17477")
 
 # — Raspberry Pi header (column 2) —
 add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),

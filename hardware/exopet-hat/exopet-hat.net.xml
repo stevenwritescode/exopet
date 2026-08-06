@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat.kicad_sch</source>
-    <date>2026-08-06T13:56:20</date>
+    <date>2026-08-06T14:38:29</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -949,32 +949,6 @@
         </unit>
       </units>
     </comp>
-    <comp ref="JP1">
-      <value>5V link (open = USB-C debug)</value>
-      <footprint>Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm</footprint>
-      <fields>
-        <field name="LCSC"/>
-        <field name="Footprint">Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Jumper" part="SolderJumper_2_Open" description="Solder Jumper, 2-pole, open"/>
-      <property name="LCSC" value=""/>
-      <property name="Sheetname" value="exopet-hat"/>
-      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
-      <property name="ki_keywords" value="solder jumper SPST"/>
-      <property name="ki_fp_filters" value="SolderJumper*Open*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>ac8df99d-d74f-5b78-93f4-ea214a6f1b5f</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
     <comp ref="JP2">
       <value>WP (close = protect)</value>
       <footprint>Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm</footprint>
@@ -1602,6 +1576,32 @@
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5f9ef704-5d5a-562c-9615-1570d8adc325</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R21">
+      <value>0R (5V link; remove to isolate buck)</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17477</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17477"/>
+      <property name="Sheetname" value="exopet-hat"/>
+      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1fdff915-9acb-5876-9f42-3b8b455dc526</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -2259,15 +2259,15 @@
     <net code="2" name="+5V" class="Default">
       <node ref="J3" pin="2" pinfunction="5V_2" pintype="power_in"/>
       <node ref="J3" pin="4" pinfunction="5V_4" pintype="passive"/>
-      <node ref="JP1" pin="2" pinfunction="B_2" pintype="passive"/>
+      <node ref="R21" pin="2" pintype="passive"/>
     </net>
     <net code="3" name="+5V_BUCK" class="Default">
       <node ref="C11" pin="1" pintype="passive"/>
       <node ref="C12" pin="1" pintype="passive"/>
-      <node ref="JP1" pin="1" pinfunction="A_1" pintype="passive"/>
       <node ref="L1" pin="2" pinfunction="2_2" pintype="passive"/>
       <node ref="R16" pin="1" pintype="passive"/>
       <node ref="R20" pin="1" pintype="passive"/>
+      <node ref="R21" pin="1" pintype="passive"/>
       <node ref="TP2" pin="1" pinfunction="1_1" pintype="passive"/>
     </net>
     <net code="4" name="+12V" class="Default">

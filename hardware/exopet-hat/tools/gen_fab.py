@@ -14,7 +14,7 @@ FAB = HERE / "fab"
 
 # Parts assembled by JLC. JP1/JP2 are bare solder-jumper pads (no part);
 # H1-H4 are holes; TP1-TP4 are bare test pads.
-EXCLUDE = {"JP1", "JP2", "H1", "H2", "H3", "H4",
+EXCLUDE = {"JP2", "H1", "H2", "H3", "H4",
            "TP1", "TP2", "TP3", "TP4"}
 
 # LCSC picks / search hints for through-hole lines.

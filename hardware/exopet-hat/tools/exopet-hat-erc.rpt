@@ -1,4 +1,4 @@
-ERC report (2026-08-06T13:56:19, Encoding UTF8)
+ERC report (2026-08-06T14:38:29, Encoding UTF8)
 Report includes: Errors, Warnings
 
 ***** Sheet /
@@ -73,9 +73,6 @@ Report includes: Errors, Warnings
     @(45.00 mm, 240.00 mm): Symbol D12 [LED]
 [endpoint_off_grid]: Symbol pin or wire end off connection grid
     ; warning
-    @(49.92 mm, 90.00 mm): Symbol JP1 Pin 1 [A, Passive, Line]
-[endpoint_off_grid]: Symbol pin or wire end off connection grid
-    ; warning
     @(50.00 mm, 215.00 mm): Symbol #FLG2 Pin 1 [Power output, Line]
 [lib_symbol_issues]: The current configuration does not include the symbol library 'power'
     ; warning
@@ -107,12 +104,15 @@ Report includes: Errors, Warnings
 [lib_symbol_issues]: The current configuration does not include the symbol library 'Device'
     ; warning
     @(55.00 mm, 85.00 mm): Symbol C7 [C]
-[footprint_link_issues]: The current configuration does not include the footprint library 'Jumper'
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
     ; warning
-    @(55.00 mm, 90.00 mm): Symbol JP1 [SolderJumper_2_Open]
-[lib_symbol_issues]: The current configuration does not include the symbol library 'Jumper'
+    @(55.00 mm, 86.19 mm): Symbol R21 Pin 1 [Passive, Line]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
     ; warning
-    @(55.00 mm, 90.00 mm): Symbol JP1 [SolderJumper_2_Open]
+    @(55.00 mm, 90.00 mm): Symbol R21 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'Device'
+    ; warning
+    @(55.00 mm, 90.00 mm): Symbol R21 [R]
 [endpoint_off_grid]: Symbol pin or wire end off connection grid
     ; warning
     @(55.00 mm, 181.19 mm): Symbol R10 Pin 1 [Passive, Line]

@@ -85,7 +85,7 @@ PLACEMENT = {
     "R2": (6.3, 19.5, 90),
     "U5": (7.3, 23.0, 0),
     "C3": (10.6, 22.5, 90),
-    "JP1": (14.8, 46.0, 0),
+    "R21": (14.8, 46.0, 0),
     # ── back: TPS54302 buck in the K1/K3 pad corridor (x 24.7..33.5) ──
     "C8": (27.3, 7.8, 0),
     "C10": (31.8, 7.8, 0),
@@ -243,7 +243,7 @@ board = f"""(kicad_pcb (version 20240108) (generator "gen_board.py") (generator_
   (net 0 "")
 {nets_decl}
   (gr_rect (start 0 0) (end 65 56) (stroke (width 0.15) (type default)) (fill none) (layer "Edge.Cuts") (uuid "{uid('edge')}"))
-  (gr_text "ExoPet HAT rev2" (at 47.5 25 0) (layer "F.SilkS") (uuid "{uid('title')}") (effects (font (size 1.2 1.2) (thickness 0.25))))
+  (gr_text "ExoPet HAT rev2" (at 44 6.35 0) (layer "F.SilkS") (uuid "{uid('title')}") (effects (font (size 0.9 0.9) (thickness 0.18))))
 """
 
 # rev 2: terminal polarity + channel labels + legends on the top silk
