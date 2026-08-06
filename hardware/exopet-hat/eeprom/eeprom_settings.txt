@@ -1,0 +1,33 @@
+# ExoPet HAT — EEPROM settings (eepmake input)
+# Spec: https://github.com/raspberrypi/hats eeprom format
+
+########################################################################
+# Vendor info
+
+# UUID: leave zeroed — eepmake generates a per-board UUID at build time
+product_uuid 00000000-0000-0000-0000-000000000000
+product_id 0x0001
+product_ver 0x0002          # rev 2 (use 0x0001 when flashing rev 1)
+vendor "ExoPet"
+product "ExoPet HAT"
+
+########################################################################
+# GPIO map (bank drive defaults; per-pin claims below)
+
+gpio_drive 0
+gpio_slew 0
+gpio_hysteresis 0
+
+# HAT does not back-power the Pi over the 5V pins... except it does
+# (integrated buck). back_power=2 declares >=1.3A capability so the
+# firmware knows the 5V rail is externally supplied.
+back_power 2
+
+# setgpio  GPIO  FUNCTION  PULL
+setgpio 4   INPUT   UP      # 1-Wire data (w1-gpio overlay, DT below)
+setgpio 12  INPUT   UP      # FLT2 float switch
+setgpio 16  INPUT   UP      # FLT1 float switch
+setgpio 17  OUTPUT  DOWN    # CH1 relay (active high)
+setgpio 22  OUTPUT  DOWN    # CH3 relay (active high)
+setgpio 23  OUTPUT  DOWN    # CH4/AUX relay (active high)
+setgpio 27  OUTPUT  DOWN    # CH2 relay (active high)
