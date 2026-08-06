@@ -175,9 +175,11 @@ for i, (tp, net) in enumerate([("TP1", "+12V"), ("TP2", "+5V_BUCK"),
 # rev 2: machine-placed 0R replaces the hand-soldered JP1 so boards
 # leave assembly fully powered (production: no per-board hand step).
 # Remove it with an iron to isolate the buck from the Pi rail.
-add("R21", "Device:R", "0R (5V link; remove to isolate buck)", (55, 90),
+# 1206 for current rating: the Pi 4 5V rail specs 3A peaks; 0805
+# zero-ohm jumpers are typically rated only ~2A.
+add("R21", "Device:R", "0R jumper (5V link; remove to isolate buck)", (55, 90),
     {"1": "+5V_BUCK", "2": "+5V"},
-    "Resistor_SMD:R_0805_2012Metric", "C17477")
+    "Resistor_SMD:R_1206_3216Metric", "VERIFY")
 
 # — Raspberry Pi header (column 2) —
 add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),

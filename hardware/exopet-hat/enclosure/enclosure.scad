@@ -228,6 +228,13 @@ module cover() {
             linear_extrude(label_depth + 1)
                 mirror([0,1,0]) text("12V", size = 3.6, halign = "center",
                                  valign = "center", font = "Liberation Sans:style=Bold");
+        // DS18B20 wire colors beside the TEMP screw slot: R=3V3 (pad
+        // y46.5), Y=data (y43), B=GND (y39.5)
+        for (rc = [[46.5, "R"], [43, "Y"], [39.5, "B"]])
+            translate([4.6, by + rc[0], oz - label_depth])
+                linear_extrude(label_depth + 1)
+                    mirror([0,1,0]) text(rc[1], size = 2.8, halign = "center",
+                                     valign = "center", font = "Liberation Sans:style=Bold");
         // left groups: same treatment through the x=0 wall
         for (g = LEFT_GROUPS) {
             gy0 = min(g[0]) - 2.75;  gy1 = max(g[0]) + 2.75;

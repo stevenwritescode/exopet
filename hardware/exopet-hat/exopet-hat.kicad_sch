@@ -6007,9 +6007,9 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
     (uuid "1fdff915-9acb-5876-9f42-3b8b455dc526")
     (property "Reference" "R21" (at 55 87 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "0R (5V link; remove to isolate buck)" (at 55 93 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 55 90 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "C17477" (at 55 90 0) (effects (font (size 1.27 1.27)) hide))
+    (property "Value" "0R jumper (5V link; remove to isolate buck)" (at 55 93 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 55 90 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "VERIFY" (at 55 90 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "d66d0a7c-2ecb-587b-9f6f-cd3ab8bc5eb3"))
     (pin "2" (uuid "8152b1b4-47ec-5fa1-a6b2-484232173931"))
     (instances

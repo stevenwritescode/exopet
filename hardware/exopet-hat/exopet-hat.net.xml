@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat.kicad_sch</source>
-    <date>2026-08-06T14:38:29</date>
+    <date>2026-08-06T14:56:55</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -1586,16 +1586,16 @@
       </units>
     </comp>
     <comp ref="R21">
-      <value>0R (5V link; remove to isolate buck)</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <value>0R jumper (5V link; remove to isolate buck)</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <fields>
-        <field name="LCSC">C17477</field>
-        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="LCSC">VERIFY</field>
+        <field name="Footprint">Resistor_SMD:R_1206_3216Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="LCSC" value="C17477"/>
+      <property name="LCSC" value="VERIFY"/>
       <property name="Sheetname" value="exopet-hat"/>
       <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
