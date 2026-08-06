@@ -62,3 +62,19 @@ failure that motivated it.
   (top, stacked, wired) — relationship-level bugs (mirrored enclosure,
   hidden LEDs) passed every per-feature check but were obvious in a
   physical view.
+
+## QA gates (all must pass before ordering — run `tools/preflight.sh`)
+
+| Gate | Kills the bug class that... |
+|---|---|
+| ERC + netlist export | malformed schematic |
+| `check_polarity.py` | shipped D1 backwards (rev 1) |
+| `check_placement.py` (+ THT-pad sweep) | Pololu/relay collision; SMD-on-pad |
+| `verify_j3.py` | GPIO socket on the wrong side (rev 1, caught pre-order) |
+| freerouting + DRC 0/0 | shorts, unrouted nets |
+| `check_golden.py` — 208 pins vs hand-written intent, on netlist AND routed copper | shipped Q1 netless / dead 12V rail (rev 1) |
+| `check_fab.py` | stale/mismatched BOM+CPL uploads |
+| Rendered top/bottom review + JLC placement preview | wrong part orientation (human gate) |
+
+Plus a permanent generator guard: build fails if any netlist pin fails
+to land on a footprint pad.
