@@ -78,3 +78,23 @@ failure that motivated it.
 
 Plus a permanent generator guard: build fails if any netlist pin fails
 to land on a footprint pad.
+
+### Semantic layer (pin-number → physical-function), datasheet-verified 2026-08-06
+
+The golden table maps pins to nets; this layer confirms the pin NUMBERS
+carry the right FUNCTIONS on the physical parts:
+
+- **K1–K4 (G5LE-1)**: coil = 2 & 5, COM = 1, NO = 3, NC = 4 — confirmed
+  three ways: KiCad symbol coil-box/armature geometry, footprint hole
+  pattern vs the Omron drawing (12 × 12.2 mm, lone pin offset 2 mm at
+  the three-pin coil end), armature drawn at rest on pin 4 (NC).
+- **U2 (TBD62003 on ULN2003 symbol)**: IN1–7 = 1–7, GND = 8, COM = 9,
+  OUT1 = 16 … OUT7 = 10 — symbol pin names extracted and matched.
+- **U4 (CAT24C32 on 24LC16 symbol)**: A0–A2/GND = 1–4, SDA 5, SCL 6,
+  WP 7, VCC 8 — matched.
+- **Q1 (AOD403)**: gate 1, drain 2/tab, source 3 — encoded in
+  PAD_PIN_MAP, linted.
+- Known UNVERIFIABLE from the desk: the hand-matched barrel jack's
+  physical pin mapping (bench: continuity plug-tip → F1) and JLC's
+  part-orientation execution (placement preview + first-article bench
+  check).
