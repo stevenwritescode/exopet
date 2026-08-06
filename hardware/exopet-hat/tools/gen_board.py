@@ -130,6 +130,12 @@ for net in tree.find("nets"):
 
 net_num = {name: i + 1 for i, name in enumerate(sorted(net_names))}
 
+# Some symbols use letters as pin "numbers" (Device:Q_PMOS = D/G/S)
+# while their footprint pads are numbered. Map pad -> netlist pin.
+# AOD403 DPAK: pad 1 = Gate, pad 2 = Drain (tab), pad 3 = Source.
+PAD_PIN_MAP = {"Q1": {"1": "G", "2": "D", "3": "S"}}
+matched_nodes = set()
+
 
 missing = set(comp_fp) - set(PLACEMENT)
 extra = set(PLACEMENT) - set(comp_fp)
@@ -157,7 +163,10 @@ def embed_footprint(ref, fp_id, x, y, rot):
         px, py = parts[0], parts[1]
         pang = float(parts[2]) if len(parts) > 2 else 0.0
         newang = (pang + rot) % 360
-        net = pad_net.get((ref, num))
+        nl_pin = PAD_PIN_MAP.get(ref, {}).get(num, num)
+        net = pad_net.get((ref, nl_pin))
+        if net:
+            matched_nodes.add((ref, nl_pin))
         netexpr = f' (net {net_num[net]} "{net}")' if net else ""
         return f'{head}"{num}"{between}(at {px} {py} {newang}){netexpr}'
 
@@ -193,6 +202,12 @@ for i, (hx, hy) in enumerate(MOUNTING_HOLES):
         count=1,
     )
     parts.append(text)
+
+# GUARD: every netlist node must have landed on a footprint pad.
+# This is the bug class that shipped rev 1 with a netless Q1 (letter
+# pin numbers vs numeric pads) and a permanently dead +12V rail.
+unmatched = set(pad_net) - matched_nodes
+assert not unmatched, f"netlist pins with no footprint pad: {sorted(unmatched)}"
 
 nets_decl = "\n".join(
     f'  (net {num} "{name}")' for name, num in sorted(net_num.items(), key=lambda kv: kv[1])

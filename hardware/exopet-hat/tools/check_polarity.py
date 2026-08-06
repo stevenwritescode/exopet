@@ -39,6 +39,8 @@ EXPECT = {
     "D13": {"1": "GND"},
     # buck IC sanity: TPS54302 — GND 1, SW 2, VIN 3
     "U6":  {"1": "GND", "2": "BUCK_SW", "3": "+12V"},
+    # input P-FET: drain from the fuse, source to the rail, gate pulled
+    "Q1":  {"D": "+12V_F", "S": "+12V", "G": "Q1_G"},
 }
 
 tree = ET.parse(NET)
