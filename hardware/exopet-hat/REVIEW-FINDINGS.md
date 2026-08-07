@@ -25,8 +25,22 @@
 | BOM/fab codes | reviewed; verifier partial | reviewed; verifier partial |
 | Intent audit (golden table) | DID NOT RUN | DID NOT RUN |
 
-**Human review should prioritize the DID-NOT-RUN rows**: relay/driver
-section (G5LE-1 + TBD62003 wiring was verified internally against
-datasheets, but never by independent eyes), the Pi interface on the
-POST-FIX design (D3/back-power area), and a skeptical read of
-tools/check_golden.py's EXPECT table (the design's encoded intent).
+## Hardware validation update (2026-08-07)
+
+A rev-1 board (same relay/driver/interface sections as rev 2, with the
+netless Q1 bypassed by a bench jumper and the reversed D1 removed) is
+now FULLY WORKING on a live hub: relays click on command, channels
+switch, EEPROM provisioned, 1-Wire and GPIO map confirmed. This
+empirically validates the relay/driver wiring (G5LE-1 coil 2/5, NO=3,
+TBD62003 mapping), the hand-matched barrel jack, terminals, fusing
+path, and the whole software stack.
+
+**Human review should therefore prioritize the blocks that have NEVER
+run on hardware** (all rev-2-new):
+1. The TPS54302 buck section (machine-reviewed twice, never powered)
+2. Q1 reverse-protection — designed in rev 1 but netless there, so
+   this circuit has never functioned on a physical board
+3. D3 back-power safety diode + 5.29V setpoint
+4. A skeptical read of tools/check_golden.py's EXPECT table
+The relay/driver lens that the automated panel never covered is now
+hardware-covered instead.
