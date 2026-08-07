@@ -75,6 +75,28 @@ enclosure. Consequences:
   EEPROM, back-power diode all retained); marketing copy says
   "Raspberry Pi–compatible".
 
+## 4b. FINDING (inline review 2026-08-07): isolated rail overvoltage
+
+The isolated pH domain draws <2mA — under 1% of a 1W (200mA) module.
+An UNREGULATED B0505S is characterized only down to 10% load, where it
+already outputs 5.29V (Mornsun datasheet); below that it rises further,
+plausibly >6V at our near-no-load. That exceeds the ADS1115 (U8) and
+ISO1540 (U9) 5.5V operating maximums, and unregulated modules inject
+~100mV ripple straight into a pH front end resolving microvolts.
+
+**Fix (apply during pro layout, with verification available):** run
+the isolated ICs from a clean regulated 3.3V, not the raw module. Add a
+high-Vin-max LDO (HT7333-class, Vin abs-max ~12V so the module's
+no-load rise is harmless) between the module and a new +3V3_ISO rail;
+move U8/U9-VCC2/U10 supplies, R26/R27 pull-ups, and R24 bias-top to
++3V3_ISO. pH bias becomes 1.65V ±0.414V — still within ADS1115 FSR and
+MCP6002 common-mode range. One LDO + one cap resolves overvoltage,
+ripple, AND the "which B0505S variant" matching ambiguity at once.
+The MCP1700 (Vin max 6V) is NOT adequate here — the whole point is an
+LDO that tolerates the unregulated module's unbounded no-load output.
+
+**std variant is unaffected** — it has no isolated supply.
+
 ## 5. Verification additions
 
 - Golden table: every new pin (2× ADS1115, ISO1540, MCP6002, DC-DC,
