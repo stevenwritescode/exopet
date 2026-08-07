@@ -10,7 +10,9 @@ from pathlib import Path
 import pcbnew
 
 HERE = Path(__file__).resolve().parent.parent
-board = pcbnew.LoadBoard(str(HERE / "exopet-hat.kicad_pcb"))
+import os as _os
+VARIANT = _os.environ.get("HAT_VARIANT", "std")
+board = pcbnew.LoadBoard(str(HERE / f"exopet-hat-{VARIANT}.kicad_pcb"))
 
 want = {}
 for fp in board.GetFootprints():
@@ -23,7 +25,7 @@ for fp in board.GetFootprints():
 
 fail = 0
 cpl = {}
-with open(HERE / "fab" / "exopet-hat-cpl.csv") as f:
+with open(HERE / "fab" / VARIANT / "exopet-hat-cpl.csv") as f:
     for row in csv.DictReader(f):
         cpl[row["Designator"]] = (row["Layer"].lower(),
                                   float(row["Mid X"].replace("mm", "")),
@@ -48,7 +50,7 @@ for ref in cpl:
         fail += 1
 
 bom_refs = set()
-with open(HERE / "fab" / "exopet-hat-bom-jlc.csv") as f:
+with open(HERE / "fab" / VARIANT / "exopet-hat-bom-jlc.csv") as f:
     for row in csv.DictReader(f):
         for r in row["Designator"].split(","):
             bom_refs.add(r.strip())

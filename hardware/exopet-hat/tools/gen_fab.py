@@ -9,8 +9,11 @@ import csv
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import sys as _sys
+VARIANT = _sys.argv[1] if len(_sys.argv) > 1 else "std"
 HERE = Path(__file__).resolve().parent.parent
-FAB = HERE / "fab"
+FAB = HERE / "fab" / VARIANT
+FAB.mkdir(parents=True, exist_ok=True)
 
 # Parts assembled by JLC. JP1/JP2 are bare solder-jumper pads (no part);
 # H1-H4 are holes; TP1-TP4 are bare test pads.

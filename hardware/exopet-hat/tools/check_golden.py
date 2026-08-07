@@ -22,7 +22,9 @@ from pathlib import Path
 import pcbnew
 
 HERE = Path(__file__).resolve().parent
-NETXML = HERE.parent / "exopet-hat.net.xml"
+import os as _os
+_V = _os.environ.get("HAT_VARIANT", "std")
+NETXML = HERE.parent / f"exopet-hat-{_V}.net.xml"
 BOARD = sys.argv[1] if len(sys.argv) > 1 else str(HERE.parent / "exopet-hat.kicad_pcb")
 
 NC = "~NC~"  # accepts a KiCad auto "unconnected-..." net or no net
@@ -120,6 +122,13 @@ EXPECT = {
     "TP2": {"1": "+5V_BUCK"},
     "TP3": {"1": "+3V3"},
     "TP4": {"1": "GND"},
+    # float supervision ADC (both variants)
+    "U7": {"1": "GND", "2": NC, "3": "GND", "4": "FLT1_SENSE",
+           "5": "FLT2_SENSE", "6": "GND", "7": "GND", "8": "+3V3",
+           "9": "I2C1_SDA", "10": "I2C1_SCL"},
+    "R22": {"1": "FLOAT1_SW", "2": "FLT1_SENSE"},
+    "R23": {"1": "FLOAT2_SW", "2": "FLT2_SENSE"},
+    "C18": {"1": "+3V3", "2": "GND"},
     # Pi header — the HAT/Pi contract (spec §8)
     "J3": {"1": "+3V3", "17": "+3V3", "2": "+5V", "4": "+5V",
            "6": "GND", "9": "GND", "14": "GND", "20": "GND",
@@ -129,11 +138,37 @@ EXPECT = {
            "16": "GPIO23",
            "27": "EEPROM_SDA", "28": "EEPROM_SCL",
            "36": "FLOAT1_GPIO", "32": "FLOAT2_GPIO",
-           "3": NC, "5": NC, "8": NC, "10": NC, "12": NC, "18": NC,
+           "3": "I2C1_SDA", "5": "I2C1_SCL", "8": NC, "10": NC, "12": NC, "18": NC,
            "19": NC, "21": NC, "22": NC, "23": NC, "24": NC, "26": NC,
            "29": NC, "31": NC, "33": NC, "35": NC, "37": NC, "38": NC,
            "40": NC},
 }
+
+# pro-variant additions (isolated pH island)
+EXPECT_PRO = {
+    "PS1": {"1": "+5V_BUCK", "2": "GND", "3": "ISO_GND", "4": "+5V_ISO"},
+    "C27": {"1": "+5V_BUCK", "2": "GND"},
+    "U9": {"1": "+3V3", "2": "I2C1_SDA", "3": "I2C1_SCL", "4": "GND",
+           "5": "ISO_GND", "6": "ISO_SCL", "7": "ISO_SDA", "8": "+5V_ISO"},
+    "C20": {"1": "+3V3", "2": "GND"},
+    "C21": {"1": "+5V_ISO", "2": "ISO_GND"},
+    "C22": {"1": "+5V_ISO", "2": "ISO_GND"},
+    "R26": {"1": "+5V_ISO", "2": "ISO_SDA"},
+    "R27": {"1": "+5V_ISO", "2": "ISO_SCL"},
+    "J15": {"1": "PH_IN", "2": "PH_REF"},
+    "U10": {"1": "PH_BUF", "2": "PH_BUF", "3": "PH_IN", "4": "ISO_GND",
+            "5": "BIAS_MID", "6": "PH_REF", "7": "PH_REF", "8": "+5V_ISO"},
+    "R24": {"1": "+5V_ISO", "2": "BIAS_MID"},
+    "R25": {"1": "BIAS_MID", "2": "ISO_GND"},
+    "C26": {"1": "BIAS_MID", "2": "ISO_GND"},
+    "U8": {"1": "+5V_ISO", "2": NC, "3": "ISO_GND", "4": "PH_BUF",
+           "5": "PH_REF", "6": "ISO_GND", "7": "ISO_GND", "8": "+5V_ISO",
+           "9": "ISO_SDA", "10": "ISO_SCL"},
+    "C25": {"1": "+5V_ISO", "2": "ISO_GND"},
+}
+import os as _os
+if _os.environ.get("HAT_VARIANT", "std") == "pro":
+    EXPECT.update(EXPECT_PRO)
 
 # footprint pad number -> netlist pin, where symbols use letters
 PAD_PIN_MAP = {"Q1": {"1": "G", "2": "D", "3": "S"}}

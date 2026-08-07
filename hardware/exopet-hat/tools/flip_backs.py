@@ -8,6 +8,7 @@ BACK = {
     "R8","D9","D10","D11","R2","U5","C3","U4","C4","R3","R4","R9","JP2",
     "R10","R11","R12","R13","C5","C6",
     "U6","L1","C7","C8","C10","C11","C12","C16","R16","R17",
+    "U7","C18","R22","R23",
     "R19","R20",
 }
 board = pcbnew.LoadBoard(sys.argv[1])
@@ -59,7 +60,7 @@ print("locked +3V3 bridge placed")
 # across at y=40.5, via, short B.Cu escape into U2 pad 4.
 j316 = pad_pos("J3", "16")
 u24 = pad_pos("U2", "4")
-via_pt = (8.3, 41.3)
+via_pt = (8.3, 42.0)
 net23 = board.FindNet("GPIO23")
 def add_seg(p1, p2, layer):
     tr = pcbnew.PCB_TRACK(board)
@@ -74,8 +75,8 @@ def add_seg(p1, p2, layer):
 # GPIO22), jog across at y=41.3 (clear of K3.4 annulus at y=39.3)
 mid_x = j316[0] + 1.285
 add_seg(j316, (mid_x, 3.9), pcbnew.F_Cu)
-add_seg((mid_x, 3.9), (mid_x, 41.3), pcbnew.F_Cu)
-add_seg((mid_x, 41.3), via_pt, pcbnew.F_Cu)
+add_seg((mid_x, 3.9), (mid_x, 42.0), pcbnew.F_Cu)
+add_seg((mid_x, 42.0), via_pt, pcbnew.F_Cu)
 via = pcbnew.PCB_VIA(board)
 via.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(via_pt[0]), pcbnew.FromMM(via_pt[1])))
 via.SetDrill(pcbnew.FromMM(0.3))

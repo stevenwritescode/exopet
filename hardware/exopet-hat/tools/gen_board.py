@@ -13,10 +13,15 @@ import uuid
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import sys as _sys
+VARIANT = _sys.argv[1] if len(_sys.argv) > 1 else "std"
+assert VARIANT in ("std", "pro"), VARIANT
+
 HERE = Path(__file__).resolve().parent.parent
 FPDIR = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints")
 NETXML = Path("/tmp/hat-netlist.xml")
-OUT = HERE / "exopet-hat.kicad_pcb"
+OUT = HERE / f"exopet-hat-{VARIANT}.kicad_pcb"
+BOARD_H = 56 if VARIANT == "std" else 70
 
 NS = uuid.UUID("87654321-4321-8765-4321-876543218765")
 
@@ -102,6 +107,12 @@ PLACEMENT = {
     "R19": (16.0, 34.5, 90),
     "R20": (16.0, 38.5, 90),
     # ── top-left pocket: test points + rail LEDs ──
+    # ── float supervision ADC (both variants; sits in the slots the
+    # debounce caps vacated) ──
+    "U7": (41.7, 11.0, 90),
+    "C18": (37.0, 19.2, 0),
+    "R22": (38.3, 8.8, 90),
+    "R23": (38.3, 12.9, 90),
     "TP1": (11.6, 34.8, 0),
     "TP2": (11.6, 37.8, 0),
     "TP3": (11.6, 40.8, 0),
@@ -248,8 +259,8 @@ board = f"""(kicad_pcb (version 20240108) (generator "gen_board.py") (generator_
   )
   (net 0 "")
 {nets_decl}
-  (gr_rect (start 0 0) (end 65 56) (stroke (width 0.15) (type default)) (fill none) (layer "Edge.Cuts") (uuid "{uid('edge')}"))
-  (gr_text "ExoPet HAT rev2" (at 44 6.35 0) (layer "F.SilkS") (uuid "{uid('title')}") (effects (font (size 0.9 0.9) (thickness 0.18))))
+  (gr_rect (start 0 0) (end 65 {BOARD_H}) (stroke (width 0.15) (type default)) (fill none) (layer "Edge.Cuts") (uuid "{uid('edge')}"))
+  (gr_text "ExoPet HAT {VARIANT} rev3" (at 44 6.35 0) (layer "F.SilkS") (uuid "{uid('title')}") (effects (font (size 0.9 0.9) (thickness 0.18))))
 """
 
 # rev 2: terminal polarity + channel labels + legends on the top silk
@@ -297,6 +308,29 @@ if "--zones" in sys.argv:
 
 board += "\n".join(parts) + "\n)\n"
 OUT.write_text(board)
+
+# Design rules: fine-pitch parts (MSOP-10, 0.5mm) put adjacent pads
+# 0.15mm apart; JLC's 2-layer capability is 0.127mm. Write a project
+# file so DRC uses 0.15 instead of KiCad's 0.2 default.
+import json as _json
+pro = {
+    "board": {"design_settings": {"rules": {
+        "min_clearance": 0.15, "min_copper_edge_clearance": 0.4,
+        "min_track_width": 0.2, "min_via_diameter": 0.5,
+        "min_via_annular_width": 0.1, "min_hole_clearance": 0.25,
+    }}},
+    "net_settings": {"classes": [{
+        "name": "Default", "clearance": 0.15, "track_width": 0.25,
+        "via_diameter": 0.6, "via_drill": 0.3, "uvia_diameter": 0.3,
+        "uvia_drill": 0.1, "diff_pair_width": 0.2, "diff_pair_gap": 0.25,
+        "bus_width": 12, "line_style": 0, "microvia_diameter": 0.3,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+    }]},
+    "meta": {"filename": OUT.with_suffix(".kicad_pro").name, "version": 3},
+}
+OUT.with_suffix(".kicad_pro").write_text(_json.dumps(pro, indent=2))
 print(
     f"wrote {OUT}: {len(comp_fp)} netlisted parts + {len(MOUNTING_HOLES)} holes, "
     f"{len(net_num)} nets"

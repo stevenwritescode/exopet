@@ -18,7 +18,9 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-NET = Path(__file__).resolve().parent.parent / "exopet-hat.net.xml"
+import os as _os
+_V = _os.environ.get("HAT_VARIANT", "std")
+NET = Path(__file__).resolve().parent.parent / f"exopet-hat-{_V}.net.xml"
 
 # ref -> {pin: expected_net}. Pin 1 = cathode (diodes/LEDs) or + (caps).
 EXPECT = {

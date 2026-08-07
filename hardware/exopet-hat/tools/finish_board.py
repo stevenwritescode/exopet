@@ -45,8 +45,10 @@ def add_zone(net_name, layer, pts):
     return z
 
 
-add_zone("GND", pcbnew.B_Cu, [(0, 0), (65, 0), (65, 56), (0, 56)])
-add_zone("GND", pcbnew.F_Cu, [(0, 0), (65, 0), (65, 56), (0, 56)])
+bb = board.GetBoardEdgesBoundingBox()
+H = pcbnew.ToMM(bb.GetBottom())
+add_zone("GND", pcbnew.B_Cu, [(0, 0), (65, 0), (65, H), (0, H)])
+add_zone("GND", pcbnew.F_Cu, [(0, 0), (65, 0), (65, H), (0, H)])
 print("zones added")
 
 board.GetDesignSettings().m_MinResolvedSpokes = 1

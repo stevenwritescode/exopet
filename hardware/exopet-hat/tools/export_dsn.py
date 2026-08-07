@@ -9,7 +9,7 @@ print("nets:", board.GetNetCount())
 # Inset the Edge.Cuts rect 0.2mm IN MEMORY (never saved): the router
 # then keeps copper >=0.2mm inside the true edge, clearing the 0.4mm
 # copper-to-edge DRC rule without seed lottery.
-inset = pcbnew.FromMM(0.2)
+inset = pcbnew.FromMM(0.45)
 n = 0
 for d in board.GetDrawings():
     if d.GetLayer() == pcbnew.Edge_Cuts and d.GetClass() == "PCB_SHAPE":

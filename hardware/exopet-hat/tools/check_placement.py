@@ -27,7 +27,9 @@ refs = sorted(boxes)
 bad = 0
 for i, a in enumerate(refs):
     la, ta, ra, ba = boxes[a]
-    if (la < 0.3 or ta < 0.3 or ra > 64.7 or ba > 55.7) and a not in ALLOW_OFFBOARD:
+    bbb = board.GetBoardEdgesBoundingBox()
+    BH = pcbnew.ToMM(bbb.GetBottom())
+    if (la < 0.3 or ta < 0.3 or ra > 64.7 or ba > BH - 0.3) and a not in ALLOW_OFFBOARD:
         print(f"OFFBOARD {a}: x[{la:.1f},{ra:.1f}] y[{ta:.1f},{ba:.1f}]")
         bad += 1
     for b in refs[i + 1:]:
