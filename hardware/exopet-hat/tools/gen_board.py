@@ -145,9 +145,13 @@ assert not missing, f"unplaced components: {missing}"
 assert not extra, f"placement for unknown refs: {extra}"
 
 
+LOCAL_FPDIR = HERE / "footprints"
+
 def embed_footprint(ref, fp_id, x, y, rot):
     lib, name = fp_id.split(":")
-    text = (FPDIR / f"{lib}.pretty" / f"{name}.kicad_mod").read_text()
+    local = LOCAL_FPDIR / f"{lib}.pretty" / f"{name}.kicad_mod"
+    src = local if local.exists() else FPDIR / f"{lib}.pretty" / f"{name}.kicad_mod"
+    text = src.read_text()
     text = text.replace(f'(footprint "{name}"', f'(footprint "{fp_id}"', 1)
     m = re.search(r"\(generator[^)]*\)(\s*\(generator_version[^)]*\))?", text)
     text = text[: m.end()] + f"\n  (at {x} {y} {rot})" + text[m.end() :]

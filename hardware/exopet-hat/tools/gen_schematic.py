@@ -33,21 +33,43 @@ def extract_symbol(lib, name):
         elif text[i] == ")":
             depth -= 1
             if depth == 0:
-                return text[start : i + 1]
+                block = text[start : i + 1]
+                break
         i += 1
+    # derived symbols carry no pins; resolve to the base and rename it
+    m = re.search(r'\(extends "([^"]+)"\)', block[:300])
+    if m:
+        base = m.group(1)
+        block = extract_symbol(lib, base).replace(base, name)
+    return block
 
 
 def pin_map(sym_text):
-    """pin number -> (x, y) connection point in lib coords."""
+    """pin number -> (x, y, unit). Multi-unit symbols keep pins inside
+    child blocks NAME_<unit>_<style>; unit 0 pins are common (mapped
+    to unit 1)."""
     pins = {}
-    for m in re.finditer(
-        r"\(pin\s+\w+\s+\w+\s*\n?\s*\(at\s+([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\)"
-        r".*?\(number\s+\"([^\"]*)\"",
-        sym_text,
-        re.S,
-    ):
-        x, y, _ang, num = m.groups()
-        pins[num] = (float(x), float(y))
+    for cm in re.finditer(r'\(symbol "[^"]*_(\d+)_\d+"', sym_text):
+        unit = int(cm.group(1)) or 1
+        start = cm.start()
+        depth, i = 0, start
+        while True:
+            if sym_text[i] == "(":
+                depth += 1
+            elif sym_text[i] == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        child = sym_text[start:i + 1]
+        for m in re.finditer(
+            r"\(pin\s+\w+\s+\w+\s*\n?\s*\(at\s+([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\)"
+            r".*?\(number\s+\"([^\"]*)\"",
+            child,
+            re.S,
+        ):
+            x, y, _ang, num = m.groups()
+            pins[num] = (float(x), float(y), unit)
     return pins
 
 
@@ -74,6 +96,9 @@ LIBS = {
     "Memory_EEPROM:24LC16": None,
     "Jumper:SolderJumper_2_Open": None,
     "Regulator_Switching:TPS54302": None,
+    "Analog_ADC:ADS1115IDGS": None,
+    "Isolator:ISO1540": None,
+    "Amplifier_Operational:MCP6002-xSN": None,
     "Device:L": None,
     "Connector:TestPoint": None,
     "power:PWR_FLAG": None,
@@ -200,7 +225,7 @@ add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
         "2": "+5V", "4": "+5V",
         "6": "GND", "9": "GND", "14": "GND", "20": "GND",
         "25": "GND", "30": "GND", "34": "GND", "39": "GND",
-        "3": NC, "5": NC,
+        "3": "I2C1_SDA", "5": "I2C1_SCL",
         "7": "1WIRE_DATA",
         "11": "GPIO17", "13": "GPIO27", "15": "GPIO22", "16": "GPIO23",
         "27": "EEPROM_SDA", "28": "EEPROM_SCL",
@@ -306,8 +331,83 @@ add("JP2", "Jumper:SolderJumper_2_Open", "WP (close = protect)", (195, 175),
     {"1": "EEPROM_WP", "2": "+3V3"},
     "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm")
 
+# ══ rev 3: supervised floats (main ADC) + isolated pH ══════════
+# Main-side ADS1115 (addr 0x48): A0/A1 tap the float nets through 10k;
+# EOL 100k resistors live INSIDE the sensor plugs (states: <0.3V
+# closed, ~3.0V present+open, ~3.3V no sensor).
+add("U7", "Analog_ADC:ADS1115IDGS", "ADS1115 (floats, 0x48)", (240, 200),
+    {"1": "GND", "2": NC, "3": "GND", "4": "FLT1_SENSE", "5": "FLT2_SENSE",
+     "6": "GND", "7": "GND", "8": "+3V3", "9": "I2C1_SDA", "10": "I2C1_SCL"},
+    "Package_SO:MSOP-10_3x3mm_P0.5mm", "VERIFY")
+add("R22", "Device:R", "10k", (215, 195),
+    {"1": "FLOAT1_SW", "2": "FLT1_SENSE"},
+    "Resistor_SMD:R_0805_2012Metric", "C17414")
+add("R23", "Device:R", "10k", (215, 205),
+    {"1": "FLOAT2_SW", "2": "FLT2_SENSE"},
+    "Resistor_SMD:R_0805_2012Metric", "C17414")
+add("C18", "Device:C", "100nF", (240, 220),
+    {"1": "+3V3", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+
+# Isolated pH domain: B0505S-class DC-DC -> +5V_ISO/ISO_GND island,
+# ISO1540 carries I2C1 across the gap.
+add("PS1", "Connector_Generic:Conn_01x04", "B0505S-1WR2 iso DC-DC (SIP-4)", (280, 90),
+    {"1": "+5V_BUCK", "2": "GND", "3": "ISO_GND", "4": "+5V_ISO"},
+    "ExoPet:Converter_DCDC_B0505S-1W_SIP4", "VERIFY")
+add("C27", "Device:C", "4.7uF 25V", (280, 110),
+    {"1": "+5V_BUCK", "2": "GND"},
+    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+add("U9", "Isolator:ISO1540", "ISO1540 I2C isolator", (310, 90),
+    {"1": "+3V3", "2": "I2C1_SDA", "3": "I2C1_SCL", "4": "GND",
+     "5": "ISO_GND", "6": "ISO_SCL", "7": "ISO_SDA", "8": "+5V_ISO"},
+    "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
+add("C20", "Device:C", "100nF", (310, 110),
+    {"1": "+3V3", "2": "GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+add("C21", "Device:C", "100nF", (330, 110),
+    {"1": "+5V_ISO", "2": "ISO_GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+add("C22", "Device:C", "10uF 10V", (350, 110),
+    {"1": "+5V_ISO", "2": "ISO_GND"},
+    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+add("R26", "Device:R", "4.7k (iso SDA pullup)", (330, 70),
+    {"1": "+5V_ISO", "2": "ISO_SDA"},
+    "Resistor_SMD:R_0805_2012Metric", "C17673")
+add("R27", "Device:R", "4.7k (iso SCL pullup)", (345, 70),
+    {"1": "+5V_ISO", "2": "ISO_SCL"},
+    "Resistor_SMD:R_0805_2012Metric", "C17673")
+
+# pH front end on the island: BNC -> 1pA follower; reference/shield
+# rides a buffered mid-rail so the probe signal sits at BIAS +/-414mV.
+add("J15", "Connector:Conn_Coaxial", "pH probe BNC", (280, 150),
+    {"1": "PH_IN", "2": "PH_REF"},
+    "Connector_Coaxial:BNC_Amphenol_031-6575_Horizontal", "VERIFY")
+add("U10", "Amplifier_Operational:MCP6002-xSN", "MCP6002 (pH buffers)", (310, 150),
+    {"1": "PH_BUF", "2": "PH_BUF", "3": "PH_IN",
+     "5": "BIAS_MID", "6": "PH_REF", "7": "PH_REF",
+     "4": "ISO_GND", "8": "+5V_ISO"},
+    "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
+add("R24", "Device:R", "100k (bias hi)", (340, 140),
+    {"1": "+5V_ISO", "2": "BIAS_MID"},
+    "Resistor_SMD:R_0805_2012Metric", "C17407")
+add("R25", "Device:R", "100k (bias lo)", (340, 160),
+    {"1": "BIAS_MID", "2": "ISO_GND"},
+    "Resistor_SMD:R_0805_2012Metric", "C17407")
+add("C26", "Device:C", "100nF (bias)", (355, 150),
+    {"1": "BIAS_MID", "2": "ISO_GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+add("U8", "Analog_ADC:ADS1115IDGS", "ADS1115 (pH, 0x49)", (380, 150),
+    {"1": "+5V_ISO", "2": NC, "3": "ISO_GND", "4": "PH_BUF", "5": "PH_REF",
+     "6": "ISO_GND", "7": "ISO_GND", "8": "+5V_ISO",
+     "9": "ISO_SDA", "10": "ISO_SCL"},
+    "Package_SO:MSOP-10_3x3mm_P0.5mm", "VERIFY")
+add("C25", "Device:C", "100nF", (380, 170),
+    {"1": "+5V_ISO", "2": "ISO_GND"},
+    "Capacitor_SMD:C_0805_2012Metric", "C49678")
+
 # — Power flags for ERC —
-for i, net in enumerate(["+12V_IN", "+12V", "+5V", "+5V_BUCK", "+3V3", "GND"]):
+for i, net in enumerate(["+12V_IN", "+12V", "+5V", "+5V_BUCK", "+3V3", "GND",
+                         "+5V_ISO", "ISO_GND"]):
     add(f"#FLG{i+1}", "power:PWR_FLAG", "PWR_FLAG", (30 + i * 20, 215),
         {"1": net})
 
@@ -332,28 +432,35 @@ body.append("  )")
 labels = []
 noconnects = []
 
+UNIT_DX = 40  # x offset between placed units of one symbol
+
 for ref, lib_id, value, (sx, sy), nets, footprint, lcsc in C:
-    su = uid("sym", ref)
-    body.append(f'  (symbol (lib_id "{esc(lib_id)}") (at {sx} {sy} 0) (unit 1)')
-    body.append("    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)")
-    body.append(f'    (uuid "{su}")')
-    body.append(f'    (property "Reference" "{esc(ref)}" (at {sx} {sy - 3} 0) (effects (font (size 1.27 1.27))))')
-    body.append(f'    (property "Value" "{esc(value)}" (at {sx} {sy + 3} 0) (effects (font (size 1.27 1.27))))')
-    body.append(f'    (property "Footprint" "{esc(footprint)}" (at {sx} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
-    body.append(f'    (property "LCSC" "{esc(lcsc)}" (at {sx} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
-    for pnum in PINS[lib_id]:
-        body.append(f'    (pin "{pnum}" (uuid "{uid("pin", ref, pnum)}"))')
-    body.append("    (instances")
-    body.append(f'      (project "{PROJECT}"')
-    body.append(f'        (path "/{ROOT_UUID}" (reference "{esc(ref)}") (unit 1))')
-    body.append("      )")
-    body.append("    )")
-    body.append("  )")
+    units = sorted({u for (_, _, u) in PINS[lib_id].values()}) or [1]
+    for unit in units:
+        ux = sx + (units.index(unit)) * UNIT_DX
+        su = uid("sym", ref, unit)
+        body.append(f'  (symbol (lib_id "{esc(lib_id)}") (at {ux} {sy} 0) (unit {unit})')
+        body.append("    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)")
+        body.append(f'    (uuid "{su}")')
+        body.append(f'    (property "Reference" "{esc(ref)}" (at {ux} {sy - 3} 0) (effects (font (size 1.27 1.27))))')
+        body.append(f'    (property "Value" "{esc(value)}" (at {ux} {sy + 3} 0) (effects (font (size 1.27 1.27))))')
+        body.append(f'    (property "Footprint" "{esc(footprint)}" (at {ux} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
+        body.append(f'    (property "LCSC" "{esc(lcsc)}" (at {ux} {sy} 0) (effects (font (size 1.27 1.27)) hide))')
+        for pnum, (_, _, pu) in PINS[lib_id].items():
+            if pu == unit:
+                body.append(f'    (pin "{pnum}" (uuid "{uid("pin", ref, pnum)}"))')
+        body.append("    (instances")
+        body.append(f'      (project "{PROJECT}"')
+        body.append(f'        (path "/{ROOT_UUID}" (reference "{esc(ref)}") (unit {unit}))')
+        body.append("      )")
+        body.append("    )")
+        body.append("  )")
 
     seen_positions = set()
     for pnum, net in nets.items():
-        px, py = PINS[lib_id][pnum]
-        ax, ay = round(sx + px, 2), round(sy - py, 2)
+        px, py, pu = PINS[lib_id][pnum]
+        ax = round(sx + units.index(pu) * UNIT_DX + px, 2)
+        ay = round(sy - py, 2)
         if net == NC:
             if (ax, ay) not in seen_positions:
                 noconnects.append((ax, ay, uid("nc", ref, pnum)))
