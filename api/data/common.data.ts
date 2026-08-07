@@ -220,6 +220,23 @@ export async function runMigrations() {
       }
     }
   }
+  // Rename enclosure_* -> biome_* on the animals table (idempotent:
+  // only fires when the old column is present and the new one is not).
+  try {
+    const cols: any[] = await conn.all(`PRAGMA table_info(animals)`);
+    const names = new Set(cols.map((c) => c.name));
+    for (const [from, to] of [
+      ["enclosure_id", "biome_id"],
+      ["enclosure_type", "biome_type"],
+    ]) {
+      if (names.has(from) && !names.has(to)) {
+        await conn.run(`ALTER TABLE animals RENAME COLUMN ${from} TO ${to}`);
+        console.log(`Migration: renamed animals.${from} -> ${to}`);
+      }
+    }
+  } catch (e) {
+    console.error("Migration error renaming enclosure_* -> biome_*:", e);
+  }
   await conn.close();
 }
 

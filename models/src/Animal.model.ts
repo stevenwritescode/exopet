@@ -7,8 +7,8 @@ export class Animal {
   species?: string;
   species_latin?: string;
   notes?: string;
-  enclosure_id?: string;
-  enclosure_type?: string;
+  biome_id?: string;
+  biome_type?: string;
   image_url?: string;
   last_feeding_log?: {
     log_type: string;
@@ -20,8 +20,8 @@ export class Animal {
 
   constructor({
     id,
-    enclosure_id,
-    enclosure_type,
+    biome_id,
+    biome_type,
     name,
     species,
     species_latin,
@@ -31,8 +31,8 @@ export class Animal {
   }: Animal) {
     this.id = id || this.id;
     this.name = name || this.name;
-    this.enclosure_id = enclosure_id;
-    this.enclosure_type = enclosure_type;
+    this.biome_id = biome_id;
+    this.biome_type = biome_type;
     this.species = species;
     this.species_latin = species_latin;
     this.image_url = image_url;

@@ -8,13 +8,13 @@ struct AnimalPreview {
         species: "Axolotl",
         species_latin: "Ambystoma mexicanum",
         notes: "Loves bloodworms",
-        enclosure_id: "tank-1"
+        biome_id: "tank-1"
     )
 
     static let samples = [
         sample,
-        Animal(id: "2", name: "Bubbles", species: "Axolotl", species_latin: "Ambystoma mexicanum", enclosure_id: "tank-1"),
-        Animal(id: "3", name: "Nemo", species: "Clownfish", species_latin: "Amphiprioninae", enclosure_id: "tank-2"),
+        Animal(id: "2", name: "Bubbles", species: "Axolotl", species_latin: "Ambystoma mexicanum", biome_id: "tank-1"),
+        Animal(id: "3", name: "Nemo", species: "Clownfish", species_latin: "Amphiprioninae", biome_id: "tank-2"),
     ]
 }
 

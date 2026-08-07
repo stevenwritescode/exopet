@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       >
         <Stack justifyContent="space-around" alignItems="center" flex="25% 0 1">
           <Typography variant="h3" fontWeight="bold">ExoPet</Typography>
-          <Typography variant="subtitle1" color="text.secondary">Scalable Animal Enclosure Automation</Typography>
+          <Typography variant="subtitle1" color="text.secondary">Scalable Animal Biome Automation</Typography>
         </Stack>
         <Stack
           flexDirection="row"
@@ -64,7 +64,7 @@ const Home: React.FC = () => {
                 fontSize: "24px",
               }}
             >
-              Enclosures
+              Biomes
             </Card>
           </Link>
           <Link

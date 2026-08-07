@@ -153,8 +153,8 @@ struct AnimalDetailView: View {
     private var actionsColumn: some View {
         VStack(spacing: 12) {
             // Tank Maintenance link
-            if let enclosureId = vm.animal.enclosure_id, !enclosureId.isEmpty {
-                NavigationLink(value: Tank(id: enclosureId, service_status: 0, settings: TankSettings())) {
+            if let biomeId = vm.animal.biome_id, !biomeId.isEmpty {
+                NavigationLink(value: Tank(id: biomeId, service_status: 0, settings: TankSettings())) {
                     HStack(spacing: 8) {
                         Image(systemName: "wrench.and.screwdriver.fill")
                         Text("Tank Maintenance")

@@ -90,8 +90,8 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
       const data = await getAnimalDetails(animal_id);
       setAnimalDetails(data);
       setLatestFeeding(data.logs[0] || null);
-      if (data.animal.enclosure_id) {
-        const tank = await getTankDetails(data.animal.enclosure_id);
+      if (data.animal.biome_id) {
+        const tank = await getTankDetails(data.animal.biome_id);
         setTankDetails(tank);
       }
     } catch (error) {
@@ -128,8 +128,8 @@ const AnimalDetail: React.FC<AnimalProps> = () => {
   const handleFeedClick = () => toggleFeedingDialog(!feedingDialog);
   const handleLogsClick = () => toggleFeedingLog(!feedingLogDialog);
   const goToTankDetail = () => {
-    if (animalDetails.animal.enclosure_id) {
-      navigate(`/tank/${animalDetails.animal.enclosure_id}`);
+    if (animalDetails.animal.biome_id) {
+      navigate(`/tank/${animalDetails.animal.biome_id}`);
     }
   };
 

@@ -5,8 +5,8 @@ export declare class Animal {
     species?: string;
     species_latin?: string;
     notes?: string;
-    enclosure_id?: string;
-    enclosure_type?: string;
+    biome_id?: string;
+    biome_type?: string;
     image_url?: string;
     last_feeding_log?: {
         log_type: string;
@@ -15,5 +15,5 @@ export declare class Animal {
         food_quantity?: number;
         log_json: string;
     };
-    constructor({ id, enclosure_id, enclosure_type, name, species, species_latin, notes, image_url, last_feeding_log, }: Animal);
+    constructor({ id, biome_id, biome_type, name, species, species_latin, notes, image_url, last_feeding_log, }: Animal);
 }

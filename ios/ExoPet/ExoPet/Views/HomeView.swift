@@ -16,7 +16,7 @@ struct HomeView: View {
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.white)
 
-            Text("Scalable Animal Enclosure Automation")
+            Text("Scalable Animal Biome Automation")
                 .font(.subheadline)
                 .foregroundColor(.gray)
 

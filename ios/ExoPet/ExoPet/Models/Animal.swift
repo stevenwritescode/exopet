@@ -7,25 +7,25 @@ struct Animal: Codable, Identifiable, Hashable {
     var species: String?
     var species_latin: String?
     var notes: String?
-    var enclosure_id: String?
-    var enclosure_type: String?
+    var biome_id: String?
+    var biome_type: String?
     var image_url: String?
     var last_feeding_log: LastFeedingLog?
 
     private enum CodingKeys: String, CodingKey {
         case id, tank_id, name, species, species_latin, notes
-        case enclosure_id, enclosure_type, image_url, last_feeding_log
+        case biome_id, biome_type, image_url, last_feeding_log
     }
 
-    init(id: String, tank_id: String? = nil, name: String? = nil, species: String? = nil, species_latin: String? = nil, notes: String? = nil, enclosure_id: String? = nil, enclosure_type: String? = nil, image_url: String? = nil, last_feeding_log: LastFeedingLog? = nil) {
+    init(id: String, tank_id: String? = nil, name: String? = nil, species: String? = nil, species_latin: String? = nil, notes: String? = nil, biome_id: String? = nil, biome_type: String? = nil, image_url: String? = nil, last_feeding_log: LastFeedingLog? = nil) {
         self.id = id
         self.tank_id = tank_id
         self.name = name
         self.species = species
         self.species_latin = species_latin
         self.notes = notes
-        self.enclosure_id = enclosure_id
-        self.enclosure_type = enclosure_type
+        self.biome_id = biome_id
+        self.biome_type = biome_type
         self.image_url = image_url
         self.last_feeding_log = last_feeding_log
     }
@@ -43,8 +43,8 @@ struct Animal: Codable, Identifiable, Hashable {
         species = try container.decodeIfPresent(String.self, forKey: .species)
         species_latin = try container.decodeIfPresent(String.self, forKey: .species_latin)
         notes = try container.decodeIfPresent(String.self, forKey: .notes)
-        enclosure_id = try Self.decodeOptionalStringOrInt(container, forKey: .enclosure_id)
-        enclosure_type = try container.decodeIfPresent(String.self, forKey: .enclosure_type)
+        biome_id = try Self.decodeOptionalStringOrInt(container, forKey: .biome_id)
+        biome_type = try container.decodeIfPresent(String.self, forKey: .biome_type)
         image_url = try container.decodeIfPresent(String.self, forKey: .image_url)
         last_feeding_log = try container.decodeIfPresent(LastFeedingLog.self, forKey: .last_feeding_log)
     }

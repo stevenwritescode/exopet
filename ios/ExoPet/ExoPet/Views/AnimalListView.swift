@@ -49,7 +49,7 @@ struct AnimalListView: View {
                     let request = FeedingLogRequest(
                         animal_id: animal.id,
                         action_type: "Feeding",
-                        container_id: animal.enclosure_id,
+                        container_id: animal.biome_id,
                         log_json: logJson
                     )
                     Task {

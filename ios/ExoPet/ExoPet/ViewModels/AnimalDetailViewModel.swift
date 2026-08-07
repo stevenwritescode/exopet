@@ -80,8 +80,8 @@ class AnimalDetailViewModel: ObservableObject {
                 self.logs = data.logs
                 self.latestFeeding = data.logs.first
 
-                if let enclosureId = data.animal.enclosure_id, !enclosureId.isEmpty {
-                    let tank = try await api.getTankDetails(tankId: enclosureId)
+                if let biomeId = data.animal.biome_id, !biomeId.isEmpty {
+                    let tank = try await api.getTankDetails(tankId: biomeId)
                     self.tankDetails = tank
                 }
             } catch {

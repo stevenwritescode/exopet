@@ -95,7 +95,7 @@ const AnimalCard: React.FC<AnimalCardProps> = (animal: AnimalCardProps) => {
         onSave={(log_json) =>
           logFeeding({
             animal_id: animal.id,
-            container_id: animal.enclosure_id,
+            container_id: animal.biome_id,
             log_json,
           })
         }

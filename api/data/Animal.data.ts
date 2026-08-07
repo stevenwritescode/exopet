@@ -3,14 +3,14 @@ import { dbConnection } from "./common.data";
 
 export class AnimalDataManager {
   static addAnimal = async (animal: Animal): Promise<void> => {
-    const { id, species, enclosure_id, enclosure_type, species_latin, name } = animal;
+    const { id, species, biome_id, biome_type, species_latin, name } = animal;
     const conn = await dbConnection();
     if (!conn) return;
     await conn.run(
-      "INSERT INTO animals (id, enclosure_id, enclosure_type, name, species, species_latin) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO animals (id, biome_id, biome_type, name, species, species_latin) VALUES (?, ?, ?, ?, ?, ?)",
       id,
-      enclosure_id,
-      enclosure_type,
+      biome_id,
+      biome_type,
       name,
       species,
       species_latin
@@ -84,7 +84,7 @@ export class AnimalDataManager {
     try {
       const conn = await dbConnection();
       if (!conn) return [];
-      const animals = await conn.all("SELECT * FROM animals WHERE enclosure_id = ?", tankId);
+      const animals = await conn.all("SELECT * FROM animals WHERE biome_id = ?", tankId);
       await conn.close();
 
       if (!animals) {
@@ -123,7 +123,7 @@ export class AnimalDataManager {
     animalId: string,
     fields: Partial<Pick<Animal, "name" | "species" | "species_latin">>
   ): Promise<void> => {
-    const allowedColumns = new Set(["name", "species", "species_latin", "sex", "color", "enclosure_type", "enclosure_id", "image_url"]);
+    const allowedColumns = new Set(["name", "species", "species_latin", "sex", "color", "biome_type", "biome_id", "image_url"]);
     const conn = await dbConnection();
     if (!conn) return;
     const entries = Object.entries(fields).filter(([k, v]) => v !== undefined && allowedColumns.has(k));

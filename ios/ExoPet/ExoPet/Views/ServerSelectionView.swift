@@ -11,7 +11,7 @@ struct ServerSelectionView: View {
                 .padding(.top, 60)
                 .padding(.bottom, 8)
 
-            Text("Scalable Animal Enclosure Automation")
+            Text("Scalable Animal Biome Automation")
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .padding(.bottom, 32)

@@ -69,7 +69,7 @@ export const server = app.listen(port, '0.0.0.0', async () => {
   // Advertise via Bonjour/mDNS for iOS auto-discovery
   const bonjour = new Bonjour();
   bonjour.publish({
-    name: "ExoPet Enclosure Controller",
+    name: "ExoPet Biome Controller",
     type: "exopet",
     port: port,
     host: require("os").hostname() + ".local",
