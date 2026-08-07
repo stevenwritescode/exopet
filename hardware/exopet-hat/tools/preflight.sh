@@ -33,8 +33,8 @@ echo "── 3. route ──"
 "$PY" export_dsn.py ../exopet-hat.kicad_pcb /tmp/hat.dsn 2>/dev/null | gate dsn "DSN export: True"
 "$JAVA" -jar "$FR" -de /tmp/hat.dsn -do /tmp/hat.ses -mp 50 -dr 2>&1 | gate route "Saving"
 "$PY" finish_board.py ../exopet-hat.kicad_pcb /tmp/hat.ses 2>/dev/null | gate finish "filled + saved"
-"$KCLI" pcb drc --severity-error ../exopet-hat.kicad_pcb 2>/dev/null | gate drc-v "Found 0 violations"
-grep -q "Found 0 unconnected items" exopet-hat-drc.rpt || cat exopet-hat-drc.rpt | gate drc-u "Found 0 unconnected"
+"$KCLI" pcb drc --severity-error --format json -o /tmp/hat-drc.json ../exopet-hat.kicad_pcb 2>/dev/null >/dev/null
+"$PY" check_drc_sanity.py ../exopet-hat.kicad_pcb /tmp/hat-drc.json 2>/dev/null | gate drc "DRC: CLEAN"
 
 echo "── 4. golden audit (netlist + copper) ──"
 "$PY" check_golden.py ../exopet-hat.kicad_pcb 2>/dev/null | gate golden "GOLDEN: PASS"

@@ -13,7 +13,7 @@ screwdriver, one DS18B20 probe, a wire scrap (float test).
 - [ ] Relay orientation notches match the silkscreen outlines (K1–K4)
 - [ ] U2 pin-1 dot toward the board's left (matches silk dot)
 - [ ] Diode cathode bands match silk (D1 input TVS, D9–D11 flybacks)
-- [ ] R21 (5 V link, 1206 near J8) present — rev 2 ships linked
+- [ ] D3 (5 V safety diode, SMB near J8 on the back) present
 - [ ] No solder bridges around U6 (buck, SOT-23-6) or the terminals
 
 ## Stage 1 — bare board, 12 V, NO Pi
@@ -25,7 +25,7 @@ Apply 12 V. Expected within 2 s:
 | Green **12V** LED (D12) | on | supply polarity (center +!), jack solder, F1, Q1 |
 | Green **5V** LED (D13) | on | buck section: U6/L1/R16/R17 |
 | TP1 → TP4 (GND) | 11.5–12.5 V | as 12V LED |
-| TP2 → TP4 | 4.95–5.15 V | buck; if ~0 V check U6 orientation |
+| TP2 → TP4 | 5.30–5.50 V (pre-diode; Pi sees ~5.0–5.1 loaded) | buck; if ~0 V check U6 orientation |
 | TP3 → TP4 | 0 V (no Pi yet) | >0 V here is a fault: investigate before attaching a Pi |
 | Supply current | < 80 mA | if PSU folds back: short — do NOT attach a Pi |
 
@@ -39,8 +39,9 @@ VOUT toward the SD edge) and reaches the Pi only after JP1 is bridged.
 ## Stage 2 — attach the Pi
 
 Power OFF. Mount the Pi, seat the GPIO header fully, screw the
-standoffs. Apply 12 V only (no USB-C — rev 2 is permanently linked via
-R21). Pi boots; TP3 now reads 3.2–3.4 V.
+standoffs. Apply 12 V. (USB-C dual-supply is safe in rev 2 — D3 blocks
+back-feed — but 12 V-only is the deployed configuration.) Pi boots;
+TP3 now reads 3.2–3.4 V.
 
 ## Stage 3 — EEPROM provisioning
 

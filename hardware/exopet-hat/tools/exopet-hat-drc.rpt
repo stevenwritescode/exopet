@@ -1,8 +1,16 @@
 ** Drc report for exopet-hat.kicad_pcb **
-** Created on 2026-08-06T14:59:05 **
+** Created on 2026-08-06T22:56:35 **
 ** Report includes: Errors **
 
-** Found 0 DRC violations **
+** Found 2 DRC violations **
+[clearance]: Clearance violation ( clearance 0.2000 mm; actual 0.0550 mm)
+    Local override; error
+    @(15.2000 mm, 44.3500 mm): Pad 1 [+5V] of D3 on B.Cu
+    @(19.8300 mm, 24.3000 mm): Track [+3V3] on B.Cu, length 20.9200 mm
+[clearance]: Clearance violation ( clearance 0.2000 mm; actual 0.0550 mm)
+    Local override; error
+    @(15.2000 mm, 44.3500 mm): Pad 1 [+5V] of D3 on B.Cu
+    @(19.8300 mm, 3.4500 mm): Track [+3V3] on B.Cu, length 20.8500 mm
 
 ** Found 0 unconnected pads **
 

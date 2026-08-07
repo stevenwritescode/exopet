@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat.kicad_sch</source>
-    <date>2026-08-06T14:56:55</date>
+    <date>2026-08-06T23:00:50</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -24,6 +24,32 @@
     </sheet>
   </design>
   <components>
+    <comp ref="C1">
+      <value>100uF 25V SMD electrolytic 6.3x7.7</value>
+      <footprint>Capacitor_SMD:CP_Elec_6.3x7.7</footprint>
+      <fields>
+        <field name="LCSC">VERIFY</field>
+        <field name="Footprint">Capacitor_SMD:CP_Elec_6.3x7.7</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
+      <property name="LCSC" value="VERIFY"/>
+      <property name="Sheetname" value="exopet-hat"/>
+      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="CP_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>50d8f16a-0be5-534d-aa90-c7ecdc7d260f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
     <comp ref="C2">
       <value>100nF</value>
       <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
@@ -310,6 +336,32 @@
         </unit>
       </units>
     </comp>
+    <comp ref="C17">
+      <value>75pF C0G (feedforward, TI Table 7-2)</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">VERIFY</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="LCSC" value="VERIFY"/>
+      <property name="Sheetname" value="exopet-hat"/>
+      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3d0a50a9-d3c2-5774-864f-61a546007d41</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
     <comp ref="D1">
       <value>SMBJ16CA bidirectional</value>
       <footprint>Diode_SMD:D_SMB</footprint>
@@ -327,6 +379,32 @@
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>47ee6b6f-f24c-53c6-bddf-5e04e8944039</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D3">
+      <value>B550C 5A 30V (5V safety diode)</value>
+      <footprint>Diode_SMD:D_SMB</footprint>
+      <fields>
+        <field name="LCSC">VERIFY</field>
+        <field name="Footprint">Diode_SMD:D_SMB</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="LCSC" value="VERIFY"/>
+      <property name="Sheetname" value="exopet-hat"/>
+      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3babaf6a-a88a-5b4b-9da2-5aabc7663e08</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -571,7 +649,7 @@
       </units>
     </comp>
     <comp ref="F1">
-      <value>MF-RG500 5A</value>
+      <value>MF-RG700 7A</value>
       <footprint>Fuse:Fuse_Bourns_MF-RG500</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -1508,7 +1586,7 @@
       </units>
     </comp>
     <comp ref="R17">
-      <value>13.3k (FB lo -&gt; 5.06V)</value>
+      <value>12.4k (FB lo -&gt; 5.40V pre-diode)</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -1576,32 +1654,6 @@
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5f9ef704-5d5a-562c-9615-1570d8adc325</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="R21">
-      <value>0R jumper (5V link; remove to isolate buck)</value>
-      <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
-      <fields>
-        <field name="LCSC">VERIFY</field>
-        <field name="Footprint">Resistor_SMD:R_1206_3216Metric</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="exopet-hat"/>
-      <property name="Sheetfile" value="exopet-hat.kicad_sch"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <property name="ki_fp_filters" value="R_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>1fdff915-9acb-5876-9f42-3b8b455dc526</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1985,6 +2037,23 @@
         <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Device" part="C_Polarized">
+      <description>Polarized capacitor</description>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C_Polarized</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Polarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Device" part="D_Schottky">
       <description>Schottky diode</description>
       <footprints>
@@ -2257,20 +2326,22 @@
       <node ref="U4" pin="8" pinfunction="VCC_8" pintype="power_in"/>
     </net>
     <net code="2" name="+5V" class="Default">
+      <node ref="D3" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="J3" pin="2" pinfunction="5V_2" pintype="power_in"/>
       <node ref="J3" pin="4" pinfunction="5V_4" pintype="passive"/>
-      <node ref="R21" pin="2" pintype="passive"/>
     </net>
     <net code="3" name="+5V_BUCK" class="Default">
       <node ref="C11" pin="1" pintype="passive"/>
       <node ref="C12" pin="1" pintype="passive"/>
+      <node ref="C17" pin="1" pintype="passive"/>
+      <node ref="D3" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="L1" pin="2" pinfunction="2_2" pintype="passive"/>
       <node ref="R16" pin="1" pintype="passive"/>
       <node ref="R20" pin="1" pintype="passive"/>
-      <node ref="R21" pin="1" pintype="passive"/>
       <node ref="TP2" pin="1" pinfunction="1_1" pintype="passive"/>
     </net>
     <net code="4" name="+12V" class="Default">
+      <node ref="C1" pin="1" pintype="passive"/>
       <node ref="C10" pin="1" pintype="passive"/>
       <node ref="C16" pin="1" pintype="passive"/>
       <node ref="C2" pin="1" pintype="passive"/>
@@ -2312,6 +2383,7 @@
       <node ref="U6" pin="6" pinfunction="BOOT_6" pintype="passive"/>
     </net>
     <net code="9" name="BUCK_FB" class="Default">
+      <node ref="C17" pin="2" pintype="passive"/>
       <node ref="R16" pin="2" pintype="passive"/>
       <node ref="R17" pin="1" pintype="passive"/>
       <node ref="U6" pin="4" pinfunction="FB_4" pintype="input"/>
@@ -2396,6 +2468,7 @@
       <node ref="R13" pin="1" pintype="passive"/>
     </net>
     <net code="27" name="GND" class="Default">
+      <node ref="C1" pin="2" pintype="passive"/>
       <node ref="C10" pin="2" pintype="passive"/>
       <node ref="C11" pin="2" pintype="passive"/>
       <node ref="C12" pin="2" pintype="passive"/>

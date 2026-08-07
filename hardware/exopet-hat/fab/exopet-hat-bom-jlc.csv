@@ -1,14 +1,14 @@
 Comment,Designator,Footprint,LCSC Part #
-"0R jumper (5V link; remove to isolate buck) [0 ohm jumper 1206, rated current >=3A (check datasheet rating!)]",R21,R_1206_3216Metric,
 100k,R1,R_0805_2012Metric,C17407
 100k (FB hi),R16,R_0805_2012Metric,C17407
 100nF,"C2,C3,C4,C5,C6",C_0805_2012Metric,C49678
 100nF 16V X7R (boot),C7,C_0805_2012Metric,C49678
 100nF 50V (HF in),C10,C_0805_2012Metric,C49678
+"100uF 25V SMD electrolytic 6.3x7.7 [100uF 25V SMD aluminum electrolytic, 6.3mm dia, height <=7.7mm]",C1,CP_Elec_6.3x7.7,
 10k,"R10,R11,R9",R_0805_2012Metric,C17414
 10uF 25V X7R 1206,"C16,C8",C_1206_3216Metric,
+12.4k (FB lo -> 5.40V pre-diode),R17,R_0805_2012Metric,
 12V DC in [DC barrel jack 5.5x2.1 PJ-102A compatible (check pad layout!)],J1,BarrelJack_CUI_PJ-102AH_Horizontal,
-13.3k (FB lo -> 5.06V),R17,R_0805_2012Metric,
 1k,"R12,R13,R20",R_0805_2012Metric,C17513
 2.2k,"R19,R5,R6,R7,R8",R_0805_2012Metric,C17520
 22uF 10V X5R 1210,"C11,C12",C_1210_3225Metric,
@@ -18,10 +18,12 @@ Comment,Designator,Footprint,LCSC Part #
 4.7k,R2,R_0805_2012Metric,C17673
 5V ESD clamp (SOD-323),U5,D_SOD-323,C19224
 "6.8uH 5A+ (IHLP-2525 class) [6.8uH shielded power inductor, Isat>=5A, 6.5x6.9mm (IHLP2525CZ-6R8 class)]",L1,L_Vishay_IHLP-2525,
+"75pF C0G (feedforward, TI Table 7-2)",C17,C_0805_2012Metric,
 AOD403,Q1,TO-252-2,C28969
+B550C 5A 30V (5V safety diode),D3,D_SMB,
 CAT24C32,U4,SOIC-8_3.9x4.9mm_P1.27mm,
 G5LE-1-CF DC12,"K1,K2,K3,K4",Relay_SPDT_Omron-G5LE-1,C1524650
-MF-RG500 5A [radial PTC resettable fuse 5A (RGEF500 class)],F1,Fuse_Bourns_MF-RG500,C468988
+MF-RG700 7A [radial PTC resettable fuse 7A (RGEF700/MF-RG700; NOT 5A)],F1,Fuse_Bourns_MF-RG500,C468988
 MF-RHT100 1A [radial PTC resettable fuse 1A (RHT/RGEF100 class)],"F2,F3,F4",Fuse_Bourns_MF-RHT100,C208481
 RPi GPIO (HAT) [female header 2x20 2.54mm TALL stacking >=11mm (back-side parts need clearance)],J3,PinSocket_2x20_P2.54mm_Vertical,C35165
 SMBJ16CA bidirectional,D1,D_SMB,

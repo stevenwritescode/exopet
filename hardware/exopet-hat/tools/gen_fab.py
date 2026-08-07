@@ -40,11 +40,11 @@ SEARCH_HINT = {
         "female header 2x20 2.54mm TALL stacking >=11mm (back-side parts need clearance)",
     "SOT-23-6":
         "TPS54302DDCR buck (search TPS54302)",
-    "R_1206_3216Metric":
-        "0 ohm jumper 1206, rated current >=3A (check datasheet rating!)",
+    "CP_Elec_6.3x7.7":
+        "100uF 25V SMD aluminum electrolytic, 6.3mm dia, height <=7.7mm",
     "L_Vishay_IHLP-2525":
         "6.8uH shielded power inductor, Isat>=5A, 6.5x6.9mm (IHLP2525CZ-6R8 class)",
-    "Fuse_Bourns_MF-RG500": "radial PTC resettable fuse 5A (RGEF500 class)",
+    "Fuse_Bourns_MF-RG500": "radial PTC resettable fuse 7A (RGEF700/MF-RG700; NOT 5A)",
     "Fuse_Bourns_MF-RHT100": "radial PTC resettable fuse 1A (RHT/RGEF100 class)",
 }
 

@@ -37,6 +37,10 @@ EXPECT = {
     # rail LEDs: cathode to GND
     "D12": {"1": "GND"},
     "D13": {"1": "GND"},
+    # 5V safety diode: cathode to the Pi rail, anode from the buck
+    "D3":  {"1": "+5V", "2": "+5V_BUCK"},
+    # bulk input electrolytic: positive on +12V
+    "C1":  {"1": "+12V"},
     # buck IC sanity: TPS54302 — GND 1, SW 2, VIN 3
     "U6":  {"1": "GND", "2": "BUCK_SW", "3": "+12V"},
     # input P-FET: drain from the fuse, source to the rail, gate pulled

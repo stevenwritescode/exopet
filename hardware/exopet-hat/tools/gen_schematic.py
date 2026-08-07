@@ -99,7 +99,9 @@ add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
     {"1": "+12V_IN", "2": "GND", "3": NC},
     "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal")
 # J2 (aux 12V input) removed: barrel jack is the sole input.
-add("F1", "Device:Polyfuse", "MF-RG500 5A", (55, 40),
+# review finding: RG500's 5A hold derates to 4.4A@40C, below the ~4.6A
+# sanctioned full load. RG700 holds 6.2A@40C; same 5.2mm lead pitch.
+add("F1", "Device:Polyfuse", "MF-RG700 7A", (55, 40),
     {"1": "+12V_IN", "2": "+12V_F"},
     "Fuse:Fuse_Bourns_MF-RG500", "VERIFY")
 # pad 1 (cathode mark) on the rail: a unidirectional substitution
@@ -114,11 +116,15 @@ add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
 add("R1", "Device:R", "100k", (80, 60),
     {"1": "Q1_G", "2": "GND"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
-# rev 2: bulk electrolytic replaced by ceramics (C8/C16); the tall
-# radial was the part that forced the >=11mm stacking GPIO socket.
 add("C16", "Device:C", "10uF 25V X7R 1206", (105, 40),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+# review finding: ceramics alone (~13uF derated) are not bulk; TI 7.3
+# requires bulk for a remote (wall-adapter) supply and the rail also
+# feeds four relay coils. 6.3x7.7 SMD electrolytic fits the stack.
+add("C1", "Device:C_Polarized", "100uF 25V SMD electrolytic 6.3x7.7", (120, 40),
+    {"1": "+12V", "2": "GND"},
+    "Capacitor_SMD:CP_Elec_6.3x7.7", "VERIFY")
 add("C2", "Device:C", "100nF", (105, 60),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
@@ -152,9 +158,12 @@ add("C12", "Device:C", "22uF 10V X5R 1210", (110, 100),
 add("R16", "Device:R", "100k (FB hi)", (75, 110),
     {"1": "+5V_BUCK", "2": "BUCK_FB"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
-add("R17", "Device:R", "13.3k (FB lo -> 5.06V)", (90, 110),
+add("R17", "Device:R", "12.4k (FB lo -> 5.40V pre-diode)", (90, 110),
     {"1": "BUCK_FB", "2": "GND"},
     "Resistor_SMD:R_0805_2012Metric", "VERIFY")
+add("C17", "Device:C", "75pF C0G (feedforward, TI Table 7-2)", (105, 110),
+    {"1": "+5V_BUCK", "2": "BUCK_FB"},
+    "Capacitor_SMD:C_0805_2012Metric", "VERIFY")
 # — Rail indicator LEDs (TOP side) + test points —
 add("R19", "Device:R", "2.2k", (30, 240),
     {"1": "+12V", "2": "LED12V_A"},
@@ -175,11 +184,14 @@ for i, (tp, net) in enumerate([("TP1", "+12V"), ("TP2", "+5V_BUCK"),
 # rev 2: machine-placed 0R replaces the hand-soldered JP1 so boards
 # leave assembly fully powered (production: no per-board hand step).
 # Remove it with an iron to isolate the buck from the Pi rail.
-# 1206 for current rating: the Pi 4 5V rail specs 3A peaks; 0805
-# zero-ohm jumpers are typically rated only ~2A.
-add("R21", "Device:R", "0R jumper (5V link; remove to isolate buck)", (55, 90),
-    {"1": "+5V_BUCK", "2": "+5V"},
-    "Resistor_SMD:R_1206_3216Metric", "VERIFY")
+# review findings: zero-ohm jumpers (0805 AND 1206) are 2A-rated, and
+# the HAT design guide REQUIRES a power safety diode when back-powering.
+# B550C: 5A 30V schottky, SMB. Buck runs 5.40V; Pi sees ~5.0-5.1V.
+# Also kills the back-feed path (Pi USB-C could energize the barrel
+# jack through the buck body diode + Q1). USB-C dual-supply now safe.
+add("D3", "Device:D_Schottky", "B550C 5A 30V (5V safety diode)", (55, 90),
+    {"1": "+5V", "2": "+5V_BUCK"},
+    "Diode_SMD:D_SMB", "VERIFY")
 
 # — Raspberry Pi header (column 2) —
 add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),

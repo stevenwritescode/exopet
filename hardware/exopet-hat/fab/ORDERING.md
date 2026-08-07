@@ -23,9 +23,13 @@ Files:
    - 2×20 GPIO socket — TALL/stacking (PC104, ~12.3 mm) to match the
      enclosure stack height
    - **TPS54302** buck (SOT-23-6), **6.8 µH inductor** (IHLP-2525
-     class, Isat ≥5 A), 10 µF/22 µF ceramics, 13.3 k FB resistor
+     class, Isat ≥5 A), 10 µF/22 µF ceramics, **12.4 k** FB resistor,
+     **75 pF C0G** feedforward, **100 µF 25 V SMD electrolytic**
+     (6.3 mm dia, ≤7.7 mm tall)
    - **D1 = SMBJ16CA (the CA bidirectional part, not SMBJ16A)**
-   - PTC fuses (5 A / 1 A radial), U4/U5 per the descriptions
+   - **D3 = B550C** (5 A 30 V schottky, SMB) — the 5 V safety diode
+   - **F1 = MF-RG700 (7 A)** — NOT the 5 A part; thermal derating
+   - PTC fuses (1 A radial ×3), U4/U5 per the descriptions
 5. **Placement preview:** verify relay orientation (notch), LED/diode
    polarity, chip pin-1 dots, terminal wire-entry facing the board edge
    (front row faces front, left column faces left), barrel jack opening
@@ -33,16 +37,16 @@ Files:
 6. Checkout. Standard both-sides assembly on 5 boards typically lands
    **$150–250 all-in** with parts and shipping.
 
-## What still needs your hands (5 minutes)
+## What still needs your hands (0 minutes of soldering)
 
-- **Bridge solder jumper JP1** (one solder blob) — connects the
-  on-board buck's 5 V to the Pi. It ships open so a bare board can be
-  bench-tested against USB-C power first. Bridge only after the first
-  power-up check: 12 V in — the green **12V** and **5V** LEDs by the
-  test points must both light; verify 5.0–5.1 V at TP2 (+5) vs TP4
-  (GND).
-- Program the HAT EEPROM (software; via the Pi itself, no hardware).
-- No Pololu module in rev 2 — the buck is on the board.
+- Nothing. The 5 V link is D3, a machine-placed safety diode (per the
+  Pi HAT design guide back-power rule); boards leave assembly fully
+  functional. USB-C dual-supply is safe thanks to D3, though 12 V-only
+  is the deployed configuration.
+- Program the HAT EEPROM (software; `eeprom/provision-hat.sh`, or the
+  hub's --if-blank boot hook does it automatically).
+- JP2 (EEPROM write-protect) stays open unless you want to lock the
+  identity after provisioning.
 
 ## After ordering
 
