@@ -104,11 +104,16 @@ function pollFloatSwitch() {
 
 function pollSumpFloatSwitch() {
   let lastValue = readGpio(SUMP_FLOAT_SWITCH_LINE);
-  // Deliver initial sump-float state to SumpManager if valid
+  // Sump float is ACTIVE-LOW, opposite of the tank float: the line is
+  // pulled up, and the switch (mounted to CLOSE to GND when the sump
+  // rises) pulls it low when full. An open line — including no switch
+  // installed at all — therefore reads benign "not full", instead of
+  // spamming lockout warnings. (The tank float keeps open=full because
+  // there "full" is the benign, fill-stopping default.)
   if (lastValue === 0 || lastValue === 1) {
     try {
       const { SumpManager } = require("../logic/Sump.logic");
-      SumpManager.onSumpLevelChange(lastValue === 1);
+      SumpManager.onSumpLevelChange(lastValue === 0);
     } catch {
       // Sump.logic lands in the next task; harmless until then
     }
@@ -119,7 +124,7 @@ function pollSumpFloatSwitch() {
     if (value === -1) return;
     if (value !== lastValue) {
       lastValue = value;
-      const sumpFull = value === 1;
+      const sumpFull = value === 0;
       try {
         const { SumpManager } = require("../logic/Sump.logic");
         SumpManager.onSumpLevelChange(sumpFull);

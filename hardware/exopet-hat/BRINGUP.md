@@ -82,6 +82,12 @@ continuity from the GPIO pin; 12 V missing at terminal → F2–F4 fuse.
 
 - [ ] short the FLT terminal with a wire scrap → reads 0
 
+Wiring semantics (software interprets the two channels OPPOSITELY):
+- **FLT1 (tank)**: open = tank full (fill-stopping benign default);
+  mount the float so it OPENS the switch when the water rises.
+- **FLT2 (sump)**: open = sump NOT full (so no switch installed = no
+  lockout warnings); mount the float so it CLOSES when the sump rises.
+
 ## Stage 6 — temperature
 
 Wire a DS18B20 to TEMP by the letters: **R**ed=3V3, **Y**ellow=data,
