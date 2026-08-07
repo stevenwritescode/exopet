@@ -140,7 +140,7 @@ add("U6", "Regulator_Switching:TPS54302", "TPS54302DDC", (30, 90),
 add("C7", "Device:C", "100nF 16V X7R (boot)", (55, 85),
     {"1": "BUCK_BOOT", "2": "BUCK_SW"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
-add("L1", "Device:L", "6.8uH 5A+ (IHLP-2525 class)", (75, 85),
+add("L1", "Device:L", "10uH Isat>=4.5A (IHLP-2525 class)", (75, 85),
     {"1": "BUCK_SW", "2": "+5V_BUCK"},
     "Inductor_SMD:L_Vishay_IHLP-2525", "VERIFY")
 add("C8", "Device:C", "10uF 25V X7R 1206", (95, 85),
@@ -149,16 +149,16 @@ add("C8", "Device:C", "10uF 25V X7R 1206", (95, 85),
 add("C10", "Device:C", "100nF 50V (HF in)", (110, 85),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
-add("C11", "Device:C", "22uF 10V X5R 1210", (95, 100),
+add("C11", "Device:C", "22uF 25V X7R 1210", (95, 100),
     {"1": "+5V_BUCK", "2": "GND"},
     "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
-add("C12", "Device:C", "22uF 10V X5R 1210", (110, 100),
+add("C12", "Device:C", "22uF 25V X7R 1210", (110, 100),
     {"1": "+5V_BUCK", "2": "GND"},
     "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
 add("R16", "Device:R", "100k (FB hi)", (75, 110),
     {"1": "+5V_BUCK", "2": "BUCK_FB"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
-add("R17", "Device:R", "12.4k (FB lo -> 5.40V pre-diode)", (90, 110),
+add("R17", "Device:R", "12.7k (FB lo -> 5.29V pre-diode)", (90, 110),
     {"1": "BUCK_FB", "2": "GND"},
     "Resistor_SMD:R_0805_2012Metric", "VERIFY")
 add("C17", "Device:C", "75pF C0G (feedforward, TI Table 7-2)", (105, 110),

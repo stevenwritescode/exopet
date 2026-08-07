@@ -23,7 +23,8 @@ THT_LCSC = {
     "K1": "C1524650", "K2": "C1524650", "K3": "C1524650", "K4": "C1524650",
     # J1 barrel jack: C20518877 exists at LCSC but NOT in JLC assembly library;
     "J3": "C35165",      # 2x20 PC104 stacking 12.3mm
-    "F1": "C468988",     # RGEF500 5A
+    # F1 deliberately unpinned: C468988 is the 5A RGEF500 — rev 2 needs
+    # the 7A RGEF700 class; hand-match it in the JLC UI (review finding)
     "F2": "C208481", "F3": "C208481", "F4": "C208481",  # Bourns MF-R110 — RXEF110 legs (0.81mm) do not fit the 0.71mm holes
     "J8": "C474892", "J9": "C474892", "J10": "C474892",
     "J13": "C474892", "J14": "C474892",                    # KF350-3.5-2P

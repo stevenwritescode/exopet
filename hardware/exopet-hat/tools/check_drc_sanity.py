@@ -43,8 +43,9 @@ def find_track(x, y, length_mm):
 
 
 real, phantom = [], []
+GEOM_TYPES = {"clearance", "shorting_items", "solder_mask_bridge"}
 for v in report.get("violations", []):
-    if v["type"] != "clearance":
+    if v["type"] not in GEOM_TYPES:
         real.append(v)
         continue
     m = None
@@ -62,9 +63,9 @@ for v in report.get("violations", []):
         elif d.startswith("Track"):
             L = float(d.split("length")[1].split("mm")[0].strip()) if "length" in d else 0
             track = find_track(p["x"], p["y"], L)
-    if pad_pos and track and m is not None:
+    if pad_pos and track:
         true_d = seg_dist(pad_pos, *track)
-        if true_d - m > 1.0:
+        if true_d - (m or 0) > 1.0:
             phantom.append((desc, pad_pos, track, true_d, m))
             continue
     real.append(v)

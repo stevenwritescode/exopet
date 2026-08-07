@@ -54,5 +54,38 @@ for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
     board.Add(tr)
 print("locked +3V3 bridge placed")
 
+# GPIO23 (J3.16 -> U2.4) also strands on varying seeds now that the
+# left side is dense. Locked pre-route: F.Cu down the pin-16 column and
+# across at y=40.5, via, short B.Cu escape into U2 pad 4.
+j316 = pad_pos("J3", "16")
+u24 = pad_pos("U2", "4")
+via_pt = (8.3, 41.3)
+net23 = board.FindNet("GPIO23")
+def add_seg(p1, p2, layer):
+    tr = pcbnew.PCB_TRACK(board)
+    tr.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(p1[0]), pcbnew.FromMM(p1[1])))
+    tr.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(p2[0]), pcbnew.FromMM(p2[1])))
+    tr.SetLayer(layer)
+    tr.SetWidth(pcbnew.FromMM(0.25))
+    tr.SetNetCode(net23.GetNetCode())
+    tr.SetLocked(True)
+    board.Add(tr)
+# descend the column MIDLINE (pins 15/16 share x; straight down hits
+# GPIO22), jog across at y=41.3 (clear of K3.4 annulus at y=39.3)
+mid_x = j316[0] + 1.285
+add_seg(j316, (mid_x, 3.9), pcbnew.F_Cu)
+add_seg((mid_x, 3.9), (mid_x, 41.3), pcbnew.F_Cu)
+add_seg((mid_x, 41.3), via_pt, pcbnew.F_Cu)
+via = pcbnew.PCB_VIA(board)
+via.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(via_pt[0]), pcbnew.FromMM(via_pt[1])))
+via.SetDrill(pcbnew.FromMM(0.3))
+via.SetWidth(pcbnew.FromMM(0.6))
+via.SetNetCode(net23.GetNetCode())
+via.SetLocked(True)
+board.Add(via)
+add_seg(via_pt, (via_pt[0], u24[1]), pcbnew.B_Cu)
+add_seg((via_pt[0], u24[1]), u24, pcbnew.B_Cu)
+print("locked GPIO23 bridge placed")
+
 pcbnew.SaveBoard(sys.argv[1], board)
 print("flipped to back:", n)

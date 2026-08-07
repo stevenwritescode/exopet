@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat.kicad_sch</source>
-    <date>2026-08-06T23:00:50</date>
+    <date>2026-08-07T01:07:55</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -259,7 +259,7 @@
       </units>
     </comp>
     <comp ref="C11">
-      <value>22uF 10V X5R 1210</value>
+      <value>22uF 25V X7R 1210</value>
       <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -285,7 +285,7 @@
       </units>
     </comp>
     <comp ref="C12">
-      <value>22uF 10V X5R 1210</value>
+      <value>22uF 25V X7R 1210</value>
       <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -1170,7 +1170,7 @@
       </units>
     </comp>
     <comp ref="L1">
-      <value>6.8uH 5A+ (IHLP-2525 class)</value>
+      <value>10uH Isat&gt;=4.5A (IHLP-2525 class)</value>
       <footprint>Inductor_SMD:L_Vishay_IHLP-2525</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -1586,7 +1586,7 @@
       </units>
     </comp>
     <comp ref="R17">
-      <value>12.4k (FB lo -&gt; 5.40V pre-diode)</value>
+      <value>12.7k (FB lo -&gt; 5.29V pre-diode)</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>

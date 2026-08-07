@@ -43,6 +43,10 @@ standoffs. Apply 12 V. (USB-C dual-supply is safe in rev 2 — D3 blocks
 back-feed — but 12 V-only is the deployed configuration.) Pi boots;
 TP3 now reads 3.2–3.4 V.
 
+- [ ] Pi 5 V rail (J3 pin 2 vs TP4) reads **4.85–5.25 V** during boot
+  and at idle — this validates the 5.29 V setpoint minus the D3 drop
+  across the load range (tolerance-corner check from design review).
+
 ## Stage 3 — EEPROM provisioning
 
 On the Pi (or from the hub over SSH):
