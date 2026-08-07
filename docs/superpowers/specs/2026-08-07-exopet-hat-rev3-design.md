@@ -53,16 +53,27 @@ Pi I2C1**, entire analog side galvanically isolated:
   +5V_ISO per ISO1540 datasheet.
 - EEPROM (i2c-0 ID bus) unchanged; product_ver → 0x0003.
 
-## 4. Layout reality (flagged risk)
+## 4. Board outline: 65×70 (decision made)
 
-~30 new components onto an already-full board. Budgeted space: the
-right-edge strip (BNC edge-launch, y≈26 between relay pad columns and
-H2/H4), the corridor under K2/K4 (isolated island — requires moving
-C1/R5–R8 again), and remaining back-side pockets. The isolation
-island's 2mm keepout makes this the hardest packing yet; if it does
-not close, fallback is deleting the AUX relay's NC terminal position
-(J11 3P→2P) to free front-edge room — decision deferred until the
-placement checker says so.
+The 65×56 HAT outline cannot host the isolated subsystem: the DC-DC
+module (~12×10), BNC (~14mm of edge — none free), and the 2mm
+isolation keepout total far more than the AUX-NC fallback's ~4mm.
+Growth direction is FRONT (+14mm in y): the USB/Ethernet end is blocked
+by connector cage height; the front only faces our own parametric
+enclosure. Consequences:
+- Terminal blocks move to the new y=66 row and COMPRESS leftward
+  (J8 pads x 8/11.5, J9 18.5/22, J10 29/32.5, J11 39.5/43/46.5),
+  opening a 15mm front-right slot for an edge-launch BNC (~x 50–65).
+- The freed y 42–56 band hosts the isolation island (right half,
+  ISO_GND zone with ≥2mm gap) and the main-side float ADC.
+- One new mounting hole H5 (3.5, 66.5); the BNC corner is supported by
+  an enclosure pillar instead of a screw (BNC body occupies that spot).
+- The Pi's USB-C/HDMI connectors sit under the overhang with ~7mm of
+  vertical clearance (HAT underside at 16.3mm vs plug boots ≤13mm) —
+  enclosure port positions unchanged.
+- Formal HAT-spec mechanical compliance is dropped (header, holes,
+  EEPROM, back-power diode all retained); marketing copy says
+  "Raspberry Pi–compatible".
 
 ## 5. Verification additions
 
