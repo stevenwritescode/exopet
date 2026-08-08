@@ -106,6 +106,7 @@ LIBS = {
     "Analog_ADC:ADS1115IDGS": None,
     "Isolator:ISO1540": None,
     "Amplifier_Operational:MCP6002-xSN": None,
+    "Regulator_Linear:AMS1117-3.3": None,
     "Device:L": None,
     "Connector:TestPoint": None,
     "power:PWR_FLAG": None,
@@ -361,32 +362,44 @@ def add_pro(*args, **kw):
     if VARIANT == "pro":
         add(*args, **kw)
 
-# Isolated pH domain: B0505S-class DC-DC -> +5V_ISO/ISO_GND island,
-# ISO1540 carries I2C1 across the gap.
-add_pro("PS1", "Connector_Generic:Conn_01x04", "B0505S-1WR2 iso DC-DC (SIP-4)", (280, 90),
+# Isolated pH domain. The 1W DC-DC feeds a raw +5V_ISO rail; because
+# the island draws <2mA (<1% of 200mA) an unregulated module rises well
+# above 5V at that near-no-load. So +5V_ISO is NOT used by the ICs — an
+# AMS1117-3.3 LDO (U11, ~15V Vin tolerance absorbs the module's
+# unbounded no-load rise; ~5mA Iq also partially preloads it) derives a
+# clean +3V3_ISO that every isolated IC, pull-up and the bias divider
+# runs from. Kills overvoltage AND the DC-DC's ripple into the pH ADC.
+add_pro("PS1", "Connector_Generic:Conn_01x04", "1W iso DC-DC 5Vout SIP-4 (reg or unreg OK; LDO follows)", (280, 90),
     {"1": "+5V_BUCK", "2": "GND", "3": "ISO_GND", "4": "+5V_ISO"},
     "ExoPet:Converter_DCDC_B0505S-1W_SIP4", "VERIFY")
 add_pro("C27", "Device:C", "4.7uF 25V", (280, 110),
     {"1": "+5V_BUCK", "2": "GND"},
     "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+# — isolated LDO: raw +5V_ISO -> clean +3V3_ISO —
+add_pro("U11", "Regulator_Linear:AMS1117-3.3", "AMS1117-3.3 (iso rail)", (300, 115),
+    {"3": "+5V_ISO", "1": "ISO_GND", "2": "+3V3_ISO"},
+    "Package_TO_SOT_SMD:SOT-223-3_TabPin2", "VERIFY")
+add_pro("C22", "Device:C", "10uF 25V (LDO in bulk)", (350, 110),
+    {"1": "+5V_ISO", "2": "ISO_GND"},
+    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+add_pro("C28", "Device:C", "22uF 10V (LDO out)", (300, 135),
+    {"1": "+3V3_ISO", "2": "ISO_GND"},
+    "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
 add_pro("U9", "Isolator:ISO1540", "ISO1540 I2C isolator", (310, 90),
     {"1": "+3V3", "2": "I2C1_SDA", "3": "I2C1_SCL", "4": "GND",
-     "5": "ISO_GND", "6": "ISO_SCL", "7": "ISO_SDA", "8": "+5V_ISO"},
+     "5": "ISO_GND", "6": "ISO_SCL", "7": "ISO_SDA", "8": "+3V3_ISO"},
     "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
 add_pro("C20", "Device:C", "100nF", (310, 110),
     {"1": "+3V3", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 add_pro("C21", "Device:C", "100nF", (330, 110),
-    {"1": "+5V_ISO", "2": "ISO_GND"},
+    {"1": "+3V3_ISO", "2": "ISO_GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
-add_pro("C22", "Device:C", "10uF 10V", (350, 110),
-    {"1": "+5V_ISO", "2": "ISO_GND"},
-    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
 add_pro("R26", "Device:R", "4.7k (iso SDA pullup)", (330, 70),
-    {"1": "+5V_ISO", "2": "ISO_SDA"},
+    {"1": "+3V3_ISO", "2": "ISO_SDA"},
     "Resistor_SMD:R_0805_2012Metric", "C17673")
 add_pro("R27", "Device:R", "4.7k (iso SCL pullup)", (345, 70),
-    {"1": "+5V_ISO", "2": "ISO_SCL"},
+    {"1": "+3V3_ISO", "2": "ISO_SCL"},
     "Resistor_SMD:R_0805_2012Metric", "C17673")
 
 # pH front end on the island: BNC -> 1pA follower; reference/shield
@@ -397,10 +410,10 @@ add_pro("J15", "Connector:Conn_Coaxial", "pH probe BNC", (280, 150),
 add_pro("U10", "Amplifier_Operational:MCP6002-xSN", "MCP6002 (pH buffers)", (310, 150),
     {"1": "PH_BUF", "2": "PH_BUF", "3": "PH_IN",
      "5": "BIAS_MID", "6": "PH_REF", "7": "PH_REF",
-     "4": "ISO_GND", "8": "+5V_ISO"},
+     "4": "ISO_GND", "8": "+3V3_ISO"},
     "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
-add_pro("R24", "Device:R", "100k (bias hi)", (340, 140),
-    {"1": "+5V_ISO", "2": "BIAS_MID"},
+add_pro("R24", "Device:R", "100k (bias hi -> 1.65V mid)", (340, 140),
+    {"1": "+3V3_ISO", "2": "BIAS_MID"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
 add_pro("R25", "Device:R", "100k (bias lo)", (340, 160),
     {"1": "BIAS_MID", "2": "ISO_GND"},
@@ -409,18 +422,18 @@ add_pro("C26", "Device:C", "100nF (bias)", (355, 150),
     {"1": "BIAS_MID", "2": "ISO_GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 add_pro("U8", "Analog_ADC:ADS1115IDGS", "ADS1115 (pH, 0x49)", (380, 150),
-    {"1": "+5V_ISO", "2": NC, "3": "ISO_GND", "4": "PH_BUF", "5": "PH_REF",
-     "6": "ISO_GND", "7": "ISO_GND", "8": "+5V_ISO",
+    {"1": "+3V3_ISO", "2": NC, "3": "ISO_GND", "4": "PH_BUF", "5": "PH_REF",
+     "6": "ISO_GND", "7": "ISO_GND", "8": "+3V3_ISO",
      "9": "ISO_SDA", "10": "ISO_SCL"},
     "Package_SO:MSOP-10_3x3mm_P0.5mm", "VERIFY")
 add_pro("C25", "Device:C", "100nF", (380, 170),
-    {"1": "+5V_ISO", "2": "ISO_GND"},
+    {"1": "+3V3_ISO", "2": "ISO_GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # — Power flags for ERC —
 PWR_NETS = ["+12V_IN", "+12V", "+5V", "+5V_BUCK", "+3V3", "GND"]
 if VARIANT == "pro":
-    PWR_NETS += ["+5V_ISO", "ISO_GND"]
+    PWR_NETS += ["+5V_ISO", "+3V3_ISO", "ISO_GND"]
 for i, net in enumerate(PWR_NETS):
     add(f"#FLG{i+1}", "power:PWR_FLAG", "PWR_FLAG", (30 + i * 20, 215),
         {"1": net})

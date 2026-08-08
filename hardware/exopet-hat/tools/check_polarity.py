@@ -41,6 +41,8 @@ EXPECT = {
     "D13": {"1": "GND"},
     # 5V safety diode: cathode to the Pi rail, anode from the buck
     "D3":  {"1": "+5V", "2": "+5V_BUCK"},
+    # isolated LDO: input pin 3, output pin 2, ground pin 1 (AMS1117)
+    "U11": {"3": "+5V_ISO", "2": "+3V3_ISO", "1": "ISO_GND"},
     # bulk input electrolytic: positive on +12V
     "C1":  {"1": "+12V"},
     # buck IC sanity: TPS54302 — GND 1, SW 2, VIN 3

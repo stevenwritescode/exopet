@@ -97,6 +97,16 @@ LDO that tolerates the unregulated module's unbounded no-load output.
 
 **std variant is unaffected** — it has no isolated supply.
 
+**RESOLVED (schematic) 2026-08-07:** Added U11 = AMS1117-3.3 LDO
+between the raw +5V_ISO (module) and a new +3V3_ISO rail; every
+isolated IC (U8/U9/U10), both pull-ups (R26/R27) and the bias top
+(R24) now run from +3V3_ISO. C22 is the LDO input bulk, C28 the
+output cap. pH bias is now 1.65V ±0.414V. AMS1117's ~15V Vin
+tolerance makes the module's unbounded no-load rise harmless, and its
+~5mA Iq partially preloads the module. Netlist-verified: +5V_ISO now
+carries only {PS1.4, C22, U11.in}; everything else on +3V3_ISO. ERC
+benign-only, polarity + golden updated. Applies at board layout.
+
 ## 5. Verification additions
 
 - Golden table: every new pin (2× ADS1115, ISO1540, MCP6002, DC-DC,
