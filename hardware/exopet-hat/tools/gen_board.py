@@ -121,7 +121,37 @@ PLACEMENT = {
     "D13": (14.9, 39.0, 0),
 }
 
+# ── pro: terminals migrate to the new y=66 front edge (compressed
+# left to open a front-right BNC slot); channel LEDs follow; isolated
+# pH island fills the freed y44-64 right-half band. ──
+if VARIANT == "pro":
+    PLACEMENT.update({
+        # terminals migrate to y=66, compressed from x10 (clears H5)
+        "J8": (10.0, 66.0, 0), "J9": (20.5, 66.0, 0),
+        "J10": (31.0, 66.0, 0), "J11": (41.5, 66.0, 0),
+        # channel LEDs above the new terminals (top side)
+        "D5": (11.5, 60.0, 90), "D6": (22.0, 60.0, 90),
+        "D7": (32.5, 60.0, 90), "D8": (45.0, 60.0, 90),
+        # ── isolated pH island in the freed y47-64 band ──
+        # THT (top): DC-DC straddles main|iso, BNC on the front edge
+        "PS1": (33.0, 60.0, 0),      # pins 1-2 main (left), 3-4 iso
+        "J15": (57.0, 61.0, 180),    # BNC edge-launch, barrel off front
+        # SMD (back): ISO1540 straddles boundary, analog to the right
+        "U9": (37.5, 51.0, 0),
+        "C20": (33.5, 47.0, 0), "C27": (29.5, 52.0, 90),
+        "U11": (44.0, 49.5, 0),
+        "C22": (49.5, 47.0, 0), "C28": (44.0, 55.0, 0),
+        "C21": (39.0, 55.0, 0),
+        "R26": (39.5, 59.5, 0), "R27": (43.0, 59.5, 0),
+        "U8": (55.0, 50.5, 90),
+        "U10": (55.5, 57.5, 0),
+        "R24": (49.5, 52.0, 0), "R25": (49.5, 55.0, 0),
+        "C25": (60.5, 55.0, 90), "C26": (60.5, 51.0, 90),
+    })
+
 MOUNTING_HOLES = [(3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)]
+if VARIANT == "pro":
+    MOUNTING_HOLES.append((3.5, 66.5))  # H5 supports the extended corner
 
 # ── read netlist: components + nets ─────────────────────────────
 tree = ET.parse(NETXML)
