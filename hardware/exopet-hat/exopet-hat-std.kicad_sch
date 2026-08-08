@@ -6123,6 +6123,159 @@
 		)
 		(embedded_fonts no)
 	)
+    (symbol "Regulator_Linear:AMS1117-3.3"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at -3.81 3.175 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AMS1117-3.3"
+			(at 0 3.175 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.diodes.com/datasheets/AP1117.pdf"
+			(at 2.54 -6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "1A Low Dropout regulator, positive, 1.5V fixed output, SOT-223"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "linear regulator ldo fixed positive obsolete"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "SOT?223*TabPin2*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "AMS1117-3.3_0_1"
+			(rectangle
+				(start -5.08 -5.08)
+				(end 5.08 1.905)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "AMS1117-3.3_1_1"
+			(pin power_in line
+				(at 0 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_out line
+				(at 7.62 0 180)
+				(length 2.54)
+				(name "VO"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -7.62 0 0)
+				(length 2.54)
+				(name "VI"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
     (symbol "Device:L"
 		(pin_numbers
 			(hide yes)
@@ -7653,7 +7806,7 @@
     (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
     (uuid "d9b5a44c-9b8a-5e22-a1de-19305c13c6e5")
     (property "Reference" "U7" (at 240 197 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "ADS1115 (floats, 0x48)" (at 240 203 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "ADS1115 (sensors, 0x48)" (at 240 203 0) (effects (font (size 1.27 1.27))))
     (property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm" (at 240 200 0) (effects (font (size 1.27 1.27)) hide))
     (property "LCSC" "VERIFY" (at 240 200 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "dba6e7f5-e37c-56a1-bd7e-7bc38f0fcc8b"))
@@ -8014,10 +8167,8 @@
   (no_connect (at 149.68 47.14) (uuid "db696392-c0b6-593b-8a1d-c135826bdd1b"))
   (no_connect (at 149.68 49.68) (uuid "9b4d3fe1-b098-58ff-a6b2-2fae02394529"))
   (no_connect (at 149.68 59.84) (uuid "7d684e13-9bbb-5b85-8b69-3d38c7804b7a"))
-  (no_connect (at 149.68 80.16) (uuid "6e4a264f-ae00-5732-8ba4-ae2394aa1908"))
   (no_connect (at 190.32 80.16) (uuid "7ed8f91b-4b93-53e0-979a-0abf73ac98f7"))
   (no_connect (at 190.32 77.62) (uuid "398ff7e0-b106-555f-a57c-0514c340d3f7"))
-  (no_connect (at 149.68 82.7) (uuid "2592af1e-b5fe-5589-9cde-af059c4fb23a"))
   (no_connect (at 190.32 82.7) (uuid "b9af1ce4-9093-5c9c-ac72-4dce9b348c5d"))
   (no_connect (at 190.32 75.08) (uuid "762f216b-ba84-5250-858d-9fe3ff6df04d"))
   (no_connect (at 190.32 72.54) (uuid "a8a20445-c545-596f-9a68-a5aaae16a7bb"))
@@ -8028,9 +8179,11 @@
   (no_connect (at 149.68 85.24) (uuid "30eff720-f0db-57a1-ac5a-f077efff9320"))
   (no_connect (at 149.68 67.46) (uuid "29989f9b-1006-57d9-9984-4c8d14a2bfb2"))
   (no_connect (at 149.68 70.0) (uuid "0fb52557-ae21-53ac-b63d-cd858818ff74"))
-  (no_connect (at 250.16 55.16) (uuid "5e228f11-e427-567e-bfb1-7e078c395bf4"))
-  (no_connect (at 250.16 52.62) (uuid "5988add9-1c2b-5809-add9-e213e05f4265"))
+  (no_connect (at 149.68 80.16) (uuid "6e4a264f-ae00-5732-8ba4-ae2394aa1908"))
+  (no_connect (at 149.68 82.7) (uuid "2592af1e-b5fe-5589-9cde-af059c4fb23a"))
   (no_connect (at 250.16 50.08) (uuid "eb41b5b2-227f-53a1-bba5-5b126b7488fe"))
+  (no_connect (at 250.16 52.62) (uuid "5988add9-1c2b-5809-add9-e213e05f4265"))
+  (no_connect (at 250.16 55.16) (uuid "5e228f11-e427-567e-bfb1-7e078c395bf4"))
   (no_connect (at 292.54 32.38) (uuid "07577855-3af8-5ea2-b234-2c406b8f28f3"))
   (no_connect (at 292.54 72.38) (uuid "b9fc949b-1738-5e67-8f36-4d70227bfad5"))
   (no_connect (at 292.54 112.38) (uuid "5e99896e-0c25-5dc1-a40a-1f2f43dddcd9"))

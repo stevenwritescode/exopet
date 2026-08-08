@@ -127,6 +127,11 @@ C = []
 def add(ref, lib_id, value, pos, nets, footprint="", lcsc=""):
     C.append((ref, lib_id, value, pos, nets, footprint, lcsc))
 
+def add_pro(*args, **kw):
+    """add() only on the pro variant (pH island + 6-relay extras)."""
+    if VARIANT == "pro":
+        add(*args, **kw)
+
 # — Power input block (column 1) —
 add("J1", "Connector:Barrel_Jack_Switch", "12V DC in", (30, 40),
     {"1": "+12V_IN", "2": "GND", "3": NC},
@@ -238,19 +243,27 @@ add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
         "11": "GPIO17", "13": "GPIO27", "15": "GPIO22", "16": "GPIO23",
         "27": "EEPROM_SDA", "28": "EEPROM_SCL",
         "36": "FLOAT1_GPIO", "32": "FLOAT2_GPIO",
-        "8": NC, "10": NC, "12": NC, "18": NC, "19": NC, "21": NC,
-        "22": NC, "23": NC, "24": NC, "26": NC, "29": NC, "31": NC,
+        "8": NC, "10": NC, "12": NC, "19": NC, "21": NC,
+        "23": NC, "24": NC, "26": NC, "29": NC, "31": NC,
         "33": NC, "35": NC, "37": NC, "38": NC, "40": NC,
+        # pro adds two more relays -> GPIO24 (pin18), GPIO25 (pin22)
+        "18": "GPIO24" if VARIANT == "pro" else NC,
+        "22": "GPIO25" if VARIANT == "pro" else NC,
     }, "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical")
 
 # — Relay driver (column 3) —
+# inputs 5/6 and outputs 12/11 drive CH5/CH6 on pro; grounded/NC on std
+_drv5 = "GPIO24" if VARIANT == "pro" else "GND"
+_drv6 = "GPIO25" if VARIANT == "pro" else "GND"
+_out5 = "RLY5_DRV" if VARIANT == "pro" else NC
+_out6 = "RLY6_DRV" if VARIANT == "pro" else NC
 add("U2", "Transistor_Array:ULN2003", "TBD62003AFG", (240, 45),
     {
         "1": "GPIO17", "2": "GPIO27", "3": "GPIO22", "4": "GPIO23",
-        "5": "GND", "6": "GND", "7": "GND",
+        "5": _drv5, "6": _drv6, "7": "GND",
         "8": "GND", "9": "+12V",
         "16": "RLY1_DRV", "15": "RLY2_DRV", "14": "RLY3_DRV", "13": "RLY4_DRV",
-        "10": NC, "11": NC, "12": NC,
+        "12": _out5, "11": _out6, "10": NC,
     }, "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm", "C163227")
 
 # — Relays + per-channel parts (column 4) —
@@ -343,9 +356,13 @@ add("JP2", "Jumper:SolderJumper_2_Open", "WP (close = protect)", (195, 175),
 # Main-side ADS1115 (addr 0x48): A0/A1 tap the float nets through 10k;
 # EOL 100k resistors live INSIDE the sensor plugs (states: <0.3V
 # closed, ~3.0V present+open, ~3.3V no sensor).
-add("U7", "Analog_ADC:ADS1115IDGS", "ADS1115 (floats, 0x48)", (240, 200),
+# A2/A3 (pins 6/7): grounded on std, general supervised switch inputs
+# SW3/SW4 on pro.
+_a2 = "SW3_SENSE" if VARIANT == "pro" else "GND"
+_a3 = "SW4_SENSE" if VARIANT == "pro" else "GND"
+add("U7", "Analog_ADC:ADS1115IDGS", "ADS1115 (sensors, 0x48)", (240, 200),
     {"1": "GND", "2": NC, "3": "GND", "4": "FLT1_SENSE", "5": "FLT2_SENSE",
-     "6": "GND", "7": "GND", "8": "+3V3", "9": "I2C1_SDA", "10": "I2C1_SCL"},
+     "6": _a2, "7": _a3, "8": "+3V3", "9": "I2C1_SDA", "10": "I2C1_SCL"},
     "Package_SO:MSOP-10_3x3mm_P0.5mm", "VERIFY")
 add("R22", "Device:R", "10k", (215, 195),
     {"1": "FLOAT1_SW", "2": "FLT1_SENSE"},
@@ -356,12 +373,23 @@ add("R23", "Device:R", "10k", (215, 205),
 add("C18", "Device:C", "100nF", (240, 220),
     {"1": "+3V3", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
+# — pro: two general supervised switch inputs SW3/SW4 (ADC-only, via
+# U7 A2/A3). Same 3-state EOL scheme as the floats; 100k EOL in plug. —
+for n, sense, y in ((3, "SW3", 250), (4, "SW4", 275)):
+    add_pro(f"J{n+15}", "Connector_Generic:Conn_01x02", f"{sense} switch", (30, y),
+        {"1": f"{sense}_SW", "2": "GND"},
+        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
+    add_pro(f"R{n+27}", "Device:R", "10k (pullup)", (55, y),
+        {"1": "+3V3", "2": f"{sense}_SW"},
+        "Resistor_SMD:R_0805_2012Metric", "C17414")
+    add_pro(f"R{n+29}", "Device:R", "10k (ADC tap)", (75, y),
+        {"1": f"{sense}_SW", "2": f"{sense}_SENSE"},
+        "Resistor_SMD:R_0805_2012Metric", "C17414")
+    add_pro(f"C{n+26}", "Device:C", "100nF (filter)", (95, y),
+        {"1": f"{sense}_SW", "2": "GND"},
+        "Capacitor_SMD:C_0805_2012Metric", "C49678")
 
 # ══ pro variant only: isolated pH domain ═══════════════════════
-def add_pro(*args, **kw):
-    if VARIANT == "pro":
-        add(*args, **kw)
-
 # Isolated pH domain. The 1W DC-DC feeds a raw +5V_ISO rail; because
 # the island draws <2mA (<1% of 200mA) an unregulated module rises well
 # above 5V at that near-no-load. So +5V_ISO is NOT used by the ICs — an
@@ -369,6 +397,36 @@ def add_pro(*args, **kw):
 # unbounded no-load rise; ~5mA Iq also partially preloads it) derives a
 # clean +3V3_ISO that every isolated IC, pull-up and the bias divider
 # runs from. Kills overvoltage AND the DC-DC's ripple into the pH ADC.
+# — pro relays CH5 (switched 12V) + CH6 (dry contact) —
+add_pro("K5", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 200),
+    {"2": "+12V", "5": "RLY5_DRV",
+     "1": "CH5_FUSED", "3": "CH5_OUT", "4": NC},
+    "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
+add_pro("F5", "Device:Polyfuse", "MF-RHT100 1A", (315, 200),
+    {"1": "+12V", "2": "CH5_FUSED"},
+    "Fuse:Fuse_Bourns_MF-RHT100", "VERIFY")
+add_pro("D14", "Device:D_Schottky", "SS34", (340, 200),
+    {"1": "CH5_OUT", "2": "GND"}, "Diode_SMD:D_SMA", "C8678")
+add_pro("J16", "Connector_Generic:Conn_01x02", "CH5 12V OUT", (365, 200),
+    {"1": "CH5_OUT", "2": "GND"},
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
+add_pro("K6", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 240),
+    {"2": "+12V", "5": "RLY6_DRV",
+     "1": "CH6_COM", "3": "CH6_NO", "4": "CH6_NC"},
+    "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
+add_pro("J17", "Connector_Generic:Conn_01x03", "CH6 dry contact", (340, 240),
+    {"1": "CH6_COM", "2": "CH6_NO", "3": "CH6_NC"},
+    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal")
+# CH5/CH6 indicator LEDs (mirror the CH1-4 pattern)
+add_pro("R28", "Device:R", "2.2k", (225, 200),
+    {"1": "+12V", "2": "LED5_A"}, "Resistor_SMD:R_0805_2012Metric", "C17520")
+add_pro("D15", "Device:LED", "green", (250, 200),
+    {"2": "LED5_A", "1": "RLY5_DRV"}, "LED_SMD:LED_0805_2012Metric", "C2297")
+add_pro("R29", "Device:R", "2.2k", (225, 240),
+    {"1": "+12V", "2": "LED6_A"}, "Resistor_SMD:R_0805_2012Metric", "C17520")
+add_pro("D16", "Device:LED", "green", (250, 240),
+    {"2": "LED6_A", "1": "RLY6_DRV"}, "LED_SMD:LED_0805_2012Metric", "C2297")
+
 add_pro("PS1", "Connector_Generic:Conn_01x04", "1W iso DC-DC 5Vout SIP-4 (reg or unreg OK; LDO follows)", (280, 90),
     {"1": "+5V_BUCK", "2": "GND", "3": "ISO_GND", "4": "+5V_ISO"},
     "ExoPet:Converter_DCDC_B0505S-1W_SIP4", "VERIFY")

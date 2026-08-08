@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat-std.kicad_sch</source>
-    <date>2026-08-07T14:54:06</date>
+    <date>2026-08-08T16:17:42</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -1970,7 +1970,7 @@
       </units>
     </comp>
     <comp ref="U7">
-      <value>ADS1115 (floats, 0x48)</value>
+      <value>ADS1115 (sensors, 0x48)</value>
       <footprint>Package_SO:MSOP-10_3x3mm_P0.5mm</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>

@@ -41,8 +41,6 @@ EXPECT = {
     "D13": {"1": "GND"},
     # 5V safety diode: cathode to the Pi rail, anode from the buck
     "D3":  {"1": "+5V", "2": "+5V_BUCK"},
-    # isolated LDO: input pin 3, output pin 2, ground pin 1 (AMS1117)
-    "U11": {"3": "+5V_ISO", "2": "+3V3_ISO", "1": "ISO_GND"},
     # bulk input electrolytic: positive on +12V
     "C1":  {"1": "+12V"},
     # buck IC sanity: TPS54302 — GND 1, SW 2, VIN 3
@@ -50,6 +48,16 @@ EXPECT = {
     # input P-FET: drain from the fuse, source to the rail, gate pulled
     "Q1":  {"D": "+12V_F", "S": "+12V", "G": "Q1_G"},
 }
+
+import os as _os
+if _os.environ.get("HAT_VARIANT", "std") == "pro":
+    EXPECT.update({
+        # isolated LDO (AMS1117): in 3, out 2, gnd 1
+        "U11": {"3": "+5V_ISO", "2": "+3V3_ISO", "1": "ISO_GND"},
+        # CH5 flyback + CH5/CH6 LEDs (cathode pad 1)
+        "D14": {"1": "CH5_OUT", "2": "GND"},
+        "D15": {"1": "RLY5_DRV"}, "D16": {"1": "RLY6_DRV"},
+    })
 
 tree = ET.parse(NET)
 # node net lookup: (ref, pin) -> net name

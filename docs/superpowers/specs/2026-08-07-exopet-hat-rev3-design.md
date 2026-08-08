@@ -1,5 +1,13 @@
 # ExoPet HAT rev 3 — isolated pH input + supervised float loops
 
+> **rev 3b (2026-08-08): Pro expanded to 6 relays + 4 supervised
+> sensors.** CH5 (switched 12V, GPIO24) and CH6 (dry contact, GPIO25)
+> added on the existing TBD62003 (6/7 channels); SW3/SW4 general
+> supervised switch inputs on the float ADC's spare A2/A3. Pro grows
+> to ~65x88 (2x3 relay grid). std stays 4-relay/65x56/HAT-compliant.
+> Schematic + golden + polarity done for both variants; pro board
+> layout is the next step. EEPROM pro map adds GPIO24/25 as outputs.
+
 Base: rev 2 as of `e23a411` (all review fixes applied), whose
 relay/driver/terminal/EEPROM core is hardware-validated by the
 jumpered rev-1 board running in production. Rev 3 adds the two deferred

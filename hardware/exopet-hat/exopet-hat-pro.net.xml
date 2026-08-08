@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat-pro.kicad_sch</source>
-    <date>2026-08-07T20:55:51</date>
+    <date>2026-08-08T16:17:43</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -35,8 +35,8 @@
       </fields>
       <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="CP_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -61,8 +61,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -87,8 +87,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -113,8 +113,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -139,8 +139,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -165,8 +165,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -191,8 +191,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -217,8 +217,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -243,8 +243,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -269,8 +269,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -295,8 +295,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -321,8 +321,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -347,8 +347,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -373,8 +373,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -399,8 +399,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -425,8 +425,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -451,8 +451,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -477,8 +477,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -503,8 +503,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="C49678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -529,8 +529,8 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -555,12 +555,64 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f6482ac0-9d87-565d-bec5-f1b9205403d1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C29">
+      <value>100nF (filter)</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C49678</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="LCSC" value="C49678"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d401902b-6c31-519b-af27-727b0ca092ef</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C30">
+      <value>100nF (filter)</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C49678</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="LCSC" value="C49678"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e7db0ac1-4f35-5083-a12e-7216091d8ba9</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -581,8 +633,8 @@
       </fields>
       <libsource lib="Device" part="D_TVS" description="Bidirectional transient-voltage-suppression diode"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode TVS thyrector"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -607,8 +659,8 @@
       </fields>
       <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -633,8 +685,8 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -659,8 +711,8 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -685,8 +737,8 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -711,8 +763,8 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -737,8 +789,8 @@
       </fields>
       <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
       <property name="LCSC" value="C8678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -763,8 +815,8 @@
       </fields>
       <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
       <property name="LCSC" value="C8678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -789,8 +841,8 @@
       </fields>
       <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
       <property name="LCSC" value="C8678"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -815,8 +867,8 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -841,12 +893,90 @@
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="LCSC" value="C2297"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="LED diode"/>
       <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>10f7dd05-533a-5dda-9fb9-fbeeaa8f842d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D14">
+      <value>SS34</value>
+      <footprint>Diode_SMD:D_SMA</footprint>
+      <fields>
+        <field name="LCSC">C8678</field>
+        <field name="Footprint">Diode_SMD:D_SMA</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="LCSC" value="C8678"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3ff12b27-12ad-570a-bf19-a5d7d2e0906b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D15">
+      <value>green</value>
+      <footprint>LED_SMD:LED_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C2297</field>
+        <field name="Footprint">LED_SMD:LED_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <property name="LCSC" value="C2297"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="LED diode"/>
+      <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ff4280fc-568c-583c-b06e-ca02158f5c9e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D16">
+      <value>green</value>
+      <footprint>LED_SMD:LED_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C2297</field>
+        <field name="Footprint">LED_SMD:LED_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <property name="LCSC" value="C2297"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="LED diode"/>
+      <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a6c2db81-daf6-535a-a480-8df1b6b30431</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -867,8 +997,8 @@
       </fields>
       <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
       <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -893,8 +1023,8 @@
       </fields>
       <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
       <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -919,8 +1049,8 @@
       </fields>
       <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
       <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -945,12 +1075,38 @@
       </fields>
       <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
       <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>74be9a5f-3dbc-5a8b-a482-bf5eaae74396</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="F5">
+      <value>MF-RHT100 1A</value>
+      <footprint>Fuse:Fuse_Bourns_MF-RHT100</footprint>
+      <fields>
+        <field name="LCSC">VERIFY</field>
+        <field name="Footprint">Fuse:Fuse_Bourns_MF-RHT100</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
+      <property name="LCSC" value="VERIFY"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
+      <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>69066020-a857-5894-9dd2-5bd64b94a7d3</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -971,8 +1127,8 @@
       </fields>
       <libsource lib="Connector" part="Barrel_Jack_Switch" description="DC Barrel Jack with an internal switch"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="DC power barrel jack connector"/>
       <property name="ki_fp_filters" value="BarrelJack*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -998,8 +1154,8 @@
       </fields>
       <libsource lib="Connector" part="Raspberry_Pi_2_3" description="expansion header for Raspberry Pi 2 &amp; 3"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="raspberrypi gpio"/>
       <property name="ki_fp_filters" value="PinHeader*2x20*P2.54mm*Vertical* PinSocket*2x20*P2.54mm*Vertical*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1062,8 +1218,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1089,8 +1245,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1115,8 +1271,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1141,8 +1297,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1167,8 +1323,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1194,8 +1350,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1220,8 +1376,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1246,12 +1402,117 @@
       </fields>
       <libsource lib="Connector" part="Conn_Coaxial" description="coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF"/>
       <property name="ki_fp_filters" value="*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>345eedd9-9f6f-57a2-9105-cc1b4a28871e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J16">
+      <value>CH5 12V OUT</value>
+      <footprint>TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</footprint>
+      <fields>
+        <field name="LCSC"/>
+        <field name="Footprint">TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>41909377-c478-5e49-b154-33bfc66e7b88</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J17">
+      <value>CH6 dry contact</value>
+      <footprint>TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal</footprint>
+      <fields>
+        <field name="LCSC"/>
+        <field name="Footprint">TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>43e97eba-eb17-596e-887c-fa6e3110b26f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J18">
+      <value>SW3 switch</value>
+      <footprint>TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</footprint>
+      <fields>
+        <field name="LCSC"/>
+        <field name="Footprint">TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c04ac4ba-bb9f-5521-bc30-71c6ca4564e7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J19">
+      <value>SW4 switch</value>
+      <footprint>TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</footprint>
+      <fields>
+        <field name="LCSC"/>
+        <field name="Footprint">TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8424310c-046a-5f46-a6fa-cf2541b0824c</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1272,8 +1533,8 @@
       </fields>
       <libsource lib="Jumper" part="SolderJumper_2_Open" description="Solder Jumper, 2-pole, open"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="solder jumper SPST"/>
       <property name="ki_fp_filters" value="SolderJumper*Open*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1298,8 +1559,8 @@
       </fields>
       <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
       <property name="LCSC" value="C1524650"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="Miniature Single Pole Relay"/>
       <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1327,8 +1588,8 @@
       </fields>
       <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
       <property name="LCSC" value="C1524650"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="Miniature Single Pole Relay"/>
       <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1356,8 +1617,8 @@
       </fields>
       <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
       <property name="LCSC" value="C1524650"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="Miniature Single Pole Relay"/>
       <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1385,12 +1646,70 @@
       </fields>
       <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
       <property name="LCSC" value="C1524650"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="Miniature Single Pole Relay"/>
       <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>533433e5-fcc4-5f3e-ac9a-6a1f80b5a7a7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="5"/>
+            <pin num="2"/>
+            <pin num="4"/>
+            <pin num="1"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="K5">
+      <value>G5LE-1-CF DC12</value>
+      <footprint>Relay_THT:Relay_SPDT_Omron-G5LE-1</footprint>
+      <fields>
+        <field name="LCSC">C1524650</field>
+        <field name="Footprint">Relay_THT:Relay_SPDT_Omron-G5LE-1</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
+      <property name="LCSC" value="C1524650"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="Miniature Single Pole Relay"/>
+      <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3dc759af-9bc5-5142-9fdb-95811d8afdb1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="5"/>
+            <pin num="2"/>
+            <pin num="4"/>
+            <pin num="1"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="K6">
+      <value>G5LE-1-CF DC12</value>
+      <footprint>Relay_THT:Relay_SPDT_Omron-G5LE-1</footprint>
+      <fields>
+        <field name="LCSC">C1524650</field>
+        <field name="Footprint">Relay_THT:Relay_SPDT_Omron-G5LE-1</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Relay" part="G5LE-1" description="Omron G5LE relay, Miniature Single Pole, SPDT, 10A"/>
+      <property name="LCSC" value="C1524650"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="Miniature Single Pole Relay"/>
+      <property name="ki_fp_filters" value="Relay*SPDT*Omron*G5LE?1*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9c2c63be-f92a-594e-8777-ce71a514e341</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1414,8 +1733,8 @@
       </fields>
       <libsource lib="Device" part="L" description="Inductor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
       <property name="ki_fp_filters" value="Choke_* *Coil* Inductor_* L_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1440,8 +1759,8 @@
       </fields>
       <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1468,8 +1787,8 @@
       </fields>
       <libsource lib="Device" part="Q_PMOS" description="P-MOSFET transistor"/>
       <property name="LCSC" value="C28969"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="PMOS P-MOS"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ad827df2-32af-5873-9067-0162cab8ed77</tstamps>
@@ -1494,8 +1813,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17407"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1520,8 +1839,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17673"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1546,8 +1865,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C26010"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1572,8 +1891,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C26010"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1598,8 +1917,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17520"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1624,8 +1943,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17520"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1650,8 +1969,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17520"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1676,8 +1995,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17520"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1702,8 +2021,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17414"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1728,8 +2047,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17414"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1754,8 +2073,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17414"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1780,8 +2099,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17513"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1806,8 +2125,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17513"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1832,8 +2151,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17407"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1858,8 +2177,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1884,8 +2203,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17520"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1910,8 +2229,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17513"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1936,8 +2255,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17414"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1962,8 +2281,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17414"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1988,8 +2307,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17407"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2014,8 +2333,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17407"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2040,8 +2359,8 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17673"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2066,12 +2385,168 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="LCSC" value="C17673"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f92bbd58-f88f-57c4-b848-e7532ca9b61d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R28">
+      <value>2.2k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17520</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17520"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e378a731-7471-50d5-b8f9-d3927264cc6c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R29">
+      <value>2.2k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17520</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17520"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>261ffb53-40d4-5b49-baa1-60401f733576</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R30">
+      <value>10k (pullup)</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17414</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17414"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b24e0dea-eb69-55d1-a362-05dde8a0f48a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R31">
+      <value>10k (pullup)</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17414</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17414"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d2d75b64-ff72-5da7-bf3e-df2e2ad32acd</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R32">
+      <value>10k (ADC tap)</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17414</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17414"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>57d71157-3f36-58e0-99e9-1c691bea1212</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R33">
+      <value>10k (ADC tap)</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <fields>
+        <field name="LCSC">C17414</field>
+        <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="LCSC" value="C17414"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>03f3d6be-b5f6-50d0-9598-bc5ade5ddd93</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -2092,8 +2567,8 @@
       </fields>
       <libsource lib="Connector" part="TestPoint" description="test point"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="test point tp"/>
       <property name="ki_fp_filters" value="Pin* Test*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2117,8 +2592,8 @@
       </fields>
       <libsource lib="Connector" part="TestPoint" description="test point"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="test point tp"/>
       <property name="ki_fp_filters" value="Pin* Test*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2142,8 +2617,8 @@
       </fields>
       <libsource lib="Connector" part="TestPoint" description="test point"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="test point tp"/>
       <property name="ki_fp_filters" value="Pin* Test*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2167,8 +2642,8 @@
       </fields>
       <libsource lib="Connector" part="TestPoint" description="test point"/>
       <property name="LCSC" value=""/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="test point tp"/>
       <property name="ki_fp_filters" value="Pin* Test*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2192,8 +2667,8 @@
       </fields>
       <libsource lib="Transistor_Array" part="ULN2003" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
       <property name="LCSC" value="C163227"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="darlington transistor array"/>
       <property name="ki_fp_filters" value="DIP*W7.62mm* SOIC*3.9x9.9mm*P1.27mm* SSOP*4.4x5.2mm*P0.65mm* TSSOP*4.4x5mm*P0.65mm* SOIC*W*5.3x10.2mm*P1.27mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2232,8 +2707,8 @@
       </fields>
       <libsource lib="Memory_EEPROM" part="24LC16" description="I2C Serial EEPROM, 16Kb, DIP-8/SOIC-8/TSSOP-8/DFN-8"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="I2C Serial EEPROM"/>
       <property name="ki_fp_filters" value="DIP*W7.62mm* SOIC*3.9x4.9mm* TSSOP*4.4x3mm*P0.65mm* DFN*3x2mm*P0.5mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2264,8 +2739,8 @@
       </fields>
       <libsource lib="Device" part="D_TVS" description="Bidirectional transient-voltage-suppression diode"/>
       <property name="LCSC" value="C19224"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="diode TVS thyrector"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2290,8 +2765,8 @@
       </fields>
       <libsource lib="Regulator_Switching" part="TPS54302" description="3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="switching buck converter power-supply voltage regulator emi spread spectrum"/>
       <property name="ki_fp_filters" value="SOT?23*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2310,7 +2785,7 @@
       </units>
     </comp>
     <comp ref="U7">
-      <value>ADS1115 (floats, 0x48)</value>
+      <value>ADS1115 (sensors, 0x48)</value>
       <footprint>Package_SO:MSOP-10_3x3mm_P0.5mm</footprint>
       <fields>
         <field name="LCSC">VERIFY</field>
@@ -2320,8 +2795,8 @@
       </fields>
       <libsource lib="Analog_ADC" part="ADS1115IDGS" description="Ultra-Small, Low-Power, I2C-Compatible, 3.3-kSPS, 12-Bit ADCs With Internal Reference, Oscillator, and Programmable Comparator, VSSOP-10"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="12 bit 4 channel I2C ADC"/>
       <property name="ki_fp_filters" value="TSSOP*3x3mm*P0.5mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2354,8 +2829,8 @@
       </fields>
       <libsource lib="Analog_ADC" part="ADS1115IDGS" description="Ultra-Small, Low-Power, I2C-Compatible, 3.3-kSPS, 12-Bit ADCs With Internal Reference, Oscillator, and Programmable Comparator, VSSOP-10"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="12 bit 4 channel I2C ADC"/>
       <property name="ki_fp_filters" value="TSSOP*3x3mm*P0.5mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2388,8 +2863,8 @@
       </fields>
       <libsource lib="Isolator" part="ISO1540" description="I2C Isolator, 2.5 kVrms, Bidirectional clock and data, SOIC-8"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="digital isolator i2c"/>
       <property name="ki_fp_filters" value="SOIC*3.9x4.9mm*P1.27mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2420,8 +2895,8 @@
       </fields>
       <libsource lib="Amplifier_Operational" part="MCP6002-xSN" description="Dual Operational Amplifiers, DIP-8/SOIC-8/TSSOP-8/VSSOP-8"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="dual opamp"/>
       <property name="ki_fp_filters" value="SOIC*3.9x4.9mm*P1.27mm* DIP*W7.62mm* TO*99* OnSemi*Micro8* TSSOP*3x3mm*P0.65mm* TSSOP*4.4x3mm*P0.65mm* MSOP*3x3mm*P0.65mm* SSOP*3.9x4.9mm*P0.635mm* LFCSP*2x2mm*P0.5mm* *SIP* SOIC*5.3x6.2mm*P1.27mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -2460,8 +2935,8 @@
       </fields>
       <libsource lib="Regulator_Linear" part="AMS1117-3.3" description="1A Low Dropout regulator, positive, 1.5V fixed output, SOT-223"/>
       <property name="LCSC" value="VERIFY"/>
-      <property name="Sheetname" value="Root"/>
-      <property name="Sheetfile" value="../exopet-hat-pro.kicad_sch"/>
+      <property name="Sheetname" value="exopet-hat-pro"/>
+      <property name="Sheetfile" value="exopet-hat-pro.kicad_sch"/>
       <property name="ki_keywords" value="linear regulator ldo fixed positive obsolete"/>
       <property name="ki_fp_filters" value="SOT?223*TabPin2*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -3055,6 +3530,8 @@
       <node ref="R11" pin="1" pintype="passive"/>
       <node ref="R2" pin="1" pintype="passive"/>
       <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="R30" pin="1" pintype="passive"/>
+      <node ref="R31" pin="1" pintype="passive"/>
       <node ref="R4" pin="1" pintype="passive"/>
       <node ref="TP3" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U4" pin="8" pinfunction="VCC_8" pintype="power_in"/>
@@ -3105,12 +3582,17 @@
       <node ref="F2" pin="1" pintype="passive"/>
       <node ref="F3" pin="1" pintype="passive"/>
       <node ref="F4" pin="1" pintype="passive"/>
+      <node ref="F5" pin="1" pintype="passive"/>
       <node ref="K1" pin="2" pintype="passive"/>
       <node ref="K2" pin="2" pintype="passive"/>
       <node ref="K3" pin="2" pintype="passive"/>
       <node ref="K4" pin="2" pintype="passive"/>
+      <node ref="K5" pin="2" pintype="passive"/>
+      <node ref="K6" pin="2" pintype="passive"/>
       <node ref="Q1" pin="S" pinfunction="S_S" pintype="passive"/>
       <node ref="R19" pin="1" pintype="passive"/>
+      <node ref="R28" pin="1" pintype="passive"/>
+      <node ref="R29" pin="1" pintype="passive"/>
       <node ref="R5" pin="1" pintype="passive"/>
       <node ref="R6" pin="1" pintype="passive"/>
       <node ref="R7" pin="1" pintype="passive"/>
@@ -3194,52 +3676,73 @@
       <node ref="J11" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="K4" pin="3" pintype="passive"/>
     </net>
-    <net code="23" name="EEPROM_SCL" class="Default">
+    <net code="23" name="CH5_FUSED" class="Default">
+      <node ref="F5" pin="2" pintype="passive"/>
+      <node ref="K5" pin="1" pintype="passive"/>
+    </net>
+    <net code="24" name="CH5_OUT" class="Default">
+      <node ref="D14" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="J16" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="K5" pin="3" pintype="passive"/>
+    </net>
+    <net code="25" name="CH6_COM" class="Default">
+      <node ref="J17" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="K6" pin="1" pintype="passive"/>
+    </net>
+    <net code="26" name="CH6_NC" class="Default">
+      <node ref="J17" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="K6" pin="4" pintype="passive"/>
+    </net>
+    <net code="27" name="CH6_NO" class="Default">
+      <node ref="J17" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="K6" pin="3" pintype="passive"/>
+    </net>
+    <net code="28" name="EEPROM_SCL" class="Default">
       <node ref="J3" pin="28" pinfunction="ID_SC/GPIO1_28" pintype="bidirectional"/>
       <node ref="R4" pin="2" pintype="passive"/>
       <node ref="U4" pin="6" pinfunction="SCL_6" pintype="input"/>
     </net>
-    <net code="24" name="EEPROM_SDA" class="Default">
+    <net code="29" name="EEPROM_SDA" class="Default">
       <node ref="J3" pin="27" pinfunction="ID_SD/GPIO0_27" pintype="bidirectional"/>
       <node ref="R3" pin="2" pintype="passive"/>
       <node ref="U4" pin="5" pinfunction="SDA_5" pintype="bidirectional"/>
     </net>
-    <net code="25" name="EEPROM_WP" class="Default">
+    <net code="30" name="EEPROM_WP" class="Default">
       <node ref="JP2" pin="1" pinfunction="A_1" pintype="passive"/>
       <node ref="R9" pin="1" pintype="passive"/>
       <node ref="U4" pin="7" pinfunction="WP_7" pintype="input"/>
     </net>
-    <net code="26" name="FLOAT1_GPIO" class="Default">
+    <net code="31" name="FLOAT1_GPIO" class="Default">
       <node ref="J3" pin="36" pinfunction="GPIO16_36" pintype="bidirectional"/>
       <node ref="R12" pin="2" pintype="passive"/>
     </net>
-    <net code="27" name="FLOAT1_SW" class="Default">
+    <net code="32" name="FLOAT1_SW" class="Default">
       <node ref="C5" pin="1" pintype="passive"/>
       <node ref="J13" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="R10" pin="2" pintype="passive"/>
       <node ref="R12" pin="1" pintype="passive"/>
       <node ref="R22" pin="1" pintype="passive"/>
     </net>
-    <net code="28" name="FLOAT2_GPIO" class="Default">
+    <net code="33" name="FLOAT2_GPIO" class="Default">
       <node ref="J3" pin="32" pinfunction="PWM0/GPIO12_32" pintype="bidirectional"/>
       <node ref="R13" pin="2" pintype="passive"/>
     </net>
-    <net code="29" name="FLOAT2_SW" class="Default">
+    <net code="34" name="FLOAT2_SW" class="Default">
       <node ref="C6" pin="1" pintype="passive"/>
       <node ref="J14" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="R11" pin="2" pintype="passive"/>
       <node ref="R13" pin="1" pintype="passive"/>
       <node ref="R23" pin="1" pintype="passive"/>
     </net>
-    <net code="30" name="FLT1_SENSE" class="Default">
+    <net code="35" name="FLT1_SENSE" class="Default">
       <node ref="R22" pin="2" pintype="passive"/>
       <node ref="U7" pin="4" pinfunction="AIN0_4" pintype="input"/>
     </net>
-    <net code="31" name="FLT2_SENSE" class="Default">
+    <net code="36" name="FLT2_SENSE" class="Default">
       <node ref="R23" pin="2" pintype="passive"/>
       <node ref="U7" pin="5" pinfunction="AIN1_5" pintype="input"/>
     </net>
-    <net code="32" name="GND" class="Default">
+    <net code="37" name="GND" class="Default">
       <node ref="C1" pin="2" pintype="passive"/>
       <node ref="C10" pin="2" pintype="passive"/>
       <node ref="C11" pin="2" pintype="passive"/>
@@ -3249,7 +3752,9 @@
       <node ref="C2" pin="2" pintype="passive"/>
       <node ref="C20" pin="2" pintype="passive"/>
       <node ref="C27" pin="2" pintype="passive"/>
+      <node ref="C29" pin="2" pintype="passive"/>
       <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C30" pin="2" pintype="passive"/>
       <node ref="C4" pin="2" pintype="passive"/>
       <node ref="C5" pin="2" pintype="passive"/>
       <node ref="C6" pin="2" pintype="passive"/>
@@ -3259,11 +3764,15 @@
       <node ref="D11" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="D12" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="D13" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="D14" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="D9" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="J1" pin="2" pintype="passive"/>
       <node ref="J10" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J13" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J14" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J16" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J18" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J19" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J3" pin="14" pinfunction="GND_14" pintype="passive"/>
       <node ref="J3" pin="20" pinfunction="GND_20" pintype="passive"/>
       <node ref="J3" pin="25" pinfunction="GND_25" pintype="passive"/>
@@ -3280,8 +3789,6 @@
       <node ref="R17" pin="2" pintype="passive"/>
       <node ref="R9" pin="2" pintype="passive"/>
       <node ref="TP4" pin="1" pinfunction="1_1" pintype="passive"/>
-      <node ref="U2" pin="5" pinfunction="I5_5" pintype="input"/>
-      <node ref="U2" pin="6" pinfunction="I6_6" pintype="input"/>
       <node ref="U2" pin="7" pinfunction="I7_7" pintype="input"/>
       <node ref="U2" pin="8" pinfunction="GND_8" pintype="power_in"/>
       <node ref="U4" pin="1" pinfunction="A0_1" pintype="input"/>
@@ -3292,37 +3799,43 @@
       <node ref="U6" pin="1" pinfunction="GND_1" pintype="power_in"/>
       <node ref="U7" pin="1" pinfunction="ADDR_1" pintype="input"/>
       <node ref="U7" pin="3" pinfunction="GND_3" pintype="power_in"/>
-      <node ref="U7" pin="6" pinfunction="AIN2_6" pintype="input"/>
-      <node ref="U7" pin="7" pinfunction="AIN3_7" pintype="input"/>
       <node ref="U9" pin="4" pinfunction="GND1_4" pintype="power_in"/>
     </net>
-    <net code="33" name="GPIO17" class="Default">
+    <net code="38" name="GPIO17" class="Default">
       <node ref="J3" pin="11" pinfunction="GPIO17_11" pintype="bidirectional"/>
       <node ref="U2" pin="1" pinfunction="I1_1" pintype="input"/>
     </net>
-    <net code="34" name="GPIO22" class="Default">
+    <net code="39" name="GPIO22" class="Default">
       <node ref="J3" pin="15" pinfunction="GPIO22_15" pintype="bidirectional"/>
       <node ref="U2" pin="3" pinfunction="I3_3" pintype="input"/>
     </net>
-    <net code="35" name="GPIO23" class="Default">
+    <net code="40" name="GPIO23" class="Default">
       <node ref="J3" pin="16" pinfunction="GPIO23_16" pintype="bidirectional"/>
       <node ref="U2" pin="4" pinfunction="I4_4" pintype="input"/>
     </net>
-    <net code="36" name="GPIO27" class="Default">
+    <net code="41" name="GPIO24" class="Default">
+      <node ref="J3" pin="18" pinfunction="GPIO24_18" pintype="bidirectional"/>
+      <node ref="U2" pin="5" pinfunction="I5_5" pintype="input"/>
+    </net>
+    <net code="42" name="GPIO25" class="Default">
+      <node ref="J3" pin="22" pinfunction="GPIO25_22" pintype="bidirectional"/>
+      <node ref="U2" pin="6" pinfunction="I6_6" pintype="input"/>
+    </net>
+    <net code="43" name="GPIO27" class="Default">
       <node ref="J3" pin="13" pinfunction="GPIO27_13" pintype="bidirectional"/>
       <node ref="U2" pin="2" pinfunction="I2_2" pintype="input"/>
     </net>
-    <net code="37" name="I2C1_SCL" class="Default">
+    <net code="44" name="I2C1_SCL" class="Default">
       <node ref="J3" pin="5" pinfunction="SCL/GPIO3_5" pintype="bidirectional"/>
       <node ref="U7" pin="10" pinfunction="SCL_10" pintype="input"/>
       <node ref="U9" pin="3" pinfunction="SCL1_3" pintype="bidirectional"/>
     </net>
-    <net code="38" name="I2C1_SDA" class="Default">
+    <net code="45" name="I2C1_SDA" class="Default">
       <node ref="J3" pin="3" pinfunction="SDA/GPIO2_3" pintype="bidirectional"/>
       <node ref="U7" pin="9" pinfunction="SDA_9" pintype="bidirectional"/>
       <node ref="U9" pin="2" pinfunction="SDA1_2" pintype="bidirectional"/>
     </net>
-    <net code="39" name="ISO_GND" class="Default">
+    <net code="46" name="ISO_GND" class="Default">
       <node ref="C21" pin="2" pintype="passive"/>
       <node ref="C22" pin="2" pintype="passive"/>
       <node ref="C25" pin="2" pintype="passive"/>
@@ -3337,158 +3850,187 @@
       <node ref="U8" pin="7" pinfunction="AIN3_7" pintype="input"/>
       <node ref="U9" pin="5" pinfunction="GND2_5" pintype="power_in"/>
     </net>
-    <net code="40" name="ISO_SCL" class="Default">
+    <net code="47" name="ISO_SCL" class="Default">
       <node ref="R27" pin="2" pintype="passive"/>
       <node ref="U8" pin="10" pinfunction="SCL_10" pintype="input"/>
       <node ref="U9" pin="6" pinfunction="SCL2_6" pintype="bidirectional"/>
     </net>
-    <net code="41" name="ISO_SDA" class="Default">
+    <net code="48" name="ISO_SDA" class="Default">
       <node ref="R26" pin="2" pintype="passive"/>
       <node ref="U8" pin="9" pinfunction="SDA_9" pintype="bidirectional"/>
       <node ref="U9" pin="7" pinfunction="SDA2_7" pintype="bidirectional"/>
     </net>
-    <net code="42" name="LED1_A" class="Default">
+    <net code="49" name="LED1_A" class="Default">
       <node ref="D5" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R5" pin="2" pintype="passive"/>
     </net>
-    <net code="43" name="LED2_A" class="Default">
+    <net code="50" name="LED2_A" class="Default">
       <node ref="D6" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R6" pin="2" pintype="passive"/>
     </net>
-    <net code="44" name="LED3_A" class="Default">
+    <net code="51" name="LED3_A" class="Default">
       <node ref="D7" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R7" pin="2" pintype="passive"/>
     </net>
-    <net code="45" name="LED4_A" class="Default">
+    <net code="52" name="LED4_A" class="Default">
       <node ref="D8" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R8" pin="2" pintype="passive"/>
     </net>
-    <net code="46" name="LED5V_A" class="Default">
+    <net code="53" name="LED5V_A" class="Default">
       <node ref="D13" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R20" pin="2" pintype="passive"/>
     </net>
-    <net code="47" name="LED12V_A" class="Default">
+    <net code="54" name="LED5_A" class="Default">
+      <node ref="D15" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="R28" pin="2" pintype="passive"/>
+    </net>
+    <net code="55" name="LED6_A" class="Default">
+      <node ref="D16" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="R29" pin="2" pintype="passive"/>
+    </net>
+    <net code="56" name="LED12V_A" class="Default">
       <node ref="D12" pin="2" pinfunction="A_2" pintype="passive"/>
       <node ref="R19" pin="2" pintype="passive"/>
     </net>
-    <net code="48" name="PH_BUF" class="Default">
+    <net code="57" name="PH_BUF" class="Default">
       <node ref="U10" pin="1" pintype="output"/>
       <node ref="U10" pin="2" pinfunction="-_2" pintype="input"/>
       <node ref="U8" pin="4" pinfunction="AIN0_4" pintype="input"/>
     </net>
-    <net code="49" name="PH_IN" class="Default">
+    <net code="58" name="PH_IN" class="Default">
       <node ref="J15" pin="1" pinfunction="In_1" pintype="passive"/>
       <node ref="U10" pin="3" pinfunction="+_3" pintype="input"/>
     </net>
-    <net code="50" name="PH_REF" class="Default">
+    <net code="59" name="PH_REF" class="Default">
       <node ref="J15" pin="2" pinfunction="Ext_2" pintype="passive"/>
       <node ref="U10" pin="6" pinfunction="-_6" pintype="input"/>
       <node ref="U10" pin="7" pintype="output"/>
       <node ref="U8" pin="5" pinfunction="AIN1_5" pintype="input"/>
     </net>
-    <net code="51" name="Q1_G" class="Default">
+    <net code="60" name="Q1_G" class="Default">
       <node ref="Q1" pin="G" pinfunction="G_G" pintype="input"/>
       <node ref="R1" pin="1" pintype="passive"/>
     </net>
-    <net code="52" name="RLY1_DRV" class="Default">
+    <net code="61" name="RLY1_DRV" class="Default">
       <node ref="D5" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="K1" pin="5" pintype="passive"/>
       <node ref="U2" pin="16" pinfunction="O1_16" pintype="open_collector"/>
     </net>
-    <net code="53" name="RLY2_DRV" class="Default">
+    <net code="62" name="RLY2_DRV" class="Default">
       <node ref="D6" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="K2" pin="5" pintype="passive"/>
       <node ref="U2" pin="15" pinfunction="O2_15" pintype="open_collector"/>
     </net>
-    <net code="54" name="RLY3_DRV" class="Default">
+    <net code="63" name="RLY3_DRV" class="Default">
       <node ref="D7" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="K3" pin="5" pintype="passive"/>
       <node ref="U2" pin="14" pinfunction="O3_14" pintype="open_collector"/>
     </net>
-    <net code="55" name="RLY4_DRV" class="Default">
+    <net code="64" name="RLY4_DRV" class="Default">
       <node ref="D8" pin="1" pinfunction="K_1" pintype="passive"/>
       <node ref="K4" pin="5" pintype="passive"/>
       <node ref="U2" pin="13" pinfunction="O4_13" pintype="open_collector"/>
     </net>
-    <net code="56" name="unconnected-(J1-Pad3)" class="Default">
+    <net code="65" name="RLY5_DRV" class="Default">
+      <node ref="D15" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="K5" pin="5" pintype="passive"/>
+      <node ref="U2" pin="12" pinfunction="O5_12" pintype="open_collector"/>
+    </net>
+    <net code="66" name="RLY6_DRV" class="Default">
+      <node ref="D16" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="K6" pin="5" pintype="passive"/>
+      <node ref="U2" pin="11" pinfunction="O6_11" pintype="open_collector"/>
+    </net>
+    <net code="67" name="SW3_SENSE" class="Default">
+      <node ref="R32" pin="2" pintype="passive"/>
+      <node ref="U7" pin="6" pinfunction="AIN2_6" pintype="input"/>
+    </net>
+    <net code="68" name="SW3_SW" class="Default">
+      <node ref="C29" pin="1" pintype="passive"/>
+      <node ref="J18" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R30" pin="2" pintype="passive"/>
+      <node ref="R32" pin="1" pintype="passive"/>
+    </net>
+    <net code="69" name="SW4_SENSE" class="Default">
+      <node ref="R33" pin="2" pintype="passive"/>
+      <node ref="U7" pin="7" pinfunction="AIN3_7" pintype="input"/>
+    </net>
+    <net code="70" name="SW4_SW" class="Default">
+      <node ref="C30" pin="1" pintype="passive"/>
+      <node ref="J19" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R31" pin="2" pintype="passive"/>
+      <node ref="R33" pin="1" pintype="passive"/>
+    </net>
+    <net code="71" name="unconnected-(J1-Pad3)" class="Default">
       <node ref="J1" pin="3" pintype="passive+no_connect"/>
     </net>
-    <net code="57" name="unconnected-(J3-GCLK1/GPIO5-Pad29)" class="Default">
+    <net code="72" name="unconnected-(J3-GCLK1/GPIO5-Pad29)" class="Default">
       <node ref="J3" pin="29" pinfunction="GCLK1/GPIO5_29" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="58" name="unconnected-(J3-GCLK2/GPIO6-Pad31)" class="Default">
+    <net code="73" name="unconnected-(J3-GCLK2/GPIO6-Pad31)" class="Default">
       <node ref="J3" pin="31" pinfunction="GCLK2/GPIO6_31" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="59" name="unconnected-(J3-GPIO14/TXD-Pad8)" class="Default">
+    <net code="74" name="unconnected-(J3-GPIO14/TXD-Pad8)" class="Default">
       <node ref="J3" pin="8" pinfunction="GPIO14/TXD_8" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="60" name="unconnected-(J3-GPIO15/RXD-Pad10)" class="Default">
+    <net code="75" name="unconnected-(J3-GPIO15/RXD-Pad10)" class="Default">
       <node ref="J3" pin="10" pinfunction="GPIO15/RXD_10" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="61" name="unconnected-(J3-GPIO18/PWM0-Pad12)" class="Default">
+    <net code="76" name="unconnected-(J3-GPIO18/PWM0-Pad12)" class="Default">
       <node ref="J3" pin="12" pinfunction="GPIO18/PWM0_12" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="62" name="unconnected-(J3-GPIO19/MISO1-Pad35)" class="Default">
+    <net code="77" name="unconnected-(J3-GPIO19/MISO1-Pad35)" class="Default">
       <node ref="J3" pin="35" pinfunction="GPIO19/MISO1_35" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="63" name="unconnected-(J3-GPIO20/MOSI1-Pad38)" class="Default">
+    <net code="78" name="unconnected-(J3-GPIO20/MOSI1-Pad38)" class="Default">
       <node ref="J3" pin="38" pinfunction="GPIO20/MOSI1_38" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="64" name="unconnected-(J3-GPIO21/SCLK1-Pad40)" class="Default">
+    <net code="79" name="unconnected-(J3-GPIO21/SCLK1-Pad40)" class="Default">
       <node ref="J3" pin="40" pinfunction="GPIO21/SCLK1_40" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="65" name="unconnected-(J3-GPIO24-Pad18)" class="Default">
-      <node ref="J3" pin="18" pinfunction="GPIO24_18" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="66" name="unconnected-(J3-GPIO25-Pad22)" class="Default">
-      <node ref="J3" pin="22" pinfunction="GPIO25_22" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="67" name="unconnected-(J3-GPIO26-Pad37)" class="Default">
+    <net code="80" name="unconnected-(J3-GPIO26-Pad37)" class="Default">
       <node ref="J3" pin="37" pinfunction="GPIO26_37" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="68" name="unconnected-(J3-MISO0/GPIO9-Pad21)" class="Default">
+    <net code="81" name="unconnected-(J3-MISO0/GPIO9-Pad21)" class="Default">
       <node ref="J3" pin="21" pinfunction="MISO0/GPIO9_21" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="69" name="unconnected-(J3-MOSI0/GPIO10-Pad19)" class="Default">
+    <net code="82" name="unconnected-(J3-MOSI0/GPIO10-Pad19)" class="Default">
       <node ref="J3" pin="19" pinfunction="MOSI0/GPIO10_19" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="70" name="unconnected-(J3-PWM1/GPIO13-Pad33)" class="Default">
+    <net code="83" name="unconnected-(J3-PWM1/GPIO13-Pad33)" class="Default">
       <node ref="J3" pin="33" pinfunction="PWM1/GPIO13_33" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="71" name="unconnected-(J3-SCLK0/GPIO11-Pad23)" class="Default">
+    <net code="84" name="unconnected-(J3-SCLK0/GPIO11-Pad23)" class="Default">
       <node ref="J3" pin="23" pinfunction="SCLK0/GPIO11_23" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="72" name="unconnected-(J3-~{CE0}/GPIO8-Pad24)" class="Default">
+    <net code="85" name="unconnected-(J3-~{CE0}/GPIO8-Pad24)" class="Default">
       <node ref="J3" pin="24" pinfunction="~{CE0}/GPIO8_24" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="73" name="unconnected-(J3-~{CE1}/GPIO7-Pad26)" class="Default">
+    <net code="86" name="unconnected-(J3-~{CE1}/GPIO7-Pad26)" class="Default">
       <node ref="J3" pin="26" pinfunction="~{CE1}/GPIO7_26" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="74" name="unconnected-(K1-Pad4)" class="Default">
+    <net code="87" name="unconnected-(K1-Pad4)" class="Default">
       <node ref="K1" pin="4" pintype="passive+no_connect"/>
     </net>
-    <net code="75" name="unconnected-(K2-Pad4)" class="Default">
+    <net code="88" name="unconnected-(K2-Pad4)" class="Default">
       <node ref="K2" pin="4" pintype="passive+no_connect"/>
     </net>
-    <net code="76" name="unconnected-(K3-Pad4)" class="Default">
+    <net code="89" name="unconnected-(K3-Pad4)" class="Default">
       <node ref="K3" pin="4" pintype="passive+no_connect"/>
     </net>
-    <net code="77" name="unconnected-(U2-O5-Pad12)" class="Default">
-      <node ref="U2" pin="12" pinfunction="O5_12" pintype="open_collector+no_connect"/>
+    <net code="90" name="unconnected-(K5-Pad4)" class="Default">
+      <node ref="K5" pin="4" pintype="passive+no_connect"/>
     </net>
-    <net code="78" name="unconnected-(U2-O6-Pad11)" class="Default">
-      <node ref="U2" pin="11" pinfunction="O6_11" pintype="open_collector+no_connect"/>
-    </net>
-    <net code="79" name="unconnected-(U2-O7-Pad10)" class="Default">
+    <net code="91" name="unconnected-(U2-O7-Pad10)" class="Default">
       <node ref="U2" pin="10" pinfunction="O7_10" pintype="open_collector+no_connect"/>
     </net>
-    <net code="80" name="unconnected-(U6-EN-Pad5)" class="Default">
+    <net code="92" name="unconnected-(U6-EN-Pad5)" class="Default">
       <node ref="U6" pin="5" pinfunction="EN_5" pintype="input+no_connect"/>
     </net>
-    <net code="81" name="unconnected-(U7-ALERT/RDY-Pad2)" class="Default">
+    <net code="93" name="unconnected-(U7-ALERT/RDY-Pad2)" class="Default">
       <node ref="U7" pin="2" pinfunction="ALERT/RDY_2" pintype="output+no_connect"/>
     </net>
-    <net code="82" name="unconnected-(U8-ALERT/RDY-Pad2)" class="Default">
+    <net code="94" name="unconnected-(U8-ALERT/RDY-Pad2)" class="Default">
       <node ref="U8" pin="2" pinfunction="ALERT/RDY_2" pintype="output+no_connect"/>
     </net>
   </nets>

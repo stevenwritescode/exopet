@@ -168,10 +168,29 @@ EXPECT_PRO = {
            "5": "PH_REF", "6": "ISO_GND", "7": "ISO_GND", "8": "+3V3_ISO",
            "9": "ISO_SDA", "10": "ISO_SCL"},
     "C25": {"1": "+3V3_ISO", "2": "ISO_GND"},
+    # — pro 6-relay expansion: CH5 (switched 12V) + CH6 (dry contact) —
+    "K5": {"2": "+12V", "5": "RLY5_DRV", "1": "CH5_FUSED", "3": "CH5_OUT", "4": NC},
+    "F5": {"1": "+12V", "2": "CH5_FUSED"},
+    "D14": {"1": "CH5_OUT", "2": "GND"},
+    "J16": {"1": "CH5_OUT", "2": "GND"},
+    "K6": {"2": "+12V", "5": "RLY6_DRV", "1": "CH6_COM", "3": "CH6_NO", "4": "CH6_NC"},
+    "J17": {"1": "CH6_COM", "2": "CH6_NO", "3": "CH6_NC"},
+    "R28": {"1": "+12V", "2": "LED5_A"}, "D15": {"2": "LED5_A", "1": "RLY5_DRV"},
+    "R29": {"1": "+12V", "2": "LED6_A"}, "D16": {"2": "LED6_A", "1": "RLY6_DRV"},
+    # — pro general supervised switch inputs SW3/SW4 (U7 A2/A3) —
+    "J18": {"1": "SW3_SW", "2": "GND"}, "R30": {"1": "+3V3", "2": "SW3_SW"},
+    "R32": {"1": "SW3_SW", "2": "SW3_SENSE"}, "C29": {"1": "SW3_SW", "2": "GND"},
+    "J19": {"1": "SW4_SW", "2": "GND"}, "R31": {"1": "+3V3", "2": "SW4_SW"},
+    "R33": {"1": "SW4_SW", "2": "SW4_SENSE"}, "C30": {"1": "SW4_SW", "2": "GND"},
 }
 import os as _os
 if _os.environ.get("HAT_VARIANT", "std") == "pro":
     EXPECT.update(EXPECT_PRO)
+    # shared parts gain pins on pro: patch rather than duplicate
+    EXPECT["J3"]["18"] = "GPIO24"; EXPECT["J3"]["22"] = "GPIO25"
+    EXPECT["U2"].update({"5": "GPIO24", "6": "GPIO25",
+                         "12": "RLY5_DRV", "11": "RLY6_DRV"})
+    EXPECT["U7"]["6"] = "SW3_SENSE"; EXPECT["U7"]["7"] = "SW4_SENSE"
 
 # footprint pad number -> netlist pin, where symbols use letters
 PAD_PIN_MAP = {"Q1": {"1": "G", "2": "D", "3": "S"}}
