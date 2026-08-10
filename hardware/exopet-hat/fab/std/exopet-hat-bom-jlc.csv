@@ -19,7 +19,7 @@ Comment,Designator,Footprint,LCSC Part #
 4.7k,R2,R_0805_2012Metric,C17673
 5V ESD clamp (SOD-323),U5,D_SOD-323,C19224
 "75pF C0G (feedforward, TI Table 7-2)",C17,C_0805_2012Metric,
-"ADS1115 (floats, 0x48)",U7,MSOP-10_3x3mm_P0.5mm,
+"ADS1115 (sensors, 0x48)",U7,MSOP-10_3x3mm_P0.5mm,
 AOD403,Q1,TO-252-2,C28969
 B550C 5A 30V (5V safety diode),D3,D_SMB,
 CAT24C32,U4,SOIC-8_3.9x4.9mm_P1.27mm,
