@@ -303,7 +303,7 @@ add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
 add("J11", "Connector_Generic:Conn_01x03", "CH4 dry contact", (340, 160),
     {"1": "CH4_COM", "2": "CH4_NO", "3": "CH4_NC"},
-    CH_3P)
+    TERM_3P)  # AUX dry contact: always big (14 AWG)
 
 # — Relay state LEDs (column 3 lower) —
 for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):

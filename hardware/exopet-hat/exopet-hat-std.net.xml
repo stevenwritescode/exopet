@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat-std.kicad_sch</source>
-    <date>2026-08-10T16:54:03</date>
+    <date>2026-08-10T17:21:48</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -976,10 +976,10 @@
     </comp>
     <comp ref="J11">
       <value>CH4 dry contact</value>
-      <footprint>TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal</footprint>
+      <footprint>TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal</footprint>
       <fields>
         <field name="LCSC"/>
-        <field name="Footprint">TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal</field>
+        <field name="Footprint">TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>

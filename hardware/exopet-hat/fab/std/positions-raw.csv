@@ -15,6 +15,10 @@ Ref,Val,Package,PosX,PosY,Rot,Side
 "C18","C_0805_2012Metric","C_0805_2012Metric",37.000000,-19.200000,0.000000,bottom
 "D1","D_SMB","D_SMB",18.500000,-25.500000,-90.000000,bottom
 "D3","D_SMB","D_SMB",15.200000,-46.500000,-90.000000,bottom
+"D5","LED_0805_2012Metric","LED_0805_2012Metric",20.000000,-50.500000,0.000000,bottom
+"D6","LED_0805_2012Metric","LED_0805_2012Metric",31.500000,-50.500000,0.000000,bottom
+"D7","LED_0805_2012Metric","LED_0805_2012Metric",41.500000,-48.500000,0.000000,bottom
+"D8","LED_0805_2012Metric","LED_0805_2012Metric",56.500000,-48.500000,0.000000,bottom
 "D9","D_SMA","D_SMA",51.500000,-25.000000,0.000000,bottom
 "D10","D_SMA","D_SMA",51.500000,-30.000000,0.000000,bottom
 "D11","D_SMA","D_SMA",51.500000,-35.000000,0.000000,bottom
@@ -45,10 +49,6 @@ Ref,Val,Package,PosX,PosY,Rot,Side
 "U5","D_SOD-323","D_SOD-323",7.300000,-23.000000,0.000000,bottom
 "U6","SOT-23-6","SOT-23-6",27.500000,-11.200000,0.000000,bottom
 "U7","MSOP-10_3x3mm_P0.5mm","MSOP-10_3x3mm_P0.5mm",41.700000,-11.000000,-90.000000,bottom
-"D5","LED_0805_2012Metric","LED_0805_2012Metric",20.200000,-50.500000,90.000000,top
-"D6","LED_0805_2012Metric","LED_0805_2012Metric",32.200000,-50.500000,90.000000,top
-"D7","LED_0805_2012Metric","LED_0805_2012Metric",44.700000,-50.500000,90.000000,top
-"D8","LED_0805_2012Metric","LED_0805_2012Metric",61.000000,-47.000000,0.000000,top
 "D12","LED_0805_2012Metric","LED_0805_2012Metric",14.900000,-35.500000,0.000000,top
 "D13","LED_0805_2012Metric","LED_0805_2012Metric",14.900000,-39.000000,0.000000,top
 "F1","Fuse_Bourns_MF-RG500","Fuse_Bourns_MF-RG500",13.500000,-28.900000,90.000000,top
@@ -59,8 +59,8 @@ Ref,Val,Package,PosX,PosY,Rot,Side
 "J4","TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal",4.000000,-46.500000,90.000000,top
 "J8","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",12.500000,-52.000000,0.000000,top
 "J9","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",24.500000,-52.000000,0.000000,top
-"J10","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",36.500000,-52.000000,0.000000,top
-"J11","TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal",49.500000,-52.000000,0.000000,top
+"J10","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",35.000000,-52.000000,0.000000,top
+"J11","TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal","TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal",44.500000,-52.000000,0.000000,top
 "J13","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",4.000000,-26.300000,90.000000,top
 "J14","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",4.000000,-34.600000,90.000000,top
 "K1","Relay_SPDT_Omron-G5LE-1","Relay_SPDT_Omron-G5LE-1",37.200000,-16.200000,-90.000000,top

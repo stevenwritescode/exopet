@@ -7394,7 +7394,7 @@
     (uuid "b4cbf905-7d24-513c-ba11-8c0c8ba7185c")
     (property "Reference" "J11" (at 340 157 0) (effects (font (size 1.27 1.27))))
     (property "Value" "CH4 dry contact" (at 340 163 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal" (at 340 160 0) (effects (font (size 1.27 1.27)) hide))
+    (property "Footprint" "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal" (at 340 160 0) (effects (font (size 1.27 1.27)) hide))
     (property "LCSC" "" (at 340 160 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "db18ec7a-15be-5456-be3d-7b88dde7734c"))
     (pin "2" (uuid "4a89a762-8ae2-5765-911d-3075f3f4eb78"))

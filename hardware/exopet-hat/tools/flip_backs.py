@@ -13,6 +13,9 @@ BACK = {
     "U8","U9","U10","U11","C20","C21","C22","C25","C26","C27","C28",
     "R24","R25","R26","R27",
 }
+VARIANT = sys.argv[2] if len(sys.argv) > 2 else "std"
+if VARIANT == "std":
+    BACK |= {"D5", "D6", "D7", "D8"}  # all channel LEDs to back on std
 board = pcbnew.LoadBoard(sys.argv[1])
 n = 0
 for fp in board.GetFootprints():

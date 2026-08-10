@@ -14,7 +14,7 @@ Comment,Designator,Footprint,LCSC Part #
 2.2k,"R19,R5,R6,R7,R8",R_0805_2012Metric,C17520
 22uF 25V X7R 1210,"C11,C12",C_1210_3225Metric,C309062
 3.5mm pitch 2P screw terminal horizontal (KF350/XY350 class),"J10,J13,J14,J8,J9","TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",C474892
-3.5mm pitch 3P screw terminal horizontal (KF350/XY350 class),"J11,J4","TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal",C474893
+3.5mm pitch 3P screw terminal horizontal (KF350/XY350 class),J4,"TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal",C474893
 3.9k,"R3,R4",R_0805_2012Metric,C26010
 4.7k,R2,R_0805_2012Metric,C17673
 5V ESD clamp (SOD-323),U5,D_SOD-323,C19224
@@ -22,6 +22,7 @@ Comment,Designator,Footprint,LCSC Part #
 "ADS1115 (sensors, 0x48)",U7,MSOP-10_3x3mm_P0.5mm,C37593
 AOD403,Q1,TO-252-2,C28969
 CAT24C32,U4,SOIC-8_3.9x4.9mm_P1.27mm,C511262
+CH4 dry contact,J11,TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal,C474882
 G5LE-1-CF DC12,"K1,K2,K3,K4",Relay_SPDT_Omron-G5LE-1,C1524650
 MF-RG700 7A [radial PTC resettable fuse 7A (RGEF700/MF-RG700; NOT 5A)],F1,Fuse_Bourns_MF-RG500,
 MF-RHT100 1A [radial PTC resettable fuse 1A (RHT/RGEF100 class)],"F2,F3,F4",Fuse_Bourns_MF-RHT100,C208481

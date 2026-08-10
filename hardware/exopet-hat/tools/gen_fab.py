@@ -32,7 +32,7 @@ THT_LCSC = {
     # sensor inputs: KF350-3.5 (both variants)
     "J13": "C474892", "J14": "C474892", "J18": "C474892", "J19": "C474892",  # 2P
     "J4": "C474893",                                       # 3P
-    "J17": "C474882",   # CH6 dry contact (pro only): KF301-5.0 3P
+    "J11": "C474882", "J17": "C474882",  # dry-contact 3P: KF301-5.0
     "J16": "C474881",   # CH5 (pro only): KF301-5.0 2P
 }
 # Relay-output terminal sizing differs by variant: pro fits 5.08mm
@@ -40,11 +40,11 @@ THT_LCSC = {
 # switched channels and 5.08mm only on the AUX -- but std couldn't fit
 # even that, so std relay terminals are all 3.5mm. Keyed per variant:
 if VARIANT == "pro":
-    THT_LCSC.update({"J8": "C474881", "J9": "C474881", "J10": "C474881",
-                     "J11": "C474882"})  # KF301-5.0 (5.08mm)
+    THT_LCSC.update({"J8": "C474881", "J9": "C474881",
+                     "J10": "C474881"})  # switched channels 5.08mm
 else:
-    THT_LCSC.update({"J8": "C474892", "J9": "C474892", "J10": "C474892",
-                     "J11": "C474893"})  # KF350-3.5
+    THT_LCSC.update({"J8": "C474892", "J9": "C474892",
+                     "J10": "C474892"})  # switched channels 3.5mm
 SEARCH_HINT = {
     "TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal":
         "3.5mm pitch 2P screw terminal horizontal (KF350/XY350 class)",

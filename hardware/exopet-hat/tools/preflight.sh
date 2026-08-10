@@ -30,7 +30,7 @@ python3 check_polarity.py | gate polarity "POLARITY: ALL CORRECT"
 
 echo "── 2. board ──"
 python3 gen_board.py "$V" >/dev/null
-"$PY" flip_backs.py "$B" 2>/dev/null | gate flip "flipped to back"
+"$PY" flip_backs.py "$B" "$V" 2>/dev/null | gate flip "flipped to back"
 "$PY" check_placement.py "$B" 2>/dev/null | gate placement "PLACEMENT: CLEAN"
 "$PY" verify_j3.py "$B" 2>/dev/null | gate j3 "matches official HAT template"
 
