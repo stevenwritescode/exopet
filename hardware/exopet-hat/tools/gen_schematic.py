@@ -122,6 +122,18 @@ PINS = {key: pin_map(text) for key, text in LIBS.items()}
 # (ref, lib_id, value, (x, y), {pin: net}, [no_connect pins], footprint)
 NC = "~NC~"  # sentinel: place a no_connect marker on this pin
 
+# Relay-output terminals: 5.08mm pitch (KF301/DG301 class), accept up to
+# ~2.5mm2 / 14 AWG, matched to the G5LE 10A contact rating. Sensor
+# terminals stay 3.5mm (tiny signal wires).
+TERM_2P = "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal"
+TERM_3P = "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal"
+# 3.5mm (KF350) — sensors, and std's switched-12V channels (compact
+# board can't fit four 5.08mm blocks; only the AUX gets the big one).
+SENS_2P = "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal"
+CH_2P = TERM_2P if VARIANT == "pro" else SENS_2P
+SENS_3P = "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal"
+CH_3P = TERM_3P if VARIANT == "pro" else SENS_3P
+
 C = []
 
 def add(ref, lib_id, value, pos, nets, footprint="", lcsc=""):
@@ -283,7 +295,7 @@ for n, y in ((1, 40), (2, 80), (3, 120)):
         "Diode_SMD:D_SMA", "C8678")
     add(f"J{n+7}", "Connector_Generic:Conn_01x02", f"CH{n} 12V OUT", (365, y),
         {"1": f"CH{n}_OUT", "2": "GND"},
-        "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
+        CH_2P)
 
 add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     {"2": "+12V", "5": "RLY4_DRV",
@@ -291,7 +303,7 @@ add("K4", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 160),
     "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
 add("J11", "Connector_Generic:Conn_01x03", "CH4 dry contact", (340, 160),
     {"1": "CH4_COM", "2": "CH4_NO", "3": "CH4_NC"},
-    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal")
+    CH_3P)
 
 # — Relay state LEDs (column 3 lower) —
 for n, y in ((1, 100), (2, 120), (3, 140), (4, 160)):
@@ -412,14 +424,14 @@ add_pro("D14", "Device:D_Schottky", "SS34", (340, 200),
     {"1": "CH5_OUT", "2": "GND"}, "Diode_SMD:D_SMA", "C8678")
 add_pro("J16", "Connector_Generic:Conn_01x02", "CH5 12V OUT", (365, 200),
     {"1": "CH5_OUT", "2": "GND"},
-    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal")
+    TERM_2P)
 add_pro("K6", "Relay:G5LE-1", "G5LE-1-CF DC12", (290, 240),
     {"2": "+12V", "5": "RLY6_DRV",
      "1": "CH6_COM", "3": "CH6_NO", "4": "CH6_NC"},
     "Relay_THT:Relay_SPDT_Omron-G5LE-1", "C1524650")
 add_pro("J17", "Connector_Generic:Conn_01x03", "CH6 dry contact", (340, 240),
     {"1": "CH6_COM", "2": "CH6_NO", "3": "CH6_NC"},
-    "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-3.5-H_1x03_P3.50mm_Horizontal")
+    TERM_3P)
 # CH5/CH6 indicator LEDs (mirror the CH1-4 pattern)
 add_pro("R28", "Device:R", "2.2k", (225, 200),
     {"1": "+12V", "2": "LED5_A"}, "Resistor_SMD:R_0805_2012Metric", "C17520")

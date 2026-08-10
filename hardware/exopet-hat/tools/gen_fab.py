@@ -29,10 +29,22 @@ THT_LCSC = {
     # F1 deliberately unpinned: C468988 is the 5A RGEF500 — rev 2 needs
     # the 7A RGEF700 class; hand-match it in the JLC UI (review finding)
     "F2": "C208481", "F3": "C208481", "F4": "C208481",  # Bourns MF-R110 — RXEF110 legs (0.81mm) do not fit the 0.71mm holes
-    "J8": "C474892", "J9": "C474892", "J10": "C474892",
-    "J13": "C474892", "J14": "C474892",                    # KF350-3.5-2P
-    "J11": "C474893", "J4": "C474893",                     # KF350-3.5-3P
+    # sensor inputs: KF350-3.5 (both variants)
+    "J13": "C474892", "J14": "C474892", "J18": "C474892", "J19": "C474892",  # 2P
+    "J4": "C474893",                                       # 3P
+    "J17": "C474882",   # CH6 dry contact (pro only): KF301-5.0 3P
+    "J16": "C474881",   # CH5 (pro only): KF301-5.0 2P
 }
+# Relay-output terminal sizing differs by variant: pro fits 5.08mm
+# (KF301) on all channels; std (compact) keeps 3.5mm (KF350) on the
+# switched channels and 5.08mm only on the AUX -- but std couldn't fit
+# even that, so std relay terminals are all 3.5mm. Keyed per variant:
+if VARIANT == "pro":
+    THT_LCSC.update({"J8": "C474881", "J9": "C474881", "J10": "C474881",
+                     "J11": "C474882"})  # KF301-5.0 (5.08mm)
+else:
+    THT_LCSC.update({"J8": "C474892", "J9": "C474892", "J10": "C474892",
+                     "J11": "C474893"})  # KF350-3.5
 SEARCH_HINT = {
     "TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal":
         "3.5mm pitch 2P screw terminal horizontal (KF350/XY350 class)",
