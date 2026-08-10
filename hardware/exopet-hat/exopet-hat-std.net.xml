@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/Users/unknower/Git/exopet/hardware/exopet-hat/exopet-hat-std.kicad_sch</source>
-    <date>2026-08-08T16:17:42</date>
+    <date>2026-08-10T16:33:14</date>
     <tool>Eeschema 10.0.5</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -28,13 +28,13 @@
       <value>100uF 25V SMD electrolytic 6.3x7.7</value>
       <footprint>Capacitor_SMD:CP_Elec_6.3x7.7</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C3338</field>
         <field name="Footprint">Capacitor_SMD:CP_Elec_6.3x7.7</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C3338"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -210,13 +210,13 @@
       <value>10uF 25V X7R 1206</value>
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C14860</field>
         <field name="Footprint">Capacitor_SMD:C_1206_3216Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C14860"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -262,13 +262,13 @@
       <value>22uF 25V X7R 1210</value>
       <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C309062</field>
         <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C309062"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -288,13 +288,13 @@
       <value>22uF 25V X7R 1210</value>
       <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C309062</field>
         <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C309062"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -314,13 +314,13 @@
       <value>10uF 25V X7R 1206</value>
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C14860</field>
         <field name="Footprint">Capacitor_SMD:C_1206_3216Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C14860"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -340,13 +340,13 @@
       <value>75pF C0G (feedforward, TI Table 7-2)</value>
       <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C113832</field>
         <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C113832"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
@@ -392,13 +392,13 @@
       <value>SMBJ16CA bidirectional</value>
       <footprint>Diode_SMD:D_SMB</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C71870</field>
         <field name="Footprint">Diode_SMD:D_SMB</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="D_TVS" description="Bidirectional transient-voltage-suppression diode"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C71870"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="diode TVS thyrector"/>
@@ -415,16 +415,16 @@
       </units>
     </comp>
     <comp ref="D3">
-      <value>B550C 5A 30V (5V safety diode)</value>
+      <value>SS56 5A 60V (5V safety diode, SMB)</value>
       <footprint>Diode_SMD:D_SMB</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C2891311</field>
         <field name="Footprint">Diode_SMD:D_SMB</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C2891311"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="diode Schottky"/>
@@ -1615,13 +1615,13 @@
       <value>12.7k (FB lo -&gt; 5.29V pre-diode)</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C17434</field>
         <field name="Footprint">Resistor_SMD:R_0805_2012Metric</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C17434"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
@@ -1885,13 +1885,13 @@
       <value>CAT24C32</value>
       <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C511262</field>
         <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Memory_EEPROM" part="24LC16" description="I2C Serial EEPROM, 16Kb, DIP-8/SOIC-8/TSSOP-8/DFN-8"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C511262"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="I2C Serial EEPROM"/>
@@ -1943,13 +1943,13 @@
       <value>TPS54302DDC</value>
       <footprint>Package_TO_SOT_SMD:SOT-23-6</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C311983</field>
         <field name="Footprint">Package_TO_SOT_SMD:SOT-23-6</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Regulator_Switching" part="TPS54302" description="3A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C311983"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="switching buck converter power-supply voltage regulator emi spread spectrum"/>
@@ -1973,13 +1973,13 @@
       <value>ADS1115 (sensors, 0x48)</value>
       <footprint>Package_SO:MSOP-10_3x3mm_P0.5mm</footprint>
       <fields>
-        <field name="LCSC">VERIFY</field>
+        <field name="LCSC">C37593</field>
         <field name="Footprint">Package_SO:MSOP-10_3x3mm_P0.5mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
       <libsource lib="Analog_ADC" part="ADS1115IDGS" description="Ultra-Small, Low-Power, I2C-Compatible, 3.3-kSPS, 12-Bit ADCs With Internal Reference, Oscillator, and Programmable Comparator, VSSOP-10"/>
-      <property name="LCSC" value="VERIFY"/>
+      <property name="LCSC" value="C37593"/>
       <property name="Sheetname" value="exopet-hat-std"/>
       <property name="Sheetfile" value="exopet-hat-std.kicad_sch"/>
       <property name="ki_keywords" value="12 bit 4 channel I2C ADC"/>

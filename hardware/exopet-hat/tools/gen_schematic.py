@@ -147,7 +147,7 @@ add("F1", "Device:Polyfuse", "MF-RG700 7A", (55, 40),
 # SMBJ16A forward-clamped the input and the board played dead.
 add("D1", "Device:D_TVS", "SMBJ16CA bidirectional", (55, 60),
     {"1": "+12V_F", "2": "GND"},
-    "Diode_SMD:D_SMB", "VERIFY")
+    "Diode_SMD:D_SMB", "C71870")
 add("Q1", "Device:Q_PMOS", "AOD403", (80, 40),
     {"D": "+12V_F", "G": "Q1_G", "S": "+12V"},
     "Package_TO_SOT_SMD:TO-252-2", "C28969")
@@ -156,13 +156,13 @@ add("R1", "Device:R", "100k", (80, 60),
     "Resistor_SMD:R_0805_2012Metric", "C17407")
 add("C16", "Device:C", "10uF 25V X7R 1206", (105, 40),
     {"1": "+12V", "2": "GND"},
-    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+    "Capacitor_SMD:C_1206_3216Metric", "C14860")
 # review finding: ceramics alone (~13uF derated) are not bulk; TI 7.3
 # requires bulk for a remote (wall-adapter) supply and the rail also
 # feeds four relay coils. 6.3x7.7 SMD electrolytic fits the stack.
 add("C1", "Device:C_Polarized", "100uF 25V SMD electrolytic 6.3x7.7", (120, 40),
     {"1": "+12V", "2": "GND"},
-    "Capacitor_SMD:CP_Elec_6.3x7.7", "VERIFY")
+    "Capacitor_SMD:CP_Elec_6.3x7.7", "C3338")
 add("C2", "Device:C", "100nF", (105, 60),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
@@ -174,7 +174,7 @@ add("C2", "Device:C", "100nF", (105, 60),
 add("U6", "Regulator_Switching:TPS54302", "TPS54302DDC", (30, 90),
     {"1": "GND", "2": "BUCK_SW", "3": "+12V", "4": "BUCK_FB",
      "5": NC, "6": "BUCK_BOOT"},
-    "Package_TO_SOT_SMD:SOT-23-6", "VERIFY")
+    "Package_TO_SOT_SMD:SOT-23-6", "C311983")
 add("C7", "Device:C", "100nF 16V X7R (boot)", (55, 85),
     {"1": "BUCK_BOOT", "2": "BUCK_SW"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
@@ -183,25 +183,25 @@ add("L1", "Device:L", "10uH Isat>=4.5A (IHLP-2525 class)", (75, 85),
     "Inductor_SMD:L_Vishay_IHLP-2525", "VERIFY")
 add("C8", "Device:C", "10uF 25V X7R 1206", (95, 85),
     {"1": "+12V", "2": "GND"},
-    "Capacitor_SMD:C_1206_3216Metric", "VERIFY")
+    "Capacitor_SMD:C_1206_3216Metric", "C14860")
 add("C10", "Device:C", "100nF 50V (HF in)", (110, 85),
     {"1": "+12V", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
 add("C11", "Device:C", "22uF 25V X7R 1210", (95, 100),
     {"1": "+5V_BUCK", "2": "GND"},
-    "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
+    "Capacitor_SMD:C_1210_3225Metric", "C309062")
 add("C12", "Device:C", "22uF 25V X7R 1210", (110, 100),
     {"1": "+5V_BUCK", "2": "GND"},
-    "Capacitor_SMD:C_1210_3225Metric", "VERIFY")
+    "Capacitor_SMD:C_1210_3225Metric", "C309062")
 add("R16", "Device:R", "100k (FB hi)", (75, 110),
     {"1": "+5V_BUCK", "2": "BUCK_FB"},
     "Resistor_SMD:R_0805_2012Metric", "C17407")
 add("R17", "Device:R", "12.7k (FB lo -> 5.29V pre-diode)", (90, 110),
     {"1": "BUCK_FB", "2": "GND"},
-    "Resistor_SMD:R_0805_2012Metric", "VERIFY")
+    "Resistor_SMD:R_0805_2012Metric", "C17434")
 add("C17", "Device:C", "75pF C0G (feedforward, TI Table 7-2)", (105, 110),
     {"1": "+5V_BUCK", "2": "BUCK_FB"},
-    "Capacitor_SMD:C_0805_2012Metric", "VERIFY")
+    "Capacitor_SMD:C_0805_2012Metric", "C113832")
 # — Rail indicator LEDs (TOP side) + test points —
 add("R19", "Device:R", "2.2k", (30, 240),
     {"1": "+12V", "2": "LED12V_A"},
@@ -227,9 +227,12 @@ for i, (tp, net) in enumerate([("TP1", "+12V"), ("TP2", "+5V_BUCK"),
 # B550C: 5A 30V schottky, SMB. Buck runs 5.40V; Pi sees ~5.0-5.1V.
 # Also kills the back-feed path (Pi USB-C could energize the barrel
 # jack through the buck body diode + Q1). USB-C dual-supply now safe.
-add("D3", "Device:D_Schottky", "B550C 5A 30V (5V safety diode)", (55, 90),
+# SS56(LOWVF): 5A 60V schottky in SMB (DO-214AA), JLC Basic. The
+# originally-specced "B550C" is SMC (DO-214AB) and would NOT fit this
+# SMB footprint — package-verified swap to a genuine SMB 5A part.
+add("D3", "Device:D_Schottky", "SS56 5A 60V (5V safety diode, SMB)", (55, 90),
     {"1": "+5V", "2": "+5V_BUCK"},
-    "Diode_SMD:D_SMB", "VERIFY")
+    "Diode_SMD:D_SMB", "C2891311")
 
 # — Raspberry Pi header (column 2) —
 add("J3", "Connector:Raspberry_Pi_2_3", "RPi GPIO (HAT)", (170, 70),
@@ -335,7 +338,7 @@ for n, gpio_net, y in ((1, "FLOAT1_GPIO", 185), (2, "FLOAT2_GPIO", 210)):
 add("U4", "Memory_EEPROM:24LC16", "CAT24C32", (150, 160),
     {"1": "GND", "2": "GND", "3": "GND", "4": "GND",
      "5": "EEPROM_SDA", "6": "EEPROM_SCL", "7": "EEPROM_WP", "8": "+3V3"},
-    "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "VERIFY")
+    "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "C511262")
 add("C4", "Device:C", "100nF", (150, 185),
     {"1": "+3V3", "2": "GND"},
     "Capacitor_SMD:C_0805_2012Metric", "C49678")
@@ -363,7 +366,7 @@ _a3 = "SW4_SENSE" if VARIANT == "pro" else "GND"
 add("U7", "Analog_ADC:ADS1115IDGS", "ADS1115 (sensors, 0x48)", (240, 200),
     {"1": "GND", "2": NC, "3": "GND", "4": "FLT1_SENSE", "5": "FLT2_SENSE",
      "6": _a2, "7": _a3, "8": "+3V3", "9": "I2C1_SDA", "10": "I2C1_SCL"},
-    "Package_SO:MSOP-10_3x3mm_P0.5mm", "VERIFY")
+    "Package_SO:MSOP-10_3x3mm_P0.5mm", "C37593")
 add("R22", "Device:R", "10k", (215, 195),
     {"1": "FLOAT1_SW", "2": "FLT1_SENSE"},
     "Resistor_SMD:R_0805_2012Metric", "C17414")
