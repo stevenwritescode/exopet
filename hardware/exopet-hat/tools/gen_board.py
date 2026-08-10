@@ -21,7 +21,7 @@ HERE = Path(__file__).resolve().parent.parent
 FPDIR = Path("/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints")
 NETXML = Path("/tmp/hat-netlist.xml")
 OUT = HERE / f"exopet-hat-{VARIANT}.kicad_pcb"
-BOARD_H = 56 if VARIANT == "std" else 70
+BOARD_H = 56 if VARIANT == "std" else 92
 
 NS = uuid.UUID("87654321-4321-8765-4321-876543218765")
 
@@ -126,32 +126,45 @@ PLACEMENT = {
 # pH island fills the freed y44-64 right-half band. ──
 if VARIANT == "pro":
     PLACEMENT.update({
-        # terminals migrate to y=66, compressed from x10 (clears H5)
-        "J8": (10.0, 66.0, 0), "J9": (20.5, 66.0, 0),
-        "J10": (31.0, 66.0, 0), "J11": (41.5, 66.0, 0),
-        # channel LEDs above the new terminals (top side)
-        "D5": (11.5, 60.0, 90), "D6": (22.0, 60.0, 90),
-        "D7": (32.5, 60.0, 90), "D8": (45.0, 60.0, 90),
-        # ── isolated pH island in the freed y47-64 band ──
-        # THT (top): DC-DC straddles main|iso, BNC on the front edge
-        "PS1": (33.0, 60.0, 0),      # pins 1-2 main (left), 3-4 iso
-        "J15": (57.0, 61.0, 180),    # BNC edge-launch, barrel off front
-        # SMD (back): ISO1540 straddles boundary, analog to the right
-        "U9": (37.5, 51.0, 0),
-        "C20": (33.5, 47.0, 0), "C27": (29.5, 52.0, 90),
-        "U11": (44.0, 49.5, 0),
-        "C22": (49.5, 47.0, 0), "C28": (44.0, 55.0, 0),
-        "C21": (39.0, 55.0, 0),
-        "R26": (39.5, 59.5, 0), "R27": (43.0, 59.5, 0),
-        "U8": (55.0, 50.5, 90),
-        "U10": (55.5, 57.5, 0),
-        "R24": (49.5, 52.0, 0), "R25": (49.5, 55.0, 0),
-        "C25": (60.5, 55.0, 90), "C26": (60.5, 51.0, 90),
+        # relay row 3 drops below the Pi's y52.5 mounting holes -> y64.5
+        "K5": (37.2, 64.5, 270), "K6": (60.4, 64.5, 270),
+        # channel fuses fill the freed y42-56 mid-gap (top), avoiding the
+        # x61.5 hole; flybacks (back) beside them
+        "F2": (18.0, 47.0, 0), "F3": (29.0, 47.0, 0),
+        "F4": (40.0, 47.0, 0), "F5": (51.0, 47.0, 0),
+        "D9": (20.0, 51.0, 0), "D10": (30.0, 51.0, 0),
+        "D11": (40.0, 51.0, 0), "D14": (50.0, 51.0, 0),
+        # ── front terminals: row1 y87 (CH1-4 + BNC), row2 y77 ──
+        "J8": (3.0, 87.0, 0), "J9": (12.0, 87.0, 0),
+        "J10": (21.0, 87.0, 0), "J11": (30.0, 87.0, 0),
+        "J15": (50.0, 87.0, 0),          # BNC edge-launch, front-right
+        "J16": (3.0, 77.0, 0), "J17": (13.0, 77.0, 0),
+        "J18": (27.0, 77.0, 0), "J19": (37.0, 77.0, 0),
+        # channel LEDs centered above each terminal (top, clear of body)
+        "D5": (5.5, 83.5, 0), "D6": (14.5, 83.5, 0),
+        "D7": (23.5, 83.5, 0), "D8": (32.5, 83.5, 0),
+        "D15": (5.5, 73.5, 0), "D16": (15.5, 73.5, 0),
+        # SW3/SW4 conditioning + CH5/6 LED resistors (back)
+        "R30": (28.0, 74.0, 90), "R32": (30.0, 74.0, 90), "C29": (32.0, 74.0, 90),
+        "R31": (38.0, 74.0, 90), "R33": (40.0, 74.0, 90), "C30": (42.0, 74.0, 90),
+        "R28": (9.0, 73.5, 0), "R29": (19.0, 73.5, 0),
+        # ── pH island: PS1 top; ICs back, under the front region ──
+        "PS1": (46.0, 73.0, 0),          # SIP-4, main pins left / iso right
+        "U11": (44.0, 79.0, 0),          # AMS1117 SOT-223
+        "C22": (52.0, 72.0, 90), "C28": (50.0, 79.0, 90),
+        "U9": (46.0, 84.0, 0),           # ISO1540 straddles boundary
+        "C20": (41.0, 82.0, 0), "C27": (41.0, 86.0, 0),
+        "C21": (52.0, 84.0, 0),
+        "R26": (46.5, 88.0, 0), "R27": (50.0, 88.0, 0),
+        "U8": (58.0, 74.0, 90),          # ADS1115 MSOP-10
+        "U10": (58.0, 80.0, 0),          # MCP6002
+        "R24": (56.0, 85.0, 0), "R25": (60.0, 85.0, 0),
+        "C25": (62.0, 80.0, 90), "C26": (62.0, 75.0, 90),
     })
 
 MOUNTING_HOLES = [(3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)]
 if VARIANT == "pro":
-    MOUNTING_HOLES.append((3.5, 66.5))  # H5 supports the extended corner
+    MOUNTING_HOLES += [(3.5, 88.5), (61.5, 88.5)]  # H5/H6 front-corner support
 
 # ── read netlist: components + nets ─────────────────────────────
 tree = ET.parse(NETXML)

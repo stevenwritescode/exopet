@@ -21,7 +21,7 @@ if "--dump" in sys.argv:
 # terminal wire-entry overhang past the front edge
 ALLOW_PAIRS = {frozenset(x) for x in [
 ]}
-ALLOW_OFFBOARD = {"J1","J4","J8","J9","J10","J11"}
+ALLOW_OFFBOARD = {"J1","J4","J8","J9","J10","J11","J15","J16","J17","J18","J19"}
 
 refs = sorted(boxes)
 bad = 0

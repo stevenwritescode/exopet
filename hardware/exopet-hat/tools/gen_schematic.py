@@ -464,7 +464,7 @@ add_pro("R27", "Device:R", "4.7k (iso SCL pullup)", (345, 70),
 # rides a buffered mid-rail so the probe signal sits at BIAS +/-414mV.
 add_pro("J15", "Connector:Conn_Coaxial", "pH probe BNC", (280, 150),
     {"1": "PH_IN", "2": "PH_REF"},
-    "Connector_Coaxial:BNC_Amphenol_031-6575_Horizontal", "VERIFY")
+    "ExoPet:BNC_Edge_ExoPet", "VERIFY")
 add_pro("U10", "Amplifier_Operational:MCP6002-xSN", "MCP6002 (pH buffers)", (310, 150),
     {"1": "PH_BUF", "2": "PH_BUF", "3": "PH_IN",
      "5": "BIAS_MID", "6": "PH_REF", "7": "PH_REF",

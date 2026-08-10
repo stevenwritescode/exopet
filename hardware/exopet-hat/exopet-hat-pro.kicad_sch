@@ -8311,7 +8311,7 @@
     (uuid "345eedd9-9f6f-57a2-9105-cc1b4a28871e")
     (property "Reference" "J15" (at 280 147 0) (effects (font (size 1.27 1.27))))
     (property "Value" "pH probe BNC" (at 280 153 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Connector_Coaxial:BNC_Amphenol_031-6575_Horizontal" (at 280 150 0) (effects (font (size 1.27 1.27)) hide))
+    (property "Footprint" "ExoPet:BNC_Edge_ExoPet" (at 280 150 0) (effects (font (size 1.27 1.27)) hide))
     (property "LCSC" "VERIFY" (at 280 150 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "b06ab6c0-be70-5bf9-af7b-f5704ed4e9e3"))
     (pin "2" (uuid "a6b4f164-a6f9-5138-b0d2-09707f98f5db"))
