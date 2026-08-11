@@ -126,45 +126,47 @@ PLACEMENT = {
 # pH island fills the freed y44-64 right-half band. ──
 if VARIANT == "pro":
     PLACEMENT.update({
-        # relay row 3 drops below the Pi's y52.5 mounting holes -> y64.5
+        # relay row 3 below the y52.5 mounting holes (2x3 grid)
         "K5": (37.2, 64.5, 270), "K6": (60.4, 64.5, 270),
-        # channel fuses fill the freed y42-56 mid-gap (top), avoiding the
-        # x61.5 hole; flybacks (back) beside them
-        "F2": (18.0, 47.0, 0), "F3": (29.0, 47.0, 0),
-        "F4": (40.0, 47.0, 0), "F5": (51.0, 47.0, 0),
-        "D9": (20.0, 51.0, 0), "D10": (30.0, 51.0, 0),
-        "D11": (40.0, 51.0, 0), "D14": (50.0, 51.0, 0),
-        # ── front terminals: row1 y87 (CH1-4 + BNC), row2 y77 ──
-        "J8": (3.0, 87.0, 0), "J9": (12.0, 87.0, 0),
-        "J10": (21.0, 87.0, 0), "J11": (30.0, 87.0, 0),
-        "J15": (50.0, 87.0, 0),          # BNC edge-launch, front-right
-        "J16": (3.0, 77.0, 0), "J17": (13.0, 77.0, 0),
-        "J18": (27.0, 77.0, 0), "J19": (37.0, 77.0, 0),
-        # channel LEDs centered above each terminal (top, clear of body)
-        "D5": (5.5, 83.5, 0), "D6": (14.5, 83.5, 0),
-        "D7": (23.5, 83.5, 0), "D8": (32.5, 83.5, 0),
-        "D15": (5.5, 73.5, 0), "D16": (15.5, 73.5, 0),
-        # SW3/SW4 conditioning + CH5/6 LED resistors (back)
-        "R30": (28.0, 74.0, 90), "R32": (30.0, 74.0, 90), "C29": (32.0, 74.0, 90),
-        "R31": (38.0, 74.0, 90), "R33": (40.0, 74.0, 90), "C30": (42.0, 74.0, 90),
-        "R28": (9.0, 73.5, 0), "R29": (19.0, 73.5, 0),
-        # ── pH island: PS1 top; ICs back, under the front region ──
-        "PS1": (46.0, 73.0, 0),          # SIP-4, main pins left / iso right
-        "U11": (44.0, 79.0, 0),          # AMS1117 SOT-223
-        "C22": (52.0, 72.0, 90), "C28": (50.0, 79.0, 90),
-        "U9": (46.0, 84.0, 0),           # ISO1540 straddles boundary
-        "C20": (41.0, 82.0, 0), "C27": (41.0, 86.0, 0),
-        "C21": (52.0, 84.0, 0),
-        "R26": (46.5, 88.0, 0), "R27": (50.0, 88.0, 0),
-        "U8": (58.0, 74.0, 90),          # ADS1115 MSOP-10
-        "U10": (58.0, 80.0, 0),          # MCP6002
-        "R24": (56.0, 85.0, 0), "R25": (60.0, 85.0, 0),
-        "C25": (62.0, 80.0, 90), "C26": (62.0, 75.0, 90),
+        # channel fuses in the y42-56 mid-gap (top); flybacks (back)
+        "F2": (20.0, 47.0, 0), "F3": (31.0, 47.0, 0),
+        "F4": (42.0, 47.0, 0), "F5": (53.0, 47.0, 0),
+        "D9": (20.0, 51.5, 0), "D10": (30.0, 51.5, 0),
+        "D11": (40.0, 51.5, 0), "D14": (50.0, 51.5, 0),
+        # ── all sensor inputs on the LEFT edge ──
+        "J4": (4.0, 60.0, 90),               # temp (below y52.5 hole)
+        "J18": (4.0, 71.0, 90), "J19": (4.0, 80.0, 90),  # SW3/SW4
+        # SW conditioning (back) beside the SW terminals
+        "R30": (10.0, 69.0, 0), "R32": (10.0, 71.0, 0), "C29": (10.0, 73.0, 0),
+        "R31": (10.0, 78.0, 0), "R33": (10.0, 80.0, 0), "C30": (10.0, 82.0, 0),
+        # ── front row 1 (y87): CH1-4 outputs ──
+        "J8": (13.0, 87.0, 0), "J9": (25.0, 87.0, 0),
+        "J10": (37.0, 87.0, 0), "J11": (48.0, 87.0, 0),
+        # ── front row 2 (y76): CH5, CH6, BNC ──
+        "J16": (13.0, 76.0, 0), "J17": (25.0, 76.0, 0),
+        "J15": (46.0, 82.0, 180),
+        # channel LEDs above their terminals (top)
+        "D5": (15.5, 84.0, 0), "D6": (27.5, 84.0, 0),
+        "D7": (39.5, 84.0, 0), "D8": (52.0, 84.0, 0),
+        "D15": (15.5, 73.0, 0), "D16": (28.5, 73.0, 0),
+        "R28": (16.0, 71.0, 0), "R29": (28.5, 71.0, 0),
+        # ── pH island: PS1 top; ICs back, right of the terminals ──
+        "PS1": (46.0, 70.0, 0),
+        "U11": (58.0, 70.0, 0),
+        "C22": (53.0, 69.0, 90), "C28": (61.0, 73.0, 90),
+        "U9": (47.0, 74.0, 0),
+        "C20": (42.0, 72.0, 0), "C27": (42.0, 76.0, 0),
+        "C21": (52.0, 74.0, 0),
+        "R26": (46.0, 78.0, 0), "R27": (50.0, 78.0, 0),
+        "U8": (58.0, 78.0, 90),
+        "U10": (58.0, 84.0, 0),
+        "R24": (52.0, 80.0, 0), "R25": (52.0, 83.0, 0),
+        "C25": (63.0, 84.0, 90), "C26": (63.0, 79.0, 90),
     })
 
 MOUNTING_HOLES = [(3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)]
-if VARIANT == "pro":
-    MOUNTING_HOLES += [(3.5, 88.5), (61.5, 88.5)]  # H5/H6 front-corner support
+# pro's cantilevered front (y56-92) is supported by an enclosure ledge,
+# not screw posts -- keeps the full front edge free for terminals.
 
 # ── read netlist: components + nets ─────────────────────────────
 tree = ET.parse(NETXML)
